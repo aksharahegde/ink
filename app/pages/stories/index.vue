@@ -13,4 +13,9 @@
 const { data: stories } = await useAsyncData("stories", () =>
   queryCollection("summary").all()
 );
+
+useSeoMeta({
+  title: 'Stories - Hedge Heart Beats',
+  description: 'A collection of short stories from the heart by Akshara Hegde',
+});
 </script>

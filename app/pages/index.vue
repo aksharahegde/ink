@@ -3,13 +3,11 @@
     <ContentRenderer v-if="home" :value="home" />
     <div v-else>Home not found</div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-8">
-      <NuxtLink
+      <StoryCard
         v-for="(story, index) in stories"
         :key="index"
-        :to="`/stories/${story.meta?.slug}`"
-      >
-        <StoryCard :story="story" />
-      </NuxtLink>
+        :story="story"
+      />
     </div>
   </div>
 </template>
