@@ -9,7 +9,12 @@
 </template>
 <script setup>
 useSeoMeta({
-  title: 'Hedge Heart Beats',
-  description: 'Hedge Heart Beats - Visit once, feel forever',
+  title: "Hedge Heart Beats",
+  description: "Hedge Heart Beats - Visit once, feel forever",
 });
 </script>
+<style>
+* {
+  font-family: "Source Code Pro", monospace;
+}
+</style>
