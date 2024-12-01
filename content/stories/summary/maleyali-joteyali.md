@@ -1,7 +1,7 @@
 ---
 title: ಮಳೆಯಲಿ... ಜೊತೆಯಲಿ...
 description: A story about a man who is trying to find himself.
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/picsart-01-01-10-59-09.jpg?1514827897
+cover: /stories/maleyali_joteyali.jpg
 slug: maleyali-joteyali
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/maleyali-joteyali.pdf
 ---

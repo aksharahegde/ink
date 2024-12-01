@@ -1,7 +1,7 @@
 ---
 title: Priti Anirishita
 description: ​ An unexpected love story of a girl
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/picsart-05-20-01-39-48.jpg
+cover: /stories/love_unexpected.jpg
 slug: priti-anirikshita
 path: /stories/priti-anirikshita
 ---

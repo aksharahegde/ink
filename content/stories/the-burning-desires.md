@@ -1,7 +1,7 @@
 ---
 title: The Burning Desires
 description: A story about a man who is trying to find himself.
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/editor/picsart-09-24-03-37-03_2.jpg?1506205737
+cover: /stories/the_burning_desires.jpg
 slug: the-burning-desires
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/the_burning_desires.pdf
 ---

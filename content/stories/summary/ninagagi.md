@@ -1,7 +1,7 @@
 ---
 title: He's Waiting... ನಿನಗಾಗಿ
 description: A story about a man who is trying to find himself.
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/5d0f298c92bce3802ff9f94772790353.jpg?1495353645
+cover: /stories/ninagagi.jpg
 slug: ninagagi
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/ninagagi.pdf
 ---

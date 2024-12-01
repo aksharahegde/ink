@@ -1,7 +1,7 @@
 ---
 title: Tears of a Martyr
 description: A soldier never cries...
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/mmmmm_orig.jpg
+cover: /stories/tears_of_martyr.jpg
 slug: tears-of-a-martyr
 path: /stories/tears-of-a-martyr
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/tears-of-a-martyr.pdf

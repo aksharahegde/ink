@@ -1,7 +1,7 @@
 ---
 title: ಏನೆಂದು ಹೆಸರಿಡಲಿ
 description: A story about a man who is trying to find himself.
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/enendu-hesaridali_1.jpg?1495353098
+cover: /stories/enendu-hesaridali.jpg
 slug: enendu-hesaridali
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/enendu_hesaridali.pdf
 ---

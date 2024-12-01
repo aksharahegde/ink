@@ -1,7 +1,7 @@
 ---
 title: Circle
 description: ​C = 2πr
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/circle.jpg?1490989735
+cover: /stories/circle.jpg
 slug: circle
 path: /stories/circle
 ---

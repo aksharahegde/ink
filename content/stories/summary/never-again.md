@@ -1,7 +1,7 @@
 ---
 title: Never Again
 description: A story about a man who is trying to find himself.
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/aruthavanni_2.jpg?1495353630
+cover: /stories/never_again.jpg
 slug: never-again
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/never_again.pdf
 ---

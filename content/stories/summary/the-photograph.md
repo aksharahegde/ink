@@ -1,7 +1,7 @@
 ---
 title: The Photograph
 description: A story about a man who is trying to find himself.
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/editor/the-photograph_1.jpg?1508572890
+cover: /stories/the_photograph.jpg
 slug: the-photograph
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/the_photograph.pdf
 ---

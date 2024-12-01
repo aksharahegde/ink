@@ -1,7 +1,7 @@
 ---
 title: Circle
 description: Secrets, love, betrayal and revenge
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/circle.jpg?1490989735
+cover: /stories/circle.jpg
 slug: circle
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/circle.pdf
 ---

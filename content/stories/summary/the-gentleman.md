@@ -1,7 +1,7 @@
 ---
 title: The Gentleman
 description: A story about a man who is trying to find himself.
-cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/gentleman.png
+cover: /stories/the_gentleman.png
 slug: the-gentleman
 download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/the_gentleman.pdf
 ---
