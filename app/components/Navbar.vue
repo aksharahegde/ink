@@ -34,17 +34,7 @@ const links = [
     label: "Stories",
     to: "/stories",
     icon: "i-heroicons-book-open",
-  },
-  {
-    label: "Download",
-    to: "/download",
-    icon: "i-heroicons-arrow-down-tray",
-  },
-  {
-    label: "About",
-    to: "/about",
-    icon: "i-heroicons-information-circle",
-  },
+  }
 ];
 
 const isMenuOpen = ref(false);

@@ -1,21 +1,18 @@
 <template>
-  <div class="gap-4 flex">
+  <div
+    class="border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white group relative"
+  >
     <img
       :src="story.meta?.cover"
       alt="Cover Image"
-      class="m-0 w-1/3 h-72 border border-gray-500 p-1 hover:animate-pulse"
+      class="w-full md:w-1/3 h-full border border-l-0 border-t-0 border-gray-800 object-cover md:float-start transition-all duration-300 ease-in-out grayscale group-hover:grayscale-0"
     />
-    <div class="w-2/3 flex flex-col">
+    <div class="w-2/3 flex flex-col p-4">
       <h3 class="text-lg font-bold">{{ story.title }}</h3>
       <div class="text-sm text-gray-500">
         <ContentRenderer v-if="story.body" :value="story.body" />
       </div>
-      <div class="flex flex-wrap gap-4 pt-4">
-        <UButton color="black" :to="`/stories/${story.meta?.slug}`"> Read More </UButton>
-        <UButton color="black" variant="outline" :to="story.meta?.download">
-          Download
-        </UButton>
-      </div>
+      <StoryActions :download="story.meta?.download" :slug="story.meta?.slug" />
     </div>
   </div>
 </template>

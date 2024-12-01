@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-md mx-auto space-y-8 py-8">
+  <div class="max-w-screen-md mx-auto space-y-8">
     <div class="py-8 space-y-12">
       <StoryDetailCard
         v-for="(story, index) in stories"

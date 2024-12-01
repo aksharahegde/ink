@@ -12,23 +12,7 @@
       <p class="text-gray-700 text-sm mt-2">
         {{ story.description }}
       </p>
-      <div
-        class="absolute bottom-0 left-0 flex justify-between items-center w-full bg-gray-200 px-4 py-2 border-t border-gray-800 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300"
-      >
-        <UButton
-          :to="story.meta?.download"
-          external
-          variant="outline"
-          color="black"
-          label="Download"
-        />
-        <UButton
-          label="Read now"
-          :to="`/stories/${story.meta?.slug}`"
-          variant="solid"
-          color="black"
-        />
-      </div>
+      <StoryActions :download="story.meta?.download" :slug="story.meta?.slug" />
     </div>
   </div>
 </template>

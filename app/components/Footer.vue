@@ -4,6 +4,9 @@
       <p class="text-sm">
         &copy; {{ currentYear }} hegdeheartbeats. All rights reserved.
       </p>
+      <p class="text-sm">
+        A short story site by <a href="https://aksharahegde.xyz" target="_blank" class="underline">Akshara Hegde</a>
+      </p>
     </div>
   </footer>
 </template>
