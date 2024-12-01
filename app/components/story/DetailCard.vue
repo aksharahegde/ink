@@ -5,7 +5,7 @@
     <img
       :src="story.meta?.cover"
       alt="Cover Image"
-      class="w-full md:w-1/3 h-full border border-l-0 border-t-0 border-gray-800 object-cover md:float-start transition-all duration-300 ease-in-out grayscale group-hover:grayscale-0"
+      class="w-full md:w-1/3 h-full max-h-96 border border-l-0 border-t-0 border-gray-800 object-cover md:float-start transition-all duration-300 ease-in-out grayscale group-hover:grayscale-0"
     />
     <div class="w-2/3 flex flex-col p-4">
       <h3 class="text-lg font-bold">{{ story.title }}</h3>

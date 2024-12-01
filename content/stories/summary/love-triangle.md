@@ -1,0 +1,13 @@
+---
+title: Love Triangle
+description: A story about a love triangle
+cover: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/picsart-01-01-10-59-09.jpg?1514827897
+slug: love-triangle
+download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/love-triangle.pdf
+---
+
+ಹಲವರು ಸೋಲ್ತಾರೆ, ಕೆಲವರು ಗೆಲ್ತಾರೆ...
+ಒಬ್ಬರಿಗೇ ಇಬ್ಬಿಬ್ಬರು ಲೈನ್ ಹೊಡೀತಾರೆ...
+ಸ್ನೇಹ.. ದ್ವೇಷಕ್ಕೆ ತಿರುಗುತ್ತೆ... 
+ಮತ್ತೊಬ್ಬರ ಗೆಲುವು ಇನ್ನೊಂದು ಮನಸ್ಸಿಗೆ ಏಟು ಕೊಡುತ್ತೆ...
+ಕೊನೆಯಲ್ಲಿ ಅಂತ್ಯ ಹೇಗೆ ಇರುತ್ತೆ..?
