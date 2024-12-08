@@ -9,6 +9,9 @@ download: https://drive.google.com/file/d/0B32WA8IcsE3QWk9Zc3RBOXc3dVk/view?usp=
 
 ![Cover Image](https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/circle.jpg?1490989735)
 
+# Circle
+
+
 # Scene 1
 
 ಗಡಿಯಾರದ ಚಿಕ್ಕ ಮುಳ್ಳು ೧೨ನ್ನು ದಾಟಿ ೧ರತ್ತ ಧಾಪುಗಾಲಿಡುತ್ತಿತ್ತು. ಅವಳು ತನ್ನ ಅಪಾರ್ಟ್‌ಮೆಂಟ್‌ನ ಟೆರೇಸ್ನ ತುತ್ತತುದಿಯಲ್ಲಿ ಕತ್ತಲಿನಲ್ಲಿ ಕರಗಿ ಲೀನವಾಗಿ ನಿಂತಿದ್ದಾಳೆ. "u r a cheater. esht life na haal madiddiya? its enough. get outta my lyf" - ವಾತ್ಸಾಪ್ನಲ್ಲಿ ಇದ್ದ ಆ ಸಂದೇಶವನ್ನೇ ಮತ್ತೆ ಮತ್ತೆ ಓದಿ ಬಿಕ್ಕಿ ಬಿಕ್ಕಿ ಅಳುತ್ತಿದ್ದಳು.
