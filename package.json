@@ -13,8 +13,12 @@
     "@nuxt/content": "^3.0.0-alpha.7",
     "@nuxt/fonts": "0.10.2",
     "@nuxt/ui": "^2.19.2",
+    "@nuxthub/core": "^0.8.7",
     "nuxt": "^3.14.1592",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "wrangler": "^3.93.0"
   }
 }
