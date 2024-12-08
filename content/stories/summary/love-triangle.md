@@ -3,7 +3,8 @@ title: Love Triangle
 description: A story about a love triangle
 cover: /stories/love_triangle.jpg
 slug: love-triangle
-download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/love-triangle.pdf
+path: /stories/love-triangle
+download: https://drive.google.com/file/d/1P7eNcBAqDl8LVPeTi_nOk53jTjqduqg8/view?usp=drive_link
 ---
 
 ಹಲವರು ಸೋಲ್ತಾರೆ, ಕೆಲವರು ಗೆಲ್ತಾರೆ...

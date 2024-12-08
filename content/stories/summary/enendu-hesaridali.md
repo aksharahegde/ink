@@ -3,7 +3,8 @@ title: ಏನೆಂದು ಹೆಸರಿಡಲಿ
 description: I miss you and you'll wait for me
 cover: /stories/enendu-hesaridali.jpg
 slug: enendu-hesaridali
-download: https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/enendu_hesaridali.pdf
+path: /stories/enendu-hesaridali
+download: https://drive.google.com/file/d/1kgDPpPL3spc4_mznGpJlOz3iYNrKwzDk/view?usp=drive_link
 ---
 
 

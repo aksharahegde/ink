@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="flex flex-col space-y-6 items-center justify-between pt-4 px-4 bg-white shadow"
+    class="flex flex-col space-y-6 items-center justify-between pt-4 px-4 bg-white shadow sticky top-0 z-50"
   >
     <div class="flex items-center">
       <Logo />
