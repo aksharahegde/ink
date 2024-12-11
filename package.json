@@ -19,6 +19,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "consola": "^3.2.3",
     "wrangler": "^3.95.0"
   }
 }
