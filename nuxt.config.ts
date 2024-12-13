@@ -5,23 +5,15 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
-  modules: [
-    "@nuxt/ui",
-    "@nuxt/content",
-    "@nuxt/fonts",
-    "@nuxthub/core",
-  ],
-  content: {
-    build: {
-      markdown: {
-        toc: {
-          depth: 3, // include h3 headings
-        }
-      }
-    }
+  modules: ["@nuxt/ui", "@nuxt/content", "@nuxt/fonts", "@nuxthub/core"],
+  hub: {
+    database: true,
   },
   app: {
     head: {
+      htmlAttrs: {
+        lang: "en",
+      },
       link: [{ rel: "icon", href: "/icon.png" }],
     },
   },

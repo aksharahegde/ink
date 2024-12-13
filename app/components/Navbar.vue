@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="flex flex-col space-y-6 items-center justify-between pt-4 px-4 bg-white shadow sticky top-0 z-50"
+    class="flex flex-col space-y-6 items-center justify-between pt-4 px-4 bg-white dark:bg-gray-800 shadow sticky top-0 z-50"
   >
     <div class="flex items-center">
       <Logo />
@@ -12,7 +12,12 @@
       />
     </div>
     <div class="md:hidden">
-      <UButton @click="toggleMenu" icon="i-heroicons-bars-3" color="gray" />
+      <UButton
+        @click="toggleMenu"
+        icon="i-heroicons-bars-3"
+        color="gray"
+        aria-label="Menu"
+      />
     </div>
   </nav>
   <div v-if="isMenuOpen" class="md:hidden bg-white p-4">
@@ -29,12 +34,14 @@ const links = [
     label: "Home",
     to: "/",
     icon: "i-heroicons-home",
+    ariaLabel: "Home",
   },
   {
     label: "Stories",
     to: "/stories",
     icon: "i-heroicons-book-open",
-  }
+    ariaLabel: "Stories",
+  },
 ];
 
 const isMenuOpen = ref(false);
