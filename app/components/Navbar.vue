@@ -1,15 +1,10 @@
 <template>
   <nav
-    class="flex flex-col space-y-6 items-center justify-between pt-4 px-4 bg-white dark:bg-gray-800 shadow sticky top-0 z-50"
+    class="flex max-w-screen-md mx-auto space-y-6 items-center justify-between pb-2 md:pb-0 pt-4 px-4 bg-white dark:bg-gray-800 shadow sticky top-0 z-50"
   >
-    <div class="flex items-center">
-      <Logo />
-    </div>
-    <div class="hidden md:flex space-x-4">
-      <UHorizontalNavigation
-        :links="links"
-        class="border-b border-gray-200 dark:border-gray-800"
-      />
+    <Logo />
+    <div class="hidden md:block">
+      <UHorizontalNavigation :links="links" />
     </div>
     <div class="md:hidden">
       <UButton
