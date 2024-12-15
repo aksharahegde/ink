@@ -2,8 +2,9 @@
   <div
     class="border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white group relative"
   >
-    <img
+    <NuxtImg
       :src="cover"
+      loading="lazy"
       alt="Cover Image"
       class="w-full md:w-1/3 h-full border border-l-0 border-t-0 border-gray-800 object-cover md:float-start transition-all duration-300 ease-in-out grayscale group-hover:grayscale-0"
     />
