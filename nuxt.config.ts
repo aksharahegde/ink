@@ -23,6 +23,9 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", href: "/icon.png" }],
     },
   },
+  colorMode: {
+    preference: "light",
+  },
   nitro: {
     prerender: {
       // Pre-render the homepage

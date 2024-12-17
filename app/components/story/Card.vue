@@ -1,6 +1,6 @@
 <template>
   <div
-    class="max-w-sm w-full mx-auto border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white group relative"
+    class="max-w-sm w-full mx-auto border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white dark:bg-gray-900 group relative"
   >
     <NuxtImg
       :src="story.meta?.cover"
@@ -9,8 +9,8 @@
       loading="lazy"
     />
     <div class="p-4">
-      <h2 class="text-lg font-bold text-gray-900">{{ story.title }}</h2>
-      <p class="text-gray-700 text-sm mt-2">
+      <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100">{{ story.title }}</h2>
+      <p class="text-gray-700 dark:text-gray-300 text-sm mt-2">
         {{ story.description }}
       </p>
       <StoryActions :download="story.meta?.download" :slug="story.meta?.slug" />

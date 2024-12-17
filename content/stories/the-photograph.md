@@ -6,7 +6,7 @@ slug: the-photograph
 download: https://drive.google.com/file/d/1OJt5pPjhG7hwXQPWsqTHmNk2ZlbEj-sP/view?usp=drive_link
 ---
 
-![The Photograph](./the_photograph.jpg)
+![The Photograph](/stories/the_photograph.jpg)
 
 # The Photograph
 

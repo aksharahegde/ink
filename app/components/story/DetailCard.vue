@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white group relative"
+    class="border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white dark:bg-gray-900 group relative"
   >
     <NuxtImg
       :src="story.meta?.cover"
@@ -10,7 +10,7 @@
     />
     <div class="w-2/3 flex flex-col p-4">
       <h3 class="text-lg font-bold">{{ story.title }}</h3>
-      <div class="text-sm text-gray-500">
+      <div class="text-sm text-gray-500 dark:text-gray-300">
         <ContentRenderer v-if="story.body" :value="story.body" />
       </div>
       <StoryActions :download="story.meta?.download" :slug="story.meta?.slug" />

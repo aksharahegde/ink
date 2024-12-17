@@ -1,6 +1,6 @@
 <template>
   <div
-    class="max-w-screen-md mx-auto space-y-8 prose prose-img:hover:shadow-xl prose-img:shadow-lg prose-img:rounded-lg"
+    class="max-w-screen-md mx-auto space-y-8 prose prose-img:hover:shadow-xl prose-img:shadow-lg prose-img:rounded-lg prose-img:h-96 dark:prose-invert"
   >
     <StoryBreadcrumb :current="story?.title" />
     <ContentRenderer v-if="story" :value="story" />

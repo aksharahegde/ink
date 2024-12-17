@@ -3,8 +3,9 @@
     class="flex max-w-screen-md mx-auto space-y-6 items-center justify-between pb-2 md:pb-0 pt-4 px-4 backdrop-blur-xl dark:bg-gray-900 dark:text-gray-200 sticky rounded-b-lg top-0 z-50"
   >
     <Logo />
-    <div class="hidden md:block">
+    <div class="hidden md:flex items-center gap-2 divide-x-2">
       <UHorizontalNavigation :links="links" />
+      <ColorMode />
     </div>
     <div class="md:hidden">
       <UButton
