@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="flex max-w-screen-md mx-auto space-y-6 items-center justify-between pb-2 md:pb-0 pt-4 px-4 bg-white dark:bg-gray-800 shadow sticky top-0 z-50"
+    class="flex max-w-screen-md mx-auto space-y-6 items-center justify-between pb-2 md:pb-0 pt-4 px-4 backdrop-blur-xl dark:bg-gray-900 dark:text-gray-200 sticky rounded-b-lg top-0 z-50"
   >
     <Logo />
     <div class="hidden md:block">
@@ -14,15 +14,14 @@
         aria-label="Menu"
       />
     </div>
+    <div v-if="isMenuOpen" class="md:hidden bg-white p-4 rounded-b-lg absolute top-12 left-0 right-0">
+      <UVerticalNavigation
+        :links="links"
+        class="transition-all duration-300 ease-in-out"
+      />
+    </div>
   </nav>
-  <div v-if="isMenuOpen" class="md:hidden bg-white p-4">
-    <UVerticalNavigation
-      :links="links"
-      class="transition-all duration-300 ease-in-out"
-    />
-  </div>
 </template>
-
 <script setup lang="ts">
 const links = [
   {
