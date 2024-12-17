@@ -15,6 +15,11 @@ export default defineNuxtConfig({
   hub: {
     database: true,
   },
+  routeRules: {
+    "/": { prerender: true },
+    "/stories": { prerender: true },
+    "/stories/[slug]": { prerender: true },
+  },
   app: {
     head: {
       htmlAttrs: {
@@ -25,13 +30,5 @@ export default defineNuxtConfig({
   },
   colorMode: {
     preference: "light",
-  },
-  nitro: {
-    prerender: {
-      // Pre-render the homepage
-      routes: ["/"],
-      // Then crawl all the links on the page
-      crawlLinks: true,
-    },
-  },
+  }
 });
