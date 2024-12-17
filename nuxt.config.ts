@@ -23,4 +23,12 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", href: "/icon.png" }],
     },
   },
+  nitro: {
+    prerender: {
+      // Pre-render the homepage
+      routes: ["/"],
+      // Then crawl all the links on the page
+      crawlLinks: true,
+    },
+  },
 });

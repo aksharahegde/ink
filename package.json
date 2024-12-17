@@ -14,13 +14,13 @@
     "@nuxt/fonts": "0.10.2",
     "@nuxt/image": "1.8.1",
     "@nuxt/ui": "^2.20.0",
-    "@nuxthub/core": "^0.8.7",
+    "@nuxthub/core": "^0.8.8",
     "nuxt": "^3.14.1592",
+    "unenv": "^1.10.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "consola": "^3.2.3",
-    "wrangler": "^3.95.0"
+    "wrangler": "^3.96.0"
   }
 }
