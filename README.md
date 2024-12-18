@@ -2,6 +2,12 @@
 
 A template for showcasing your writing or blog.
 
+![Screenshot](https://github.com/aksharahegde/user-attachment/blob/main/ink_aksharahegde.png)
+
+### Performance Insights
+
+![Performance Report](https://github.com/aksharahegde/user-attachment/blob/main/ink_perf.png)
+
 [![Deploy to NuxtHub](https://hub.nuxt.com/button.svg)](https://hub.nuxt.com/new?template=https://github.com/nuxthub/writer-showcase)
 
 ### Features
