@@ -44,12 +44,12 @@ if (import.meta.server) {
 
   useServerHead({
     meta: () => [
-      { name: "theme-color", content: "#0ea5e9" },
-      { name: "msapplication-TileColor", content: "#0ea5e9" },
+      { name: "theme-color", content: "#000000" },
+      { name: "msapplication-TileColor", content: "#000000" },
       { property: "og:url", content: url },
       {
         property: "og:image",
-        content: `${config.public.baseURL}/__og-image__/static/og.png`,
+        content: `${config.public.baseURL}/og.png`,
         key: "og:image",
       },
       { property: "og:image:width", content: "1200" },
@@ -73,6 +73,7 @@ if (import.meta.server) {
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: `@${config.public.twitter}` },
       { name: "twitter:creator", content: `@${config.public.twitter}` },
+      { name: "twitter:image", content: `${config.public.baseURL}/og.png` },
     ],
     link: [
       { rel: "canonical", href: url },
