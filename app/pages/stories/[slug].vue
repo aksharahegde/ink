@@ -15,8 +15,16 @@ const { data: story } = await useAsyncData("stories", () =>
     .first()
 );
 
+const config = useRuntimeConfig();
+const ogImage = `${config.public.baseURL}/og.png`;
 useSeoMeta({
-  title: story.value?.title,
-  description: story.value?.description,
-});
+  title: story.value?.seo?.title,
+  description: story.value?.seo?.description,
+  ogTitle: story.value?.seo?.title,
+  ogDescription: story.value?.seo?.description,
+  ogUrl: config.public.baseURL,
+  twitterTitle: story.value?.seo?.title,
+  twitterDescription: story.value?.seo?.description,
+  twitterImage: ogImage,
+})
 </script>

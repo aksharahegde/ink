@@ -1,6 +1,6 @@
 ---
 title: The Burning Desires
-description: A story about a man who is trying to find himself.
+description: ...ನಿನಗಾಗಿ ನಾನಲ್ಲ, ನನ್ನಿಂದಾಗಿ ನೀನು
 cover: /stories/the_burning_desires.jpg
 slug: the-burning-desires
 download: https://drive.google.com/file/d/14moaOF_uQRHiY2BnHAoSm5sOvAQe9pCq/view?usp=drive_link

@@ -1,6 +1,6 @@
 ---
 title: ಹೃದಯ ಹಾಳಾಗಿದೆ
-description: A story about a man who is trying to find himself.
+description: A story of two besties..!
 cover: /stories/hrudaya-halagide.jpeg
 slug: hrudaya-halagide
 download: https://drive.google.com/file/d/1mr0nZQGddeAnSV75l8uvsoU_A1ON9mGl/view?usp=drive_link

@@ -1,6 +1,6 @@
 ---
 title: Never Again
-description: A story about a man who is trying to find himself.
+description: Love... Breakup... Break ke baad...
 cover: /stories/never_again.jpg
 slug: never-again
 download: https://drive.google.com/file/d/1fBUU5T2X36AYW8mmsLF8bM9C9BgOFu3O/view?usp=drive_link

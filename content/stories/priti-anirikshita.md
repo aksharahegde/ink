@@ -1,6 +1,6 @@
 ---
 title: Priti Anirishita
-description: ​ An unexpected love story of a girl
+description: An unexpected love story of a girl
 cover: /stories/love_unexpected.jpg
 slug: priti-anirikshita
 path: /stories/priti-anirikshita

@@ -1,6 +1,6 @@
 ---
 title: Love Triangle
-description: A story about a love triangle
+description: A story about three friends who are in love, hate and revenge.
 cover: /stories/love_triangle.jpg
 slug: love-triangle
 download: https://drive.google.com/file/d/1P7eNcBAqDl8LVPeTi_nOk53jTjqduqg8/view?usp=drive_link

@@ -1,6 +1,6 @@
 ---
 title: The Gentleman
-description: A story about a man who is trying to find himself.
+description: A molten candle burns in the darkness
 cover: /stories/the_gentleman.png
 slug: the-gentleman
 ---

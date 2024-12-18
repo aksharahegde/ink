@@ -30,5 +30,22 @@ export default defineNuxtConfig({
   },
   colorMode: {
     preference: "light",
-  }
+  },
+  site: {
+    url: process.env.BASE_URL,
+    name: process.env.SITE_NAME,
+    description: `A collection of short stories from the heart by ${process.env.OWNER_NAME}`,
+    defaultLocale: "en",
+  },
+  robots: {
+    disableNuxtContentIntegration: true,
+  },
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL,
+      siteName: process.env.SITE_NAME,
+      ownerName: process.env.OWNER_NAME,
+      twitter: process.env.TWITTER,
+    },
+  },
 });

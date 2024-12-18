@@ -1,6 +1,6 @@
 ---
 title: The Photograph
-description: A story about a man who is trying to find himself.
+description: A story to make you think in a different way about time and space.
 cover: /stories/the_photograph.jpg
 slug: the-photograph
 download: https://drive.google.com/file/d/1OJt5pPjhG7hwXQPWsqTHmNk2ZlbEj-sP/view?usp=drive_link

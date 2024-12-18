@@ -20,8 +20,14 @@ const { data: stories } = await useAsyncData("stories", () =>
   queryCollection("summary").all()
 );
 
+const config = useRuntimeConfig();
+const ogImage = `${config.public.baseURL}/og.png`;
 useSeoMeta({
-  title: home.value?.title,
-  description: home.value?.description,
-});
+  ogTitle: home.value?.title,
+  ogDescription: home.value?.description,
+  ogUrl: config.public.baseURL,
+  twitterTitle: home.value?.title,
+  twitterDescription: home.value?.description,
+  twitterImage: ogImage,
+})
 </script>

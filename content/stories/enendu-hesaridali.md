@@ -1,6 +1,6 @@
 ---
 title: ಏನೆಂದು ಹೆಸರಿಡಲಿ
-description: A story about a man who is trying to find himself.
+description: ಎಂದೆಂದಿಗೂ ನಿನ್ನ ನೆನಪುಗಳು ನಮ್ಮೊಂದಿಗೆ
 cover: /stories/enendu-hesaridali.jpg
 slug: enendu-hesaridali
 download: https://drive.google.com/file/d/1kgDPpPL3spc4_mznGpJlOz3iYNrKwzDk/view?usp=drive_link

@@ -1,6 +1,6 @@
 ---
 title: He's Waiting... ನಿನಗಾಗಿ
-description: A story about a man who is trying to find himself.
+description: A queen in my dream...
 cover: /stories/ninagagi.jpg
 slug: ninagagi
 download: https://drive.google.com/file/d/0B32WA8IcsE3QR0NrVUt2WnBrQzA/view?usp=drive_link&resourcekey=0-pZBUoKOJJ25AwL_ZLgAZsw

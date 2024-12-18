@@ -14,8 +14,14 @@ const { data: stories } = await useAsyncData("stories", () =>
   queryCollection("summary").all()
 );
 
+const config = useRuntimeConfig();
+const ogImage = `${config.public.baseURL}/og.png`;
 useSeoMeta({
-  title: 'Stories - Hedge Heart Beats',
-  description: 'A collection of short stories from the heart by Akshara Hegde',
-});
+  ogTitle: `${config.public.siteName} - Stories`,
+  ogDescription: `A collection of short stories from the heart by ${config.public.ownerName}`,
+  ogUrl: config.public.baseURL,
+  twitterTitle: `${config.public.siteName} - Stories`,
+  twitterDescription: `A collection of short stories from the heart by ${config.public.ownerName}`,
+  twitterImage: ogImage,
+})
 </script>
