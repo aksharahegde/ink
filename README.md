@@ -1,4 +1,4 @@
-# Writer Showcase
+# Ink
 
 A template for showcasing your writing or blog.
 
@@ -8,7 +8,7 @@ A template for showcasing your writing or blog.
 
 ![Performance Report](https://github.com/aksharahegde/user-attachment/blob/main/ink_perf.png)
 
-[![Deploy to NuxtHub](https://hub.nuxt.com/button.svg)](https://hub.nuxt.com/new?template=https://github.com/nuxthub/writer-showcase)
+[![Deploy to NuxtHub](https://hub.nuxt.com/button.svg)](https://hub.nuxt.com/new?template=https://github.com/nuxthub/ink)
 
 ### Features
 
