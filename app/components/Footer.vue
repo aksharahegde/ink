@@ -5,7 +5,7 @@
         &copy; {{ currentYear }} hegdeheartbeats. All rights reserved.
       </p>
       <p class="text-sm">
-        A short story site by <a href="https://aksharahegde.xyz" target="_blank" class="underline">Akshara Hegde</a>
+        A short story site by <a href="https://aksharahegde.xyz?ref=ink" target="_blank" class="underline">Akshara Hegde</a>
       </p>
     </div>
   </footer>

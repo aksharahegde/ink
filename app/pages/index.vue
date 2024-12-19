@@ -9,6 +9,17 @@
         :story="story"
       />
     </div>
+    <UAlert class="text-sm">
+      <template #description>
+        Its built using my open source template
+        <a
+          href="https://github.com/aksharahegde/hegdeheartbeats"
+          target="_blank"
+          class="underline"
+          >Ink</a
+        >.
+      </template>
+    </UAlert>
   </div>
 </template>
 <script setup lang="ts">
@@ -29,5 +40,5 @@ useSeoMeta({
   twitterTitle: home.value?.title,
   twitterDescription: home.value?.description,
   twitterImage: ogImage,
-})
+});
 </script>
