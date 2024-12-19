@@ -1,6 +1,6 @@
 # Ink
 
-A template for showcasing your writing or blog.
+A template for showcasing your writing.
 
 ![Screenshot](https://github.com/aksharahegde/user-attachment/blob/main/ink_aksharahegde.png)
 

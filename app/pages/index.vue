@@ -13,7 +13,7 @@
       <template #description>
         Its built using my open source template
         <a
-          href="https://github.com/aksharahegde/hegdeheartbeats"
+          href="https://github.com/aksharahegde/ink"
           target="_blank"
           class="underline"
           >Ink</a
