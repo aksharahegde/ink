@@ -56,6 +56,11 @@ nuxt.config.ts
 -   Edit `app/components/story/DetailCard.vue` to customize the story card
 -   Edit `app/components/blog/DetailCard.vue` to customize the blog card
 
+### Package details
+
+-   Nuxt 3 (with Nuxt 4 compatibility features)
+-   Nuxt UI (Basic)
+-   Nuxt Content (100% NuxtHub integration)
 
 ### Local Development
 
@@ -66,3 +71,5 @@ bun install
 ```bash
 bun run dev
 ```
+
+NOTE: It uses NuxtHub for database and content management. So create a new project on NuxtHub and add the database and content to it.
