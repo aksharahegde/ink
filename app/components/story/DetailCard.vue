@@ -1,6 +1,7 @@
 <template>
-  <div
-    class="border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white dark:bg-gray-900 group relative"
+  <NuxtLink
+    :to="`/stories/${story.meta?.slug}`"
+    class="border border-gray-800 flex shadow-lg rounded-lg overflow-hidden bg-white dark:bg-gray-900 group relative"
   >
     <NuxtImg
       :src="story.meta?.cover"
@@ -13,9 +14,8 @@
       <div class="text-sm text-gray-500 dark:text-gray-300">
         <ContentRenderer v-if="story.body" :value="story.body" />
       </div>
-      <StoryActions :download="story.meta?.download" :slug="story.meta?.slug" />
     </div>
-  </div>
+  </NuxtLink>
 </template>
 <script setup lang="ts">
 defineProps<{

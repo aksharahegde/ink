@@ -1,6 +1,7 @@
 <template>
-  <div
-    class="border border-gray-800 shadow-lg dark:shadow-none dark:border-none rounded-lg overflow-hidden bg-white dark:bg-gray-900 group relative"
+  <NuxtLink
+    :to="`/stories/${slug}`"
+    class="border border-gray-800 flex shadow-lg dark:shadow-none dark:border-none rounded-lg overflow-hidden bg-white dark:bg-gray-900 group relative"
   >
     <NuxtImg
       :src="cover"
@@ -14,9 +15,8 @@
       </h3>
       <slot name="tagline" />
       <slot name="description" />
-      <StoryActions :download="url" :slug="slug" />
     </div>
-  </div>
+  </NuxtLink>
 </template>
 <script setup lang="ts">
 defineProps({
