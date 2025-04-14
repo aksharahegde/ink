@@ -16,11 +16,11 @@
     "@nuxt/ui": "^2.21.1",
     "@nuxthub/core": "^0.8.24",
     "nuxt": "^3.16.2",
-    "unenv": "^1.10.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "wrangler": "^3.114.6"
+    "unenv": "^2.0.0-rc.15",
+    "wrangler": "^4.10.0"
   }
 }
