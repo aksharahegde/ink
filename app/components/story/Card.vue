@@ -1,5 +1,6 @@
 <template>
-  <div
+  <NuxtLink
+    :to="`/stories/${story.meta?.slug}`"
     class="max-w-sm w-full mx-auto border border-gray-800 shadow-lg rounded-lg overflow-hidden bg-white dark:bg-gray-900 group relative"
   >
     <NuxtImg
@@ -13,9 +14,8 @@
       <p class="text-gray-700 dark:text-gray-300 text-sm mt-2">
         {{ story.description }}
       </p>
-      <StoryActions :download="story.meta?.download" :slug="story.meta?.slug" />
     </div>
-  </div>
+  </NuxtLink>
 </template>
 <script setup lang="ts">
 defineProps<{

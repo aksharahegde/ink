@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
+  css: ['./assets/css/transitions.css'],
   modules: [
     "@nuxt/ui",
     "@nuxt/content",
@@ -26,6 +27,48 @@ export default defineNuxtConfig({
         lang: "en",
       },
       link: [{ rel: "icon", href: "/icon.png" }],
+    },
+    pageTransition: {
+      name: 'view-transition',
+      mode: 'out-in', 
+      onBeforeLeave: () => {
+        if (!document.startViewTransition) return
+        document.startViewTransition(() => {
+          const elements = document.querySelectorAll('.view-transition')
+          elements.forEach(el => {
+            if (el instanceof HTMLElement) {
+              el.style.opacity = '0'
+              el.style.transform = 'translateY(20px)'
+            }
+          })
+        })
+      },
+      onEnter(el: HTMLElement, done: () => void) {
+        if (!document.startViewTransition) {
+          el.style.opacity = '1'
+          el.style.transform = 'translateY(0)'
+          done()
+          return
+        }
+        document.startViewTransition(() => {
+          el.style.opacity = '1'
+          el.style.transform = 'translateY(0)'
+          done()
+        })
+      },
+      onLeave(el: HTMLElement, done: () => void) {
+        if (!document.startViewTransition) {
+          el.style.opacity = '0'
+          el.style.transform = 'translateY(-20px)'
+          done()
+          return
+        }
+        document.startViewTransition(() => {
+          el.style.opacity = '0'
+          el.style.transform = 'translateY(-20px)'
+          done()
+        })
+      },
     },
   },
   colorMode: {
