@@ -3,7 +3,7 @@ title: The Last Secret of A Merchant
 description: A thread from investigations of Saralaksha Hulimeese
 cover: /stories/last-secret-of-merchant/1.jpg
 slug: last-secret-of-a-merchant
-download: https://docs.google.com/document/d/e/2PACX-1vR79C3vSvb3SNVlzAjEB2HmK_fIiR161KsH-FogMs2_8KYeSHIPCGCPGgYojQhUQKJdh1rnoYg3O8B5/pub
+download: https://drive.google.com/file/d/1Bb2n_tSbjWgddGuJ2e3VMfszRw7DNo7a/view?usp=sharing
 ---
 
 ![The Last Secret of A Merchant](/stories/last-secret-of-merchant/1.jpg)
@@ -280,7 +280,7 @@ download: https://docs.google.com/document/d/e/2PACX-1vR79C3vSvb3SNVlzAjEB2HmK_f
 
 ---
 
-**NOTE:** PDF e-book is available soon.
+To read offline, [Download the PDF](https://drive.google.com/file/d/1Bb2n_tSbjWgddGuJ2e3VMfszRw7DNo7a/view?usp=sharing)
 
 ---
 

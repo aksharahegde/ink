@@ -4,7 +4,7 @@ description: A thread from investigations of Saralaksha Hulimeese
 cover: /stories/last-secret-of-merchant/1.jpg
 slug: last-secret-of-a-merchant
 path: /stories/last-secret-of-a-merchant
-download: https://docs.google.com/document/d/e/2PACX-1vR79C3vSvb3SNVlzAjEB2HmK_fIiR161KsH-FogMs2_8KYeSHIPCGCPGgYojQhUQKJdh1rnoYg3O8B5/pub
+download: https://drive.google.com/file/d/1Bb2n_tSbjWgddGuJ2e3VMfszRw7DNo7a/view?usp=sharing
 ---
 
 ಹರಿ ಎಂದಿನಂತೆ ಎದ್ದು ನಿತ್ಯ ಕರ್ಮಗಳನ್ನು ಮುಗಿಸಿ ಮನೆಯಿಂದ ಹೊರ ನಡೆದಾಗ ಬೆಳಗಿನ ಸೂರ್ಯನ ಕಿರಣ ಚರಕಪುರವನ್ನು ಇನ್ನೂ ಸಂಪೂರ್ಣವಾಗಿ ಆವರಿಸಿರಲಿಲ್ಲ.
