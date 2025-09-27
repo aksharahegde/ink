@@ -9,10 +9,15 @@
 </template>
 <script setup lang="ts">
 const route = useRoute();
-const { data: story } = await useAsyncData("stories", () =>
-  queryCollection("stories")
-    .path(route.path as string)
-    .first()
+const { data: story } = await useAsyncData(
+  `story-${route.params.slug}`,
+  () =>
+    queryCollection("stories")
+      .path(route.path as string)
+      .first(),
+  {
+    default: () => null,
+  }
 );
 
 const config = useRuntimeConfig();
@@ -26,5 +31,5 @@ useSeoMeta({
   twitterTitle: story.value?.seo?.title,
   twitterDescription: story.value?.seo?.description,
   twitterImage: ogImage,
-})
+});
 </script>
