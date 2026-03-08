@@ -1,35 +1,46 @@
 <template>
   <div
-    class="border border-zinc-200 dark:border-zinc-800 rounded-lg p-8 bg-zinc-100 dark:bg-zinc-900/30"
+    class="p-6 border"
+    :style="{ borderColor: 'var(--ink-border)', backgroundColor: 'var(--ink-paper)' }"
     data-testid="newsletter-signup"
   >
-    <h2 class="font-serif text-xl font-bold text-zinc-900 dark:text-zinc-100">
-      Stay in the loop
-    </h2>
-    <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-500">
-      New stories and updates, no spam.
+    <h3
+      class="font-serif text-lg font-bold"
+      style="color: var(--ink-text);"
+    >
+      Newsletter
+    </h3>
+    <p class="mt-2 text-sm" style="color: var(--ink-muted);">
+      New stories delivered to your inbox.
     </p>
     <form
-      class="mt-6 flex flex-col sm:flex-row gap-3"
+      class="mt-4 space-y-3"
       @submit.prevent="handleSubmit"
     >
-      <UInput
+      <input
         v-model="email"
         type="email"
         placeholder="you@example.com"
-        class="flex-1 bg-white dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700"
+        class="w-full px-3 py-2 text-sm border font-meta focus:outline-none focus:ring-1"
+        :style="{
+          borderColor: 'var(--ink-border)',
+          backgroundColor: 'var(--ink-bg)',
+          color: 'var(--ink-text)',
+        }"
         :disabled="submitted"
         required
       />
-      <UButton
+      <button
         type="submit"
-        color="gray"
-        variant="solid"
-        :loading="loading"
-        :disabled="submitted"
+        class="w-full px-3 py-2 text-sm font-meta tracking-wide transition-opacity hover:opacity-80 disabled:opacity-50"
+        :style="{
+          backgroundColor: 'var(--ink-text)',
+          color: 'var(--ink-bg)',
+        }"
+        :disabled="submitted || loading"
       >
         {{ submitted ? "Subscribed" : "Subscribe" }}
-      </UButton>
+      </button>
     </form>
   </div>
 </template>

@@ -1,20 +1,32 @@
 <template>
-  <div class="view-transition max-w-6xl mx-auto px-4 py-12">
-    <h1 class="font-serif text-3xl md:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
-      Stories
-    </h1>
-    <p class="text-zinc-600 dark:text-zinc-500 mb-12">
-      A collection of narrative stories by Akshara Hegde.
-    </p>
+  <div class="view-transition max-w-5xl mx-auto px-4 py-12">
+    <!-- Page header -->
+    <div class="text-center mb-4">
+      <h1
+        class="font-serif text-4xl md:text-5xl font-bold"
+        style="color: var(--ink-text);"
+      >
+        Stories
+      </h1>
+      <p class="mt-2 text-base font-meta" style="color: var(--ink-muted);">
+        A collection of narrative stories by Akshara Hegde.
+      </p>
+    </div>
+    <hr class="ink-rule-thick mb-10" />
+
+    <!-- Stories grouped by author -->
     <section
       v-for="group in groupsByAuthor"
       :key="group.author"
       class="mb-14"
     >
-      <h2 class="font-serif text-xl font-semibold text-zinc-800 dark:text-zinc-200 mb-6 border-b border-zinc-200 dark:border-zinc-700 pb-2">
+      <h2
+        class="font-serif text-xl font-bold pb-2 border-b-2 mb-0"
+        :style="{ color: 'var(--ink-text)', borderColor: 'var(--ink-text)' }"
+      >
         {{ group.author }}
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div>
         <StoryPosterCard
           v-for="(story, index) in group.stories"
           :key="story.meta?.slug ?? index"

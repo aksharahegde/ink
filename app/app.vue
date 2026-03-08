@@ -1,7 +1,7 @@
 <template>
-  <main class="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+  <main class="min-h-screen" style="background-color: var(--ink-bg); color: var(--ink-text);">
     <Navbar />
-    <div class="p-4">
+    <div>
       <NuxtPage />
     </div>
     <Footer />
@@ -26,7 +26,7 @@ useHead({
     lang: "en",
   },
   bodyAttrs: {
-    class: "font-sans antialiased",
+    class: "antialiased",
   },
   link: [
     {
@@ -44,8 +44,8 @@ if (import.meta.server) {
 
   useServerHead({
     meta: () => [
-      { name: "theme-color", content: "#000000" },
-      { name: "msapplication-TileColor", content: "#000000" },
+      { name: "theme-color", content: "#f4f1ea" },
+      { name: "msapplication-TileColor", content: "#f4f1ea" },
       { property: "og:url", content: url },
       {
         property: "og:image",

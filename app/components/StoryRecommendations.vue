@@ -1,9 +1,12 @@
 <template>
-  <section class="mt-20 pt-16 border-t border-zinc-200 dark:border-zinc-800" aria-label="Recommended stories">
-    <h2 class="font-serif text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">
+  <section class="mt-16 pt-10" aria-label="Recommended stories">
+    <h2
+      class="font-serif text-2xl font-bold pb-2 border-b-2 mb-0"
+      :style="{ color: 'var(--ink-text)', borderColor: 'var(--ink-text)' }"
+    >
       Recommended
     </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div>
       <StoryPosterCard
         v-for="(s, index) in recommendedList"
         :key="s.meta?.slug ?? index"
@@ -18,6 +21,7 @@ const props = defineProps<{
   currentSlug: string;
   stories: Array<{
     title: string;
+    description?: string;
     meta?: { slug?: string; cover?: string; category?: string; readingTime?: string };
   }>;
 }>();

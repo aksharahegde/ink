@@ -1,12 +1,38 @@
 <template>
-  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 py-8 text-zinc-600 dark:text-zinc-400">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <p class="font-serif text-zinc-900 dark:text-zinc-100 text-lg font-semibold">Ink</p>
-      <p class="mt-2 text-sm">
-        Stories by <a href="https://aksharahegde.xyz?ref=ink" target="_blank" rel="noopener noreferrer" class="underline hover:text-zinc-700 dark:hover:text-zinc-300">Akshara Hegde</a>
-      </p>
-      <p class="mt-4 text-xs text-zinc-500 dark:text-zinc-500">
-        &copy; {{ currentYear }}. All rights reserved.
+  <footer
+    class="border-t py-12"
+    :style="{ borderColor: 'var(--ink-border)' }"
+  >
+    <div class="max-w-5xl mx-auto px-4">
+      <!-- Top section -->
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+        <!-- Brand -->
+        <div>
+          <p class="font-serif text-2xl font-bold" style="color: var(--ink-text);">
+            Ink Journal
+          </p>
+          <p class="mt-1 text-sm font-meta" style="color: var(--ink-muted);">
+            Stories by <a href="https://aksharahegde.xyz?ref=ink" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:opacity-70 transition-opacity">Akshara Hegde</a>
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="flex gap-12 text-sm font-meta" style="color: var(--ink-muted);">
+          <div class="space-y-2">
+            <NuxtLink to="/about" class="block hover:opacity-70 transition-opacity">About</NuxtLink>
+            <NuxtLink to="/stories" class="block hover:opacity-70 transition-opacity">Stories</NuxtLink>
+          </div>
+          <div class="space-y-2">
+            <a href="https://aksharahegde.xyz?ref=ink" target="_blank" rel="noopener noreferrer" class="block hover:opacity-70 transition-opacity">Website</a>
+            <a href="https://github.com/aksharahegde/ink" target="_blank" rel="noopener noreferrer" class="block hover:opacity-70 transition-opacity">Source</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom rule + copyright -->
+      <hr class="ink-rule mt-8 mb-4" />
+      <p class="text-xs font-meta" style="color: var(--ink-muted);">
+        &copy; {{ currentYear }} Ink Journal. All rights reserved.
       </p>
     </div>
   </footer>

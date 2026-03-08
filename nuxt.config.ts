@@ -16,6 +16,7 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: "Playfair Display", provider: "google" },
+      { name: "Libre Baskerville", provider: "google" },
       { name: "Inter", provider: "google" },
     ],
     defaults: {
@@ -83,7 +84,7 @@ export default defineNuxtConfig({
     },
   },
   colorMode: {
-    preference: "dark",
+    preference: "light",
   },
   site: {
     url: process.env.BASE_URL,
