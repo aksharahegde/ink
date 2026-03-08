@@ -101,10 +101,10 @@
 
     <!-- Open source banner -->
     <section
-      class="max-w-5xl mx-auto px-4 py-12 md:py-16"
+      class="max-w-5xl mx-auto px-4 pt-6 pb-12 md:pt-8 md:pb-16"
       data-testid="home-opensource-banner"
     >
-      <hr class="ink-rule mb-8" />
+      <hr class="ink-rule mb-6" />
       <div
         class="text-center font-serif text-lg md:text-xl leading-relaxed"
         style="color: var(--ink-text);"
