@@ -2,7 +2,7 @@
   <div class="view-transition">
     <HeroSection />
     <section class="max-w-6xl mx-auto px-4 py-16 md:py-24">
-      <FeaturedStory v-if="featuredStory" :story="featuredStory" />
+      <FeaturedAnnouncement :stories="storiesByArun" />
     </section>
     <section class="max-w-6xl mx-auto px-4 py-16 md:py-24">
       <h2 class="font-serif text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-10">
@@ -44,22 +44,42 @@ const { data: stories } = await useAsyncData("stories", () =>
   queryCollection("summary").all()
 );
 
-const featuredStory = computed(() => {
-  const list = stories.value ?? [];
-  const featured = list.find((s: { meta?: { featured?: boolean } }) => s.meta?.featured);
-  return featured ?? list[0] ?? null;
+const { data: storiesFull } = await useAsyncData("home-stories-full", () =>
+  queryCollection("stories").all()
+);
+
+const config = useRuntimeConfig();
+const defaultAuthor = config.public.ownerName ?? "Unknown";
+
+const pathToAuthor = computed(() => {
+  const map: Record<string, string> = {};
+  const list = storiesFull.value ?? [];
+  for (const s of list) {
+    const path = (s as { path?: string; meta?: { path?: string; slug?: string } }).path
+      ?? (s as { meta?: { path?: string; slug?: string } }).meta?.path
+      ?? ((s as { meta?: { slug?: string } }).meta?.slug ? `/stories/${(s as { meta?: { slug?: string } }).meta?.slug}` : "");
+    const author = (s as { author?: string; meta?: { author?: string } }).author
+      ?? (s as { meta?: { author?: string } }).meta?.author
+      ?? defaultAuthor;
+    if (path) map[path] = author;
+  }
+  return map;
 });
 
-const galleryStories = computed(() => {
+const storiesByArun = computed(() => {
   const list = stories.value ?? [];
-  const featuredSlug = featuredStory.value?.meta?.slug;
-  if (!featuredSlug) return list;
-  return list.filter((s: { meta?: { slug?: string } }) => s.meta?.slug !== featuredSlug);
+  const arun = "Arun Hegde";
+  return list.filter((s: { meta?: { path?: string; slug?: string } }) => {
+    const path = (s as { meta?: { path?: string; slug?: string } }).meta?.path
+      ?? ((s as { meta?: { slug?: string } }).meta?.slug ? `/stories/${(s as { meta?: { slug?: string } }).meta?.slug}` : "");
+    return pathToAuthor.value[path] === arun;
+  });
 });
+
+const galleryStories = computed(() => stories.value ?? []);
 
 const quoteText = computed(() => home.value?.quote ?? "Some stories stay with you long after the last word.");
 
-const config = useRuntimeConfig();
 const ogImage = `${config.public.baseURL}/og.png`;
 useSeoMeta({
   ogTitle: home.value?.title ?? "Ink — Stories by Akshara Hegde",
