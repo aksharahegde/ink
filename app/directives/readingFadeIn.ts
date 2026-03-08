@@ -43,6 +43,7 @@ function init(el: HTMLElement) {
 
 export default {
   mounted(el: HTMLElement) {
+    if (import.meta.server) return;
     requestAnimationFrame(() => init(el));
   },
 } satisfies Directive;

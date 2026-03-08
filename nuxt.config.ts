@@ -1,11 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const currentDir = dirname(fileURLToPath(import.meta.url));
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   future: {
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
-  css: ['./assets/css/transitions.css', './assets/css/reading.css'],
+  css: [
+    join(currentDir, "app/assets/css/transitions.css"),
+    join(currentDir, "app/assets/css/reading.css"),
+  ],
   modules: [
     "@nuxt/ui",
     "@nuxt/content",

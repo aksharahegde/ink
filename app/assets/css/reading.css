@@ -1,0 +1,196 @@
+/* Vintage literary reading layout */
+
+.reading-prose {
+  --reading-text: #1c1c1c;
+  --reading-text-dark: #e8e5de;
+  --reading-heading: #1c1c1c;
+  --reading-heading-dark: #f0ede6;
+  --reading-quote: #6b6b6b;
+  --reading-quote-dark: #9a9a8e;
+  --reading-quote-accent: #7c2d12;
+  --reading-quote-accent-dark: #c2704a;
+}
+
+/* Body text: Libre Baskerville for literary feel */
+.reading-prose {
+  font-family: "Libre Baskerville", ui-serif, Georgia, serif;
+  font-size: 1.1875rem;
+  line-height: 1.9;
+  letter-spacing: 0.005em;
+  color: var(--reading-text);
+}
+
+html.dark .reading-prose {
+  color: var(--reading-text-dark);
+}
+
+.reading-prose-wrapper[data-reading-size="0"] .reading-prose {
+  font-size: 1.0625rem;
+}
+
+.reading-prose-wrapper[data-reading-size="2"] .reading-prose {
+  font-size: 1.3125rem;
+}
+
+/* Drop cap for first paragraph */
+.reading-prose > p:first-of-type::first-letter,
+.reading-prose > :first-child p:first-of-type::first-letter {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  float: left;
+  font-size: 4.5em;
+  line-height: 0.8;
+  padding-right: 0.1em;
+  margin-top: 0.05em;
+  font-weight: 700;
+  color: var(--reading-heading);
+}
+
+html.dark .reading-prose > p:first-of-type::first-letter,
+html.dark .reading-prose > :first-child p:first-of-type::first-letter {
+  color: var(--reading-heading-dark);
+}
+
+.reading-prose p {
+  margin-bottom: 1.75rem;
+  color: var(--reading-text);
+  font-weight: 400;
+}
+
+html.dark .reading-prose p {
+  color: var(--reading-text-dark);
+}
+
+.reading-prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* Headings: Playfair Display */
+.reading-prose h1, .reading-prose h2, .reading-prose h3,
+.reading-prose h4, .reading-prose h5, .reading-prose h6 {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  color: var(--reading-heading);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+html.dark .reading-prose h1,
+html.dark .reading-prose h2,
+html.dark .reading-prose h3,
+html.dark .reading-prose h4,
+html.dark .reading-prose h5,
+html.dark .reading-prose h6 {
+  color: var(--reading-heading-dark);
+}
+
+.reading-prose h1 { font-size: 2rem; margin-top: 0; }
+.reading-prose h2 { font-size: 1.5rem; }
+.reading-prose h3 { font-size: 1.25rem; }
+
+.reading-prose a {
+  color: var(--reading-quote-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease;
+}
+
+html.dark .reading-prose a {
+  color: var(--reading-quote-accent-dark);
+}
+
+.reading-prose a:hover {
+  color: var(--reading-heading);
+}
+
+html.dark .reading-prose a:hover {
+  color: var(--reading-heading-dark);
+}
+
+/* Newspaper pull-quote blocks */
+.reading-prose blockquote {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  font-size: 1.625rem;
+  line-height: 1.5;
+  font-style: italic;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-left: none;
+  border-top: 1px solid var(--reading-quote-accent);
+  border-bottom: 1px solid var(--reading-quote-accent);
+  text-align: center;
+  color: var(--reading-quote);
+}
+
+html.dark .reading-prose blockquote {
+  color: var(--reading-quote-dark);
+  border-top-color: var(--reading-quote-accent-dark);
+  border-bottom-color: var(--reading-quote-accent-dark);
+}
+
+.reading-prose blockquote p {
+  margin-bottom: 0.75rem;
+  color: inherit;
+}
+
+.reading-prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.reading-prose ul, .reading-prose ol {
+  margin-top: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding-left: 1.5rem;
+  color: var(--reading-text);
+}
+
+html.dark .reading-prose ul,
+html.dark .reading-prose ol {
+  color: var(--reading-text-dark);
+}
+
+.reading-prose li {
+  margin-bottom: 0.5rem;
+}
+
+.reading-prose img {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 2px;
+}
+
+/* Horizontal rules as newspaper dividers */
+.reading-prose hr {
+  border: none;
+  border-top: 1px solid var(--reading-quote-accent);
+  margin: 2.5rem auto;
+  width: 40%;
+}
+
+html.dark .reading-prose hr {
+  border-top-color: var(--reading-quote-accent-dark);
+}
+
+/* Scroll fade-in for blocks */
+.reading-prose .reading-block {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reading-prose .reading-block.reading-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-prose .reading-block {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

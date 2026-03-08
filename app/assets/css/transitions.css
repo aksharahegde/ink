@@ -1,0 +1,121 @@
+/* Typography: Libre Baskerville (body), Playfair Display (headings), Inter (meta) */
+body {
+  font-family: "Libre Baskerville", ui-serif, Georgia, serif;
+  background-color: #f4f1ea;
+  color: #1c1c1c;
+}
+
+html.dark body {
+  background-color: #1a1a17;
+  color: #e8e5de;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-serif {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+.font-meta {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Vintage paper texture overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+}
+
+html.dark body::before {
+  opacity: 0.035;
+}
+
+/* Ink color palette CSS variables */
+:root {
+  --ink-bg: #f4f1ea;
+  --ink-paper: #faf7f0;
+  --ink-text: #1c1c1c;
+  --ink-muted: #6b6b6b;
+  --ink-accent: #7c2d12;
+  --ink-border: #d6d3d1;
+}
+
+html.dark {
+  --ink-bg: #1a1a17;
+  --ink-paper: #242420;
+  --ink-text: #e8e5de;
+  --ink-muted: #9a9a8e;
+  --ink-accent: #c2704a;
+  --ink-border: #3a3a34;
+}
+
+/* Newspaper rule lines */
+.ink-rule {
+  border: none;
+  border-top: 1px solid var(--ink-border);
+}
+
+.ink-rule-thick {
+  border: none;
+  border-top: 2px solid var(--ink-text);
+}
+
+.ink-rule-double {
+  border: none;
+  border-top: 3px double var(--ink-text);
+}
+
+/* View Transitions API styles */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-from-right {
+  from { transform: translateX(30px); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slide-to-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-30px); }
+}
+
+/* View transition names */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Entering new page */
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 999;
+}
+
+/* Fallback for browsers that don't support View Transitions */
+@media (prefers-reduced-motion: no-preference) {
+  .view-transition-enter-active,
+  .view-transition-leave-active {
+    transition: all 0.3s ease;
+  }
+
+  .view-transition-enter-from,
+  .view-transition-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
