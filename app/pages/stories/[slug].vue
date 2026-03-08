@@ -28,18 +28,35 @@
         </div>
       </div>
     </header>
-    <div class="max-w-[680px] mx-auto px-4 pt-12">
-      <article
-        class="prose prose-lg prose-zinc dark:prose-invert max-w-none
-          prose-headings:font-serif prose-headings:text-zinc-900 dark:prose-headings:text-zinc-100
-          prose-p:text-zinc-700 dark:prose-p:text-zinc-300 prose-p:leading-relaxed prose-p:mb-6
-          prose-a:text-zinc-600 dark:prose-a:text-zinc-400 prose-a:underline hover:prose-a:text-zinc-900 dark:hover:prose-a:text-zinc-200
-          prose-blockquote:border-l-zinc-400 dark:prose-blockquote:border-l-zinc-500 prose-blockquote:border-l-4 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:font-serif prose-blockquote:text-xl prose-blockquote:text-zinc-600 dark:prose-blockquote:text-zinc-300
-          prose-img:rounded-lg prose-img:shadow-xl"
+    <div class="max-w-[680px] mx-auto px-4 pt-16 md:pt-20">
+      <div
+        class="reading-prose-wrapper"
+        :data-reading-size="fontLevel"
       >
-        <ContentRenderer v-if="story" :value="story" />
-      </article>
+        <ClientOnly>
+          <article
+            v-reading-fade-in
+            class="reading-prose prose prose-lg prose-zinc dark:prose-invert max-w-none
+              prose-img:rounded-lg prose-img:shadow-xl"
+          >
+            <ContentRenderer v-if="story" :value="story" />
+          </article>
+          <template #fallback>
+            <article
+              class="reading-prose prose prose-lg prose-zinc dark:prose-invert max-w-none
+                prose-img:rounded-lg prose-img:shadow-xl"
+            >
+              <ContentRenderer v-if="story" :value="story" />
+            </article>
+          </template>
+        </ClientOnly>
+      </div>
     </div>
+    <ReadingToolbar
+      v-if="story"
+      :share-title="story.title ?? ''"
+      :share-url="shareUrl"
+    />
     <div v-if="story" class="max-w-[680px] mx-auto px-4">
       <StoryRecommendations
         :current-slug="(story.meta?.slug ?? story.slug ?? route.params.slug) as string"
@@ -53,8 +70,18 @@
 </template>
 
 <script setup lang="ts">
+import { useReadingFontSize } from "~/composables/useReadingFontSize";
+
 const route = useRoute();
 const config = useRuntimeConfig();
+
+const { level: fontLevel } = useReadingFontSize();
+
+const shareUrl = computed(() => {
+  const base = config.public.baseURL ?? "";
+  const path = route.fullPath.startsWith("/") ? route.fullPath : `/${route.fullPath}`;
+  return base ? `${base.replace(/\/$/, "")}${path}` : (typeof window !== "undefined" ? window.location.href : path);
+});
 
 const { data: story } = await useAsyncData(
   `story-${route.params.slug}`,

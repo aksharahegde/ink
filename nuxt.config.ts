@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
-  css: ['./assets/css/transitions.css'],
+  css: ['./assets/css/transitions.css', './assets/css/reading.css'],
   modules: [
     "@nuxt/ui",
     "@nuxt/content",
