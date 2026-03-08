@@ -10,19 +10,19 @@
     "postinstall": "nuxi prepare"
   },
   "dependencies": {
-    "@nuxt/content": "^3.7.1",
+    "@nuxt/content": "^3.12.0",
     "@nuxt/fonts": "0.10.2",
     "@nuxt/image": "1.8.1",
     "@nuxt/ui": "^2.22.3",
     "@nuxthub/core": "^0.8.27",
     "baseline-browser-mapping": "^2.10.0",
     "caniuse-lite": "^1.0.30001777",
-    "nuxt": "^3.19.2",
+    "nuxt": "^3.21.1",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "unenv": "^2.0.0-rc.21",
-    "wrangler": "^4.40.2"
+    "unenv": "^2.0.0-rc.24",
+    "wrangler": "^4.71.0"
   }
 }
