@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink to="/">
+  <NuxtLink to="/" aria-label="Ink – Home">
     <NuxtImg
       src="/logo_rect.jpeg"
       alt="Logo"

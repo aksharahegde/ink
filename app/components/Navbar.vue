@@ -1,9 +1,9 @@
 <template>
   <nav
-    class="flex max-w-screen-md mx-auto space-y-6 items-center justify-between pb-2 md:pb-0 pt-4 px-4 backdrop-blur-xl dark:bg-gray-900 dark:text-gray-200 sticky rounded-b-lg top-0 z-50"
+    class="flex max-w-6xl mx-auto items-center justify-between py-4 px-4 sticky top-0 z-50 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800/50"
   >
     <Logo />
-    <div class="hidden md:flex items-center gap-2 divide-x-2">
+    <div class="hidden md:flex items-center gap-2 divide-x divide-zinc-300 dark:divide-zinc-700">
       <UHorizontalNavigation :links="links" />
       <ColorMode />
     </div>
@@ -12,10 +12,11 @@
         @click="toggleMenu"
         icon="i-heroicons-bars-3"
         color="gray"
+        variant="ghost"
         aria-label="Menu"
       />
     </div>
-    <div v-if="isMenuOpen" class="md:hidden bg-white p-4 rounded-b-lg absolute top-12 left-0 right-0">
+    <div v-if="isMenuOpen" class="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 p-4 shadow-lg">
       <UVerticalNavigation
         :links="links"
         class="transition-all duration-300 ease-in-out"

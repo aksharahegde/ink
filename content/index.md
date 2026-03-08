@@ -1,6 +1,7 @@
 ---
-title: "Hedge Heart Beats - Visit once, feel forever"
-description: "A collection of short stories from the heart by Akshara Hegde"
+title: "Ink — Stories by Akshara Hegde"
+description: "Love. Loss. Memory. Mystery. A collection of emotional narrative stories by Akshara Hegde."
+quote: "Some stories stay with you long after the last word."
 ---
 
 ::FeatureCard{cover="/stories/in-the-ruins-of-memory.png" slug="in-the-ruins-of-memory" url="/stories/in-the-ruins-of-memory"}

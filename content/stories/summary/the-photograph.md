@@ -5,6 +5,8 @@ cover: /stories/the_photograph.jpg
 slug: the-photograph
 path: /stories/the-photograph
 download: https://drive.google.com/file/d/1OJt5pPjhG7hwXQPWsqTHmNk2ZlbEj-sP/view?usp=drive_link
+category: Mystery
+readingTime: "8 min read"
 ---
 
 

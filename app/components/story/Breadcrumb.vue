@@ -2,10 +2,10 @@
   <UBreadcrumb
     divider="/"
     :links="links"
-    :ui="{
-      wrapper: 'bg-gray-200 dark:bg-gray-900 px-4 rounded-lg w-fit',
-      ol: 'pl-0',
-    }"
+:ui="{
+  wrapper: 'bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-lg w-fit',
+  ol: 'pl-0',
+}"
   />
 </template>
 <script setup lang="ts">

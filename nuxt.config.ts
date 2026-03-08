@@ -13,6 +13,17 @@ export default defineNuxtConfig({
     "@nuxthub/core",
     "@nuxt/image",
   ],
+  fonts: {
+    families: [
+      { name: "Playfair Display", provider: "google" },
+      { name: "Inter", provider: "google" },
+    ],
+    defaults: {
+      weights: [400, 500, 600, 700],
+      styles: ["normal", "italic"],
+      subsets: ["latin"],
+    },
+  },
   hub: {
     database: true,
   },
@@ -72,7 +83,7 @@ export default defineNuxtConfig({
     },
   },
   colorMode: {
-    preference: "light",
+    preference: "dark",
   },
   site: {
     url: process.env.BASE_URL,

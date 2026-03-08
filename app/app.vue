@@ -1,5 +1,5 @@
 <template>
-  <main class="min-h-screen bg-gray-100 dark:bg-gray-900">
+  <main class="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
     <Navbar />
     <div class="p-4">
       <NuxtPage />
@@ -12,8 +12,8 @@ const route = useRoute();
 const config = useRuntimeConfig();
 
 useSeoMeta({
-  title: "Hedge Heart Beats",
-  description: "Hedge Heart Beats - Visit once, feel forever",
+  title: "Ink",
+  description: "Stories by Akshara Hegde — Love. Loss. Memory. Mystery.",
   ogImage: `${config.public.baseURL}/og.png`,
   twitterCard: "summary_large_image",
 });
@@ -26,7 +26,7 @@ useHead({
     lang: "en",
   },
   bodyAttrs: {
-    class: "font-sans",
+    class: "font-sans antialiased",
   },
   link: [
     {
@@ -83,8 +83,3 @@ if (import.meta.server) {
   });
 }
 </script>
-<style>
-* {
-  font-family: "Source Code Pro", monospace;
-}
-</style>

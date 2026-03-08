@@ -8,6 +8,11 @@ export const collections = {
   stories: defineCollection({
     source: "stories/*.md",
     type: "page",
+    schema: z.object({
+      cover: z.string().optional(),
+      slug: z.string().optional(),
+      download: z.string().optional(),
+    }),
   }),
   summary: defineCollection({
     source: "stories/summary/*.md",

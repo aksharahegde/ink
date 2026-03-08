@@ -5,6 +5,9 @@ cover: /stories/in-the-ruins-of-memory.png
 slug: in-the-ruins-of-memory
 path: /stories/in-the-ruins-of-memory
 download: https://drive.google.com/file/d/1Su6ZeXXcmDqxXjZdJXZ_wucAbxS7RRTs/view?usp=sharing
+featured: true
+category: Fiction
+readingTime: "12 min read"
 ---
 
 On the day before the new system was set to go live, he pulled his hoodie low over his head, put on his headphones, and sat down to hammer out the code.
