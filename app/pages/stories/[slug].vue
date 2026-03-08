@@ -202,15 +202,32 @@ function extractText(node: unknown): string {
   return "";
 }
 
-const ogImage = `${config.public.baseURL}/og.png`;
+const base = (config.public.baseURL ?? "").replace(/\/$/, "");
+const ogCoverImageUrl = computed(() => {
+  const c = coverImage.value;
+  if (!c || !base) return undefined;
+  return c.startsWith("http") ? c : `${base}${c.startsWith("/") ? c : `/${c}`}`;
+});
+
+if (story.value) {
+  defineOgImage({
+    component: "StoryOgImageSatori",
+    title: story.value?.seo?.title ?? story.value?.title ?? "Story",
+    description: story.value?.seo?.description ?? story.value?.description ?? "",
+    coverImage: ogCoverImageUrl.value,
+    siteName: config.public.siteName ?? "Ink Journal",
+  });
+}
+
+const defaultOgImage = base ? `${base}/og.png` : undefined;
 useSeoMeta({
   title: story.value?.seo?.title ?? story.value?.title,
   description: story.value?.seo?.description ?? story.value?.description,
   ogTitle: story.value?.seo?.title ?? story.value?.title,
   ogDescription: story.value?.seo?.description ?? story.value?.description,
-  ogUrl: config.public.baseURL,
+  ogUrl: shareUrl.value,
   twitterTitle: story.value?.seo?.title ?? story.value?.title,
   twitterDescription: story.value?.seo?.description ?? story.value?.description,
-  twitterImage: ogImage,
+  ...(story.value ? {} : { ogImage: defaultOgImage, twitterImage: defaultOgImage }),
 });
 </script>

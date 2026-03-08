@@ -1,5 +1,6 @@
 ---
 title: ಹೃದಯ ಹಾಳಾಗಿದೆ
+author: Akshara Hegde
 description: A story of two besties..!
 cover: /stories/hrudaya-halagide.jpeg
 slug: hrudaya-halagide

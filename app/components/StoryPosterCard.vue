@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`/stories/${story.meta?.slug}`"
+    :to="`/stories/${story.meta?.slug ?? story.slug}`"
     class="story-row group block py-6 border-b transition-colors duration-200"
     :style="{ borderColor: 'var(--ink-border)' }"
     data-testid="story-poster-card"
@@ -31,11 +31,11 @@
       </div>
       <!-- Thumbnail -->
       <div
-        v-if="story.meta?.cover"
+        v-if="coverSrc"
         class="hidden sm:block flex-shrink-0 w-24 h-24 md:w-28 md:h-28 overflow-hidden bg-stone-200 dark:bg-stone-800"
       >
-        <NuxtImg
-          :src="story.meta.cover"
+        <img
+          :src="coverSrc"
           :alt="`Cover: ${story.title}`"
           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
@@ -47,16 +47,20 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   story: {
     title: string;
     description?: string;
+    slug?: string;
     meta?: {
       slug?: string;
       cover?: string;
       category?: string;
       readingTime?: string;
     };
+    cover?: string;
   };
 }>();
+
+const coverSrc = computed(() => props.story.meta?.cover ?? props.story.cover ?? "");
 </script>

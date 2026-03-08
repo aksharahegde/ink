@@ -1,5 +1,6 @@
 ---
 title: ಏನೆಂದು ಹೆಸರಿಡಲಿ
+author: Akshara Hegde
 description: ಎಂದೆಂದಿಗೂ ನಿನ್ನ ನೆನಪುಗಳು ನಮ್ಮೊಂದಿಗೆ
 cover: /stories/enendu-hesaridali.jpg
 slug: enendu-hesaridali

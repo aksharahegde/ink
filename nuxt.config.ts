@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "@nuxthub/core",
     "@nuxt/image",
+    "nuxt-og-image",
   ],
   fonts: {
     families: [

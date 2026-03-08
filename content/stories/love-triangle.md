@@ -1,5 +1,6 @@
 ---
 title: Love Triangle
+author: Akshara Hegde
 description: A story about three friends who are in love, hate and revenge.
 cover: /stories/love_triangle.jpg
 slug: love-triangle

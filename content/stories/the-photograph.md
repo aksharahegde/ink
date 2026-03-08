@@ -1,5 +1,6 @@
 ---
 title: The Photograph
+author: Akshara Hegde
 description: A story to make you think in a different way about time and space.
 cover: /stories/the_photograph.jpg
 slug: the-photograph

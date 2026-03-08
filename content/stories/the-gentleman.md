@@ -1,5 +1,6 @@
 ---
 title: The Gentleman
+author: Akshara Hegde
 description: A molten candle burns in the darkness
 cover: /stories/the_gentleman.png
 slug: the-gentleman

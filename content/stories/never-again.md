@@ -1,5 +1,6 @@
 ---
 title: Never Again
+author: Akshara Hegde
 description: Love... Breakup... Break ke baad...
 cover: /stories/never_again.jpg
 slug: never-again

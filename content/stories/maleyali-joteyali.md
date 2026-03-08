@@ -1,5 +1,6 @@
 ---
 title: ಮಳೆಯಲಿ... ಜೊತೆಯಲಿ...
+author: Akshara Hegde
 description: ಅಂದು ಅವಳೊಂದಿಗೆ.. ಇಂದು ಅವಳ ನೆನಪಿನೊಂದಿಗೆ..
 cover: /stories/maleyali_joteyali.png
 slug: maleyali-joteyali

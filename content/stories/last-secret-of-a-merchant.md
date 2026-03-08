@@ -1,5 +1,6 @@
 ---
 title: The Last Secret of A Merchant
+author: Akshara Hegde
 description: A thread from investigations of Saralaksha Hulimeese
 cover: /stories/last-secret-of-merchant/1.jpg
 slug: last-secret-of-a-merchant

@@ -38,9 +38,10 @@ useHead({
 });
 
 if (import.meta.server) {
-  const PATH_RE = /([^/]+)\/?$/;
-  const { path = "/" } = route.fullPath.match(PATH_RE)?.groups ?? {};
-  const url = `${config.public.baseURL}${path}`;
+  const requestUrl = useRequestURL();
+  const base = (config.public.baseURL ?? "").replace(/\/$/, "");
+  const path = route.fullPath.startsWith("/") ? route.fullPath : `/${route.fullPath}`;
+  const url = base ? `${base}${path}` : requestUrl.href;
 
   useServerHead({
     meta: () => [

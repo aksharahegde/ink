@@ -1,5 +1,6 @@
 ---
 title: The Burning Desires
+author: Akshara Hegde
 description: ...ನಿನಗಾಗಿ ನಾನಲ್ಲ, ನನ್ನಿಂದಾಗಿ ನೀನು
 cover: /stories/the_burning_desires.jpg
 slug: the-burning-desires

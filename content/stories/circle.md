@@ -1,5 +1,6 @@
 ---
 title: Circle
+author: Akshara Hegde
 description: ​C = 2πr
 cover: /stories/circle.jpg
 slug: circle

@@ -1,5 +1,6 @@
 ---
 title: Tears of a Martyr
+author: Akshara Hegde
 description: A soldier never cries...
 cover: /stories/tears_of_martyr.jpg
 slug: tears-of-a-martyr

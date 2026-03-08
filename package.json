@@ -19,9 +19,14 @@
     "caniuse-lite": "^1.0.30001777",
     "nuxt": "^3.21.1",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.25.1"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "nuxt-og-image": "^5.1.13",
+    "satori": "^0.25.0",
     "unenv": "^2.0.0-rc.24",
     "wrangler": "^4.71.0"
   }

@@ -20,6 +20,11 @@ export const collections = {
     type: "page",
     schema: z.object({
       author: z.string().optional(),
+      cover: z.string().optional(),
+      slug: z.string().optional(),
+      path: z.string().optional(),
+      category: z.string().optional(),
+      readingTime: z.string().optional(),
     }),
   }),
 };

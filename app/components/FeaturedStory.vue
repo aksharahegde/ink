@@ -1,14 +1,14 @@
 <template>
   <NuxtLink
-    :to="`/stories/${story.meta?.slug}`"
+    :to="`/stories/${story.meta?.slug ?? story.slug}`"
     class="featured-story group block"
     data-testid="home-featured-story"
   >
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
       <!-- Image -->
-      <div class="relative aspect-[4/3] overflow-hidden">
-        <NuxtImg
-          :src="story.meta?.cover"
+      <div v-if="coverSrc" class="relative aspect-[4/3] overflow-hidden">
+        <img
+          :src="coverSrc"
           :alt="`Cover: ${story.title}`"
           class="absolute inset-0 w-full h-full object-cover object-left-top transition-transform duration-700 group-hover:scale-[1.02]"
           loading="eager"
@@ -62,15 +62,18 @@ const props = defineProps<{
   story: {
     title: string;
     description?: string;
+    slug?: string;
     meta?: {
       slug?: string;
       cover?: string;
       category?: string;
       readingTime?: string;
     };
+    cover?: string;
     body?: unknown;
   };
 }>();
 
+const coverSrc = computed(() => props.story.meta?.cover ?? props.story.cover ?? "");
 const readingTime = computed(() => props.story.meta?.readingTime ?? null);
 </script>

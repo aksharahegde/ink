@@ -31,15 +31,15 @@
       <div class="flex gap-3 overflow-x-auto pb-2 -mx-1">
         <NuxtLink
           v-for="(story, index) in stories"
-          :key="story.meta?.slug ?? index"
-          :to="`/stories/${story.meta?.slug}`"
+          :key="story.meta?.slug ?? story.slug ?? index"
+          :to="`/stories/${story.meta?.slug ?? story.slug}`"
           class="story-thumb flex-shrink-0 w-20 h-28 md:w-24 md:h-32 overflow-hidden border transition-all duration-200 hover:opacity-80"
           :style="{ borderColor: 'var(--ink-border)' }"
           :aria-label="`Read: ${story.title}`"
         >
-          <NuxtImg
-            v-if="story.meta?.cover"
-            :src="story.meta.cover"
+          <img
+            v-if="story.meta?.cover ?? story.cover"
+            :src="story.meta?.cover ?? story.cover"
             :alt="story.title"
             class="w-full h-full object-cover"
             loading="lazy"
@@ -71,10 +71,12 @@
 defineProps<{
   stories: Array<{
     title: string;
+    slug?: string;
     meta?: {
       slug?: string;
       cover?: string;
     };
+    cover?: string;
   }>;
 }>();
 </script>

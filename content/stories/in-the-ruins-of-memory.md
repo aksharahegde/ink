@@ -1,5 +1,6 @@
 ---
 title: In The Ruins of Memory
+author: Akshara Hegde
 description: A story of love, loss, and what remains.
 cover: /stories/in-the-ruins-of-memory.png
 slug: in-the-ruins-of-memory

@@ -1,5 +1,6 @@
 ---
 title: He's Waiting... ನಿನಗಾಗಿ
+author: Akshara Hegde
 description: A queen in my dream...
 cover: /stories/ninagagi.jpg
 slug: ninagagi

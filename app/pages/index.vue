@@ -3,7 +3,7 @@
     <HeroSection />
 
     <!-- Featured announcement -->
-    <section v-if="storiesByArun.length > 0" class="max-w-5xl mx-auto px-4 py-12 md:py-16">
+    <section class="max-w-5xl mx-auto px-4 py-12 md:py-16">
       <FeaturedAnnouncement :stories="storiesByArun" />
     </section>
 
@@ -59,7 +59,7 @@
                   style="color: var(--ink-accent);"
                 >{{ i + 1 }}</span>
                 <NuxtLink
-                  :to="`/stories/${story.meta?.slug}`"
+                  :to="`/stories/${(story as any).slug ?? (story as any).meta?.slug}`"
                   class="font-serif text-sm font-medium leading-snug hover:opacity-70 transition-opacity"
                   style="color: var(--ink-text);"
                 >
@@ -118,29 +118,33 @@ const { data: storiesFull } = await useAsyncData("home-stories-full", () =>
 const config = useRuntimeConfig();
 const defaultAuthor = config.public.ownerName ?? "Unknown";
 
-const pathToAuthor = computed(() => {
+const base = (config.public.baseURL ?? "").replace(/\/$/, "");
+const ogImage = `${base || config.public.baseURL}/og.png`;
+const homepageUrl = base
+  ? `${base}/`
+  : (typeof window !== "undefined" ? `${window.location.origin}/` : undefined);
+
+const slugToAuthor = computed(() => {
   const map: Record<string, string> = {};
   const list = storiesFull.value ?? [];
   for (const s of list) {
-    const path = (s as { path?: string; meta?: { path?: string; slug?: string } }).path
-      ?? (s as { meta?: { path?: string; slug?: string } }).meta?.path
-      ?? ((s as { meta?: { slug?: string } }).meta?.slug ? `/stories/${(s as { meta?: { slug?: string } }).meta?.slug}` : "");
-    const author = (s as { author?: string; meta?: { author?: string } }).author
-      ?? (s as { meta?: { author?: string } }).meta?.author
-      ?? defaultAuthor;
-    if (path) map[path] = author;
+    const item = s as unknown as Record<string, unknown>;
+    const slug = (item.slug as string) ?? ((item.meta as Record<string, unknown> | undefined)?.slug as string) ?? "";
+    const author = (item.author as string) ?? ((item.meta as Record<string, unknown> | undefined)?.author as string) ?? defaultAuthor;
+    if (slug) map[slug] = author;
   }
   return map;
 });
 
+function getSlug(s: unknown): string {
+  const item = s as Record<string, unknown>;
+  return (item.slug as string) ?? ((item.meta as Record<string, unknown> | undefined)?.slug as string) ?? "";
+}
+
 const storiesByArun = computed(() => {
   const list = stories.value ?? [];
   const arun = "Arun Hegde";
-  return list.filter((s: { meta?: { path?: string; slug?: string } }) => {
-    const path = (s as { meta?: { path?: string; slug?: string } }).meta?.path
-      ?? ((s as { meta?: { slug?: string } }).meta?.slug ? `/stories/${(s as { meta?: { slug?: string } }).meta?.slug}` : "");
-    return pathToAuthor.value[path] === arun;
-  });
+  return list.filter((s) => slugToAuthor.value[getSlug(s)] === arun);
 });
 
 const galleryStories = computed(() => stories.value ?? []);
@@ -159,7 +163,8 @@ const categories = computed(() => {
   const list = stories.value ?? [];
   const cats = new Set<string>();
   for (const s of list) {
-    const cat = (s as { meta?: { category?: string } }).meta?.category;
+    const item = s as unknown as Record<string, unknown>;
+    const cat = (item.category as string) ?? ((item.meta as Record<string, unknown> | undefined)?.category as string);
     if (cat) cats.add(cat);
   }
   return Array.from(cats).sort();
@@ -167,11 +172,11 @@ const categories = computed(() => {
 
 const quoteText = computed(() => home.value?.quote ?? "Some stories stay with you long after the last word.");
 
-const ogImage = `${config.public.baseURL}/og.png`;
 useSeoMeta({
+  title: "Ink",
   ogTitle: home.value?.title ?? "Ink — Stories by Akshara Hegde",
   ogDescription: home.value?.description ?? "Love. Loss. Memory. Mystery.",
-  ogUrl: config.public.baseURL,
+  ogUrl: homepageUrl,
   twitterTitle: home.value?.title ?? "Ink — Stories by Akshara Hegde",
   twitterDescription: home.value?.description ?? "Love. Loss. Memory. Mystery.",
   twitterImage: ogImage,

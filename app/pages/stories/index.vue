@@ -55,7 +55,7 @@
       <div>
         <StoryPosterCard
           v-for="(story, index) in group.stories"
-          :key="story.meta?.slug ?? index"
+          :key="story.meta?.slug ?? story.slug ?? index"
           :story="story"
         />
       </div>
@@ -77,27 +77,28 @@ const { data: stories } = await useAsyncData("stories-full", () =>
   queryCollection("stories").all()
 );
 
-const pathToAuthor = computed(() => {
+function getSlug(s: unknown): string {
+  const item = s as Record<string, unknown>;
+  return (item.slug as string) ?? ((item.meta as Record<string, unknown> | undefined)?.slug as string) ?? "";
+}
+
+const slugToAuthor = computed(() => {
   const map: Record<string, string> = {};
   const list = stories.value ?? [];
   for (const s of list) {
-    const path = (s as { path?: string; meta?: { path?: string; slug?: string } }).path
-      ?? (s as { meta?: { path?: string; slug?: string } }).meta?.path
-      ?? ((s as { meta?: { slug?: string } }).meta?.slug ? `/stories/${(s as { meta?: { slug?: string } }).meta?.slug}` : "");
-    const author = (s as { author?: string; meta?: { author?: string } }).author
-      ?? (s as { meta?: { author?: string } }).meta?.author
-      ?? defaultAuthor;
-    if (path) map[path] = author;
+    const slug = getSlug(s);
+    const item = s as unknown as Record<string, unknown>;
+    const author = (item.author as string) ?? ((item.meta as Record<string, unknown> | undefined)?.author as string) ?? defaultAuthor;
+    if (slug) map[slug] = author;
   }
   return map;
 });
 
 const groupsByAuthor = computed(() => {
   const list = summaries.value ?? [];
-  const withAuthor = list.map((s: { meta?: { path?: string; slug?: string }; [key: string]: unknown }) => {
-    const path = (s as { meta?: { path?: string; slug?: string } }).meta?.path
-      ?? ((s as { meta?: { slug?: string } }).meta?.slug ? `/stories/${(s as { meta?: { slug?: string } }).meta?.slug}` : "");
-    const author = pathToAuthor.value[path] ?? defaultAuthor;
+  const withAuthor = list.map((s) => {
+    const slug = getSlug(s);
+    const author = slugToAuthor.value[slug] ?? defaultAuthor;
     return { ...s, _author: author };
   });
   const byAuthor: Record<string, typeof withAuthor> = {};
@@ -113,16 +114,23 @@ const groupsByAuthor = computed(() => {
 
 const authorList = computed(() => groupsByAuthor.value.map((g) => g.author));
 
-const filteredGroupsByAuthor = computed(() => {
-  if (selectedAuthor.value === null) return groupsByAuthor.value;
-  return groupsByAuthor.value.filter((g) => g.author === selectedAuthor.value);
+type GroupItem = { author: string; stories: unknown[] };
+const filteredGroupsByAuthor = ref<GroupItem[]>([]);
+watchEffect(() => {
+  const groups = groupsByAuthor.value;
+  filteredGroupsByAuthor.value = selectedAuthor.value === null
+    ? groups
+    : groups.filter((g) => g.author === selectedAuthor.value);
 });
 
-const ogImage = `${config.public.baseURL}/og.png`;
+const base = (config.public.baseURL ?? "").replace(/\/$/, "");
+const ogImage = `${base || config.public.baseURL}/og.png`;
 useSeoMeta({
+  title: "Stories",
+  description: `A collection of short stories from the heart by ${config.public.ownerName}`,
   ogTitle: `${config.public.siteName} - Stories`,
   ogDescription: `A collection of short stories from the heart by ${config.public.ownerName}`,
-  ogUrl: config.public.baseURL,
+  ogUrl: base ? `${base}/stories` : undefined,
   twitterTitle: `${config.public.siteName} - Stories`,
   twitterDescription: `A collection of short stories from the heart by ${config.public.ownerName}`,
   twitterImage: ogImage,

@@ -1,5 +1,6 @@
 ---
 title: You
+author: Akshara Hegde
 description: A story about a man who is trying to find himself.
 cover: /stories/you.jpg
 slug: you
