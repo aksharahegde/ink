@@ -99,6 +99,34 @@
     <!-- Quote section -->
     <QuoteSection :quote="quoteText" />
 
+    <!-- Open source banner -->
+    <section
+      class="max-w-5xl mx-auto px-4 py-12 md:py-16"
+      data-testid="home-opensource-banner"
+    >
+      <hr class="ink-rule mb-8" />
+      <div
+        class="text-center font-serif text-lg md:text-xl leading-relaxed"
+        style="color: var(--ink-text);"
+      >
+        <p class="mb-3">
+          This site is built with <strong>Ink</strong> — an open-source template for showcasing your stories and writing.
+        </p>
+        <p class="mb-6" style="color: var(--ink-muted);">
+          Pre-rendered, SEO-friendly, dark mode, and easy to customize. Use it for your own blog or story collection.
+        </p>
+        <a
+          href="https://git.new/inkblog"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block font-meta text-sm tracking-wide px-5 py-2.5 border transition-colors hover:opacity-90"
+          :style="{ color: 'var(--ink-accent)', borderColor: 'var(--ink-accent)' }"
+        >
+          Get the template on GitHub →
+        </a>
+      </div>
+      <hr class="ink-rule mt-8" />
+    </section>
   </div>
 </template>
 
