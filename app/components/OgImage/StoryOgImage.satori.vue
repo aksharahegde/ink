@@ -6,7 +6,7 @@ const props = withDefaults(
     coverImage?: string;
     siteName?: string;
   }>(),
-  { title: "", description: "", siteName: "Ink Journal" }
+  { title: "", description: "", siteName: "Ink" }
 );
 </script>
 

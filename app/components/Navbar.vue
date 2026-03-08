@@ -12,7 +12,7 @@
         to="/"
         class="font-serif text-lg font-bold tracking-tight"
         style="color: var(--ink-text);"
-        aria-label="Ink Journal – Home"
+        aria-label="Ink – Home"
       >
         Ink
       </NuxtLink>

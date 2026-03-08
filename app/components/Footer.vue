@@ -9,7 +9,7 @@
         <!-- Brand -->
         <div>
           <p class="font-serif text-2xl font-bold" style="color: var(--ink-text);">
-            Ink Journal
+            Ink
           </p>
           <p class="mt-1 text-sm font-meta" style="color: var(--ink-muted);">
             Stories by <a href="https://aksharahegde.xyz?ref=ink" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:opacity-70 transition-opacity">Akshara Hegde</a>
@@ -32,7 +32,7 @@
       <!-- Bottom rule + copyright -->
       <hr class="ink-rule mt-8 mb-4" />
       <p class="text-xs font-meta" style="color: var(--ink-muted);">
-        &copy; {{ currentYear }} Ink Journal. All rights reserved.
+        &copy; {{ currentYear }} Ink. All rights reserved.
       </p>
     </div>
   </footer>

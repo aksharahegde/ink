@@ -181,7 +181,7 @@ if (story.value) {
     title: story.value?.seo?.title ?? story.value?.title ?? "Story",
     description: story.value?.seo?.description ?? story.value?.description ?? "",
     coverImage: ogCoverImageUrl.value,
-    siteName: config.public.siteName ?? "Ink Journal",
+    siteName: config.public.siteName ?? "Ink",
   });
 }
 

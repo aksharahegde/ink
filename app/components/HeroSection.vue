@@ -11,7 +11,7 @@
         class="font-serif text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tight leading-none"
         style="color: var(--ink-text);"
       >
-        INK JOURNAL
+        INK
       </h1>
       <p
         class="mt-3 text-base md:text-lg tracking-[0.2em] uppercase font-meta"
