@@ -12,10 +12,14 @@ export const collections = {
       cover: z.string().optional(),
       slug: z.string().optional(),
       download: z.string().optional(),
+      author: z.string().optional(),
     }),
   }),
   summary: defineCollection({
     source: "stories/summary/*.md",
     type: "page",
+    schema: z.object({
+      author: z.string().optional(),
+    }),
   }),
 };
