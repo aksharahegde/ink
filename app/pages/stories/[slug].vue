@@ -81,40 +81,6 @@
       :share-url="shareUrl"
     />
 
-    <!-- Author section -->
-    <div v-if="story" class="max-w-[680px] mx-auto px-4 mt-16">
-      <hr class="ink-rule" />
-      <div class="py-10 flex items-start gap-5">
-        <div
-          class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border"
-          :style="{ borderColor: 'var(--ink-border)' }"
-        >
-          <NuxtImg
-            src="/logo_rect.jpeg"
-            alt="Akshara Hegde"
-            class="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </div>
-        <div>
-          <p class="font-serif text-lg font-bold" style="color: var(--ink-text);">
-            {{ storyAuthor }}
-          </p>
-          <p class="mt-1 text-sm leading-relaxed" style="color: var(--ink-muted);">
-            Writer of stories about love, loss, memory, and mystery. Each story is a window into the human heart.
-          </p>
-          <NuxtLink
-            to="/stories"
-            class="inline-block mt-3 text-sm font-meta tracking-wide hover:opacity-70 transition-opacity"
-            style="color: var(--ink-accent);"
-          >
-            View all stories &rarr;
-          </NuxtLink>
-        </div>
-      </div>
-      <hr class="ink-rule" />
-    </div>
-
     <!-- Recommendations -->
     <div v-if="story" class="max-w-[680px] mx-auto px-4">
       <StoryRecommendations
@@ -219,14 +185,20 @@ if (story.value) {
   });
 }
 
+const storyPageTitle = computed(() =>
+  story.value && storyAuthor.value
+    ? `${story.value.title ?? "Story"} - by ${storyAuthor.value}`
+    : undefined
+);
+
 const defaultOgImage = base ? `${base}/og.png` : undefined;
 useSeoMeta({
-  title: story.value?.seo?.title ?? story.value?.title,
+  title: storyPageTitle,
   description: story.value?.seo?.description ?? story.value?.description,
-  ogTitle: story.value?.seo?.title ?? story.value?.title,
+  ogTitle: storyPageTitle,
   ogDescription: story.value?.seo?.description ?? story.value?.description,
   ogUrl: shareUrl.value,
-  twitterTitle: story.value?.seo?.title ?? story.value?.title,
+  twitterTitle: storyPageTitle,
   twitterDescription: story.value?.seo?.description ?? story.value?.description,
   ...(story.value ? {} : { ogImage: defaultOgImage, twitterImage: defaultOgImage }),
 });

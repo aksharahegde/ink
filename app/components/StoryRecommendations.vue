@@ -9,7 +9,7 @@
     <div>
       <StoryPosterCard
         v-for="(s, index) in recommendedList"
-        :key="s.meta?.slug ?? index"
+        :key="getSlug(s) ?? index"
         :story="s"
       />
     </div>
@@ -22,13 +22,16 @@ const props = defineProps<{
   stories: Array<{
     title: string;
     description?: string;
+    slug?: string;
     meta?: { slug?: string; cover?: string; category?: string; readingTime?: string };
   }>;
 }>();
 
+const getSlug = (s: (typeof props.stories)[number]) => s.meta?.slug ?? s.slug;
+
 const recommendedList = computed(() => {
   const list = (props.stories ?? []).filter(
-    (s) => s.meta?.slug && s.meta.slug !== props.currentSlug
+    (s) => getSlug(s) && getSlug(s) !== props.currentSlug
   );
   return list.slice(0, 3);
 });

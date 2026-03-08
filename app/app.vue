@@ -20,8 +20,14 @@ useSeoMeta({
 
 useHead({
   title: () => (route.meta.title as string) || "",
-  titleTemplate: (title) =>
-    title ? `${title} - ${config.public.ownerName}` : config.public.ownerName,
+  titleTemplate: (title) => {
+    if (route.path === "/")
+      return "Ink - Stories written by Akshara Hegde";
+    if (route.path.startsWith("/stories/") && title) return title;
+    return title
+      ? `${title} - ${config.public.ownerName}`
+      : (config.public.ownerName ?? "Akshara Hegde");
+  },
   htmlAttrs: {
     lang: "en",
   },
@@ -57,7 +63,10 @@ if (import.meta.server) {
       { property: "og:image:height", content: "600" },
       {
         property: "og:title",
-        content: (route.meta.title as string) || config.public.ownerName,
+        content:
+          route.path === "/"
+            ? "Ink - Stories written by Akshara Hegde"
+            : (route.meta.title as string) || config.public.ownerName,
       },
       {
         name: "description",

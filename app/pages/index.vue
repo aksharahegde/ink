@@ -172,12 +172,13 @@ const categories = computed(() => {
 
 const quoteText = computed(() => home.value?.quote ?? "Some stories stay with you long after the last word.");
 
+const homeTitle = "Ink - Stories written by Akshara Hegde";
 useSeoMeta({
-  title: "Ink",
-  ogTitle: home.value?.title ?? "Ink — Stories by Akshara Hegde",
+  title: homeTitle,
+  ogTitle: home.value?.title ?? homeTitle,
   ogDescription: home.value?.description ?? "Love. Loss. Memory. Mystery.",
   ogUrl: homepageUrl,
-  twitterTitle: home.value?.title ?? "Ink — Stories by Akshara Hegde",
+  twitterTitle: home.value?.title ?? homeTitle,
   twitterDescription: home.value?.description ?? "Love. Loss. Memory. Mystery.",
   twitterImage: ogImage,
 });
