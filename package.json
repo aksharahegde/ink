@@ -14,7 +14,7 @@
     "@nuxt/fonts": "0.10.2",
     "@nuxt/image": "1.8.1",
     "@nuxt/ui": "^2.22.3",
-    "@nuxthub/core": "^0.8.27",
+    "@nuxthub/core": "^0.10.7",
     "baseline-browser-mapping": "^2.10.0",
     "caniuse-lite": "^1.0.30001777",
     "nuxt": "^3.21.1",
