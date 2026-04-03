@@ -1,6 +1,7 @@
 # Nuxt dev/build outputs
 .output
 .data
+docs/
 .nuxt
 .nitro
 .cache
@@ -24,6 +25,8 @@ logs
 !.env.example
 
 .wrangler
+.claude/
 
 # Git worktrees
 .worktrees
+.worktrees/dep-upgrades/.data
