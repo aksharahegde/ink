@@ -1,11 +1,13 @@
 <template>
-  <main class="min-h-screen" style="background-color: var(--ink-bg); color: var(--ink-text);">
-    <Navbar />
-    <div>
-      <NuxtPage />
-    </div>
-    <Footer />
-  </main>
+  <UApp>
+    <main class="min-h-screen" style="background-color: var(--ink-bg); color: var(--ink-text);">
+      <Navbar />
+      <div>
+        <NuxtPage />
+      </div>
+      <Footer />
+    </main>
+  </UApp>
 </template>
 <script setup lang="ts">
 const route = useRoute();

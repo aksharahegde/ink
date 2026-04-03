@@ -115,8 +115,7 @@ const { data: story } = await useAsyncData(
   () =>
     queryCollection("stories")
       .path(route.path as string)
-      .first(),
-  { default: () => null }
+      .first()
 );
 
 const { data: allSummaries } = await useAsyncData("summary-all", () =>
@@ -130,15 +129,15 @@ const storyAuthor = computed(() => {
 });
 
 const coverImage = computed(() => {
-  const c = story.value?.cover ?? story.value?.meta?.cover ?? null;
-  if (!c) return null;
+  const c = story.value?.cover ?? story.value?.meta?.cover ?? undefined;
+  if (!c) return undefined;
   return c.startsWith("/") ? c : `/${c}`;
 });
 
 const publishDate = computed(() => {
   const d = (story.value as { date?: string; meta?: { date?: string } })?.date
     ?? (story.value as { meta?: { date?: string } })?.meta?.date;
-  if (!d) return null;
+  if (!d) return undefined;
   const date = new Date(d);
   return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 });
@@ -153,7 +152,7 @@ const readingTimeDisplay = computed(() => {
     const min = Math.max(1, Math.round(words / 200));
     return `${min} min read`;
   }
-  return null;
+  return undefined;
 });
 
 function extractText(node: unknown): string {

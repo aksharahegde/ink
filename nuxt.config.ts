@@ -6,11 +6,9 @@ const currentDir = dirname(fileURLToPath(import.meta.url));
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
-  future: {
-    compatibilityVersion: 4,
-  },
   devtools: { enabled: true },
   css: [
+    join(currentDir, "app/assets/css/main.css"),
     join(currentDir, "app/assets/css/transitions.css"),
     join(currentDir, "app/assets/css/reading.css"),
   ],
@@ -24,8 +22,8 @@ export default defineNuxtConfig({
   ],
   fonts: {
     families: [
-      { name: "Playfair Display", provider: "google" },
-      { name: "Libre Baskerville", provider: "google" },
+      { name: "Playfair Display", provider: "google", global: true },
+      { name: "Libre Baskerville", provider: "google", global: true },
       { name: "Inter", provider: "google" },
     ],
     defaults: {

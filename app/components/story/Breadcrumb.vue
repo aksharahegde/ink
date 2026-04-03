@@ -1,11 +1,10 @@
 <template>
   <UBreadcrumb
-    divider="/"
-    :links="links"
-:ui="{
-  wrapper: 'bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-lg w-fit',
-  ol: 'pl-0',
-}"
+    separator="/"
+    :items="links"
+    :ui="{
+      root: 'bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-lg w-fit',
+    }"
   />
 </template>
 <script setup lang="ts">
