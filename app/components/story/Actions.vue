@@ -7,7 +7,7 @@
       :to="download"
       external
       variant="outline"
-      color="black"
+      color="neutral"
       icon="i-heroicons-arrow-down-tray"
       label="Download"
       aria-label="Download"
