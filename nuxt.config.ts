@@ -22,8 +22,8 @@ export default defineNuxtConfig({
   ],
   fonts: {
     families: [
-      { name: "Playfair Display", provider: "google" },
-      { name: "Libre Baskerville", provider: "google" },
+      { name: "Playfair Display", provider: "google", global: true },
+      { name: "Libre Baskerville", provider: "google", global: true },
       { name: "Inter", provider: "google" },
     ],
     defaults: {

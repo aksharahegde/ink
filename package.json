@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "nuxt-og-image": "^5.1.13",
+    "nuxt-og-image": "^6.3.2",
     "satori": "0.26.0",
     "unenv": "^2.0.0-rc.24",
     "wrangler": "4.80.0"
