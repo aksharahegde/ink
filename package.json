@@ -16,7 +16,7 @@
     "@nuxt/ui": "^4.6.0",
     "@nuxthub/core": "^0.10.7",
     "baseline-browser-mapping": "2.10.13",
-    "caniuse-lite": "1.0.30001784",
+    "caniuse-lite": "1.0.30001785",
     "nuxt": "^4.4.2",
     "tailwindcss": "^4",
     "vue": "3.5.32",
