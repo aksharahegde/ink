@@ -29,6 +29,6 @@
     "nuxt-og-image": "^6.3.2",
     "satori": "0.26.0",
     "unenv": "^2.0.0-rc.24",
-    "wrangler": "4.80.0"
+    "wrangler": "4.81.1"
   }
 }
