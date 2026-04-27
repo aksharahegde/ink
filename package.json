@@ -19,7 +19,7 @@
     "caniuse-lite": "1.0.30001784",
     "nuxt": "^4.4.2",
     "tailwindcss": "^4",
-    "vue": "3.5.32",
+    "vue": "3.5.33",
     "vue-router": "5.0.4",
     "zod": "^4.3.6",
     "zod-to-json-schema": "3.25.2"
