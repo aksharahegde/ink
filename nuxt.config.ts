@@ -15,11 +15,16 @@ const storySitemapUrls = storyRoutes.map((loc) => ({
   priority: 0.8,
 }));
 
+const siteUrl = process.env.BASE_URL || "https://ink.aksharahegde.xyz";
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   nitro: {
     preset: "cloudflare_pages",
+    experimental: {
+      websocket: true,
+    },
   },
   css: [
     join(currentDir, "app/assets/css/main.css"),
@@ -54,6 +59,7 @@ export default defineNuxtConfig({
     "/about": { prerender: true },
     "/stories": { prerender: true },
     "/stories/[slug]": { prerender: true },
+    "/ws/**": { prerender: false },
   },
   app: {
     head: {
@@ -109,9 +115,9 @@ export default defineNuxtConfig({
     preference: "light",
   },
   site: {
-    url: process.env.BASE_URL,
-    name: process.env.SITE_NAME,
-    description: `A collection of short stories from the heart by ${process.env.OWNER_NAME}`,
+    url: siteUrl,
+    name: process.env.SITE_NAME || "Ink",
+    description: `A collection of short stories from the heart by ${process.env.OWNER_NAME || "Akshara Hegde"}`,
     defaultLocale: "en",
   },
   sitemap: {
@@ -137,16 +143,16 @@ export default defineNuxtConfig({
     identity: {
       type: "Organization",
       name: process.env.SITE_NAME || "Ink",
-      url: process.env.BASE_URL,
-      logo: process.env.BASE_URL ? `${process.env.BASE_URL}/icon.png` : "/icon.png",
+      url: siteUrl,
+      logo: `${siteUrl}/icon.png`,
     },
   },
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL,
-      siteName: process.env.SITE_NAME,
-      ownerName: process.env.OWNER_NAME,
-      twitter: process.env.TWITTER,
+      baseURL: siteUrl,
+      siteName: process.env.SITE_NAME || "Ink",
+      ownerName: process.env.OWNER_NAME || "Akshara Hegde",
+      twitter: process.env.TWITTER || "akshara_dev",
     },
   },
 });

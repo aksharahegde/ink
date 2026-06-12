@@ -6,10 +6,27 @@
         <NuxtPage />
       </div>
       <Footer />
+      <ClientOnly>
+        <LazyPresenceVisitorPresence v-if="canShowPresence" />
+      </ClientOnly>
     </main>
   </UApp>
 </template>
 <script setup lang="ts">
+const canShowPresence = ref(false);
+
+onMounted(() => {
+  const enable = () => {
+    canShowPresence.value = true;
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(enable, { timeout: 5000 });
+  } else {
+    setTimeout(enable, 2500);
+  }
+});
+
 const route = useRoute();
 const config = useRuntimeConfig();
 const siteUrl = config.public.baseURL ?? "";
