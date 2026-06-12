@@ -9,6 +9,15 @@ const storyRoutes = readdirSync(join(currentDir, "content/stories/summary"))
   .filter((file) => file.endsWith(".md"))
   .map((file) => `/stories/${file.replace(/\.md$/, "")}`);
 
+const llmRoutes = [
+  "/llms.txt",
+  "/llms-full.txt",
+  "/index.md",
+  "/about.md",
+  "/stories.md",
+  ...storyRoutes.map((route) => `${route}.md`),
+];
+
 const storySitemapUrls = storyRoutes.map((loc) => ({
   loc,
   changefreq: "monthly" as const,
@@ -38,6 +47,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "@nuxthub/core",
     "@nuxt/image",
+    "./modules/llm-content",
   ],
   fonts: {
     families: [
@@ -60,6 +70,12 @@ export default defineNuxtConfig({
     "/stories": { prerender: true },
     "/stories/[slug]": { prerender: true },
     "/ws/**": { prerender: false },
+    "/llms.txt": { prerender: true },
+    "/llms-full.txt": { prerender: true },
+    "/index.md": { prerender: true },
+    "/about.md": { prerender: true },
+    "/stories.md": { prerender: true },
+    "/stories/**/*.md": { prerender: true },
   },
   app: {
     head: {
@@ -127,7 +143,7 @@ export default defineNuxtConfig({
     "nitro:config"(nitroConfig) {
       nitroConfig.prerender = nitroConfig.prerender || {};
       const existing = nitroConfig.prerender.routes || [];
-      nitroConfig.prerender.routes = [...new Set([...existing, ...storyRoutes])];
+      nitroConfig.prerender.routes = [...new Set([...existing, ...storyRoutes, ...llmRoutes])];
     },
   },
   robots: {

@@ -12,24 +12,18 @@
       class="font-serif text-lg leading-relaxed space-y-6"
       style="color: var(--ink-text);"
     >
-      <p>
-        My name is not enough to know about me. But still I have to tell about I, me and myself.
-      </p>
-      <p>
-        My name is Hegde. Software Development is my profession. I love to do it. Apart from my professional work, I compose music for my own songs. Sometimes I write poems and stories.
-      </p>
-      <p>
-        More than all these facts, Am a chaser of success, not the people. So many people came and gone out of my life. But the one thing that always remaining with me is confidence, determination to achieve something.. not to impress others.. it's to express my power and knowledge.
+      <p v-for="(paragraph, index) in aboutParagraphs" :key="index">
+        {{ paragraph }}
       </p>
       <p>
         <a
-          href="https://x.com/akshara_dev"
+          :href="aboutTwitterUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="hover:opacity-80 transition-opacity"
           style="color: var(--ink-accent); text-decoration: underline; text-underline-offset: 0.2em;"
         >
-          Twitter: https://x.com/akshara_dev
+          Twitter: {{ aboutTwitterUrl }}
         </a>
       </p>
     </div>
@@ -38,28 +32,30 @@
 </template>
 
 <script setup lang="ts">
-const config = useRuntimeConfig();
+import { aboutParagraphs, aboutTwitterUrl } from '#shared/about-content'
+
+const config = useRuntimeConfig()
 
 definePageMeta({
-  title: "About",
-});
+  title: 'About',
+})
 
-const description = `About ${config.public.ownerName} — software developer, musician, and storyteller behind Ink.`;
+const description = `About ${config.public.ownerName} — software developer, musician, and storyteller behind Ink.`
 
 useSeoMeta({
-  title: "About",
+  title: 'About',
   description,
   ogTitle: `About - ${config.public.siteName}`,
   ogDescription: description,
   twitterTitle: `About - ${config.public.siteName}`,
   twitterDescription: description,
-});
+})
 
 useSchemaOrg([
   defineWebPage({
-    "@type": "AboutPage",
-    name: "About",
+    '@type': 'AboutPage',
+    name: 'About',
     description,
   }),
-]);
+])
 </script>

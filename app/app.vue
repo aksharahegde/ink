@@ -32,6 +32,15 @@ const config = useRuntimeConfig();
 const siteUrl = config.public.baseURL ?? "";
 const twitterHandle = config.public.twitter?.trim();
 
+const markdownAlternateHref = computed(() => {
+  if (!siteUrl) return undefined;
+  const base = siteUrl.replace(/\/$/, "");
+  if (route.path === "/") return `${base}/index.md`;
+  const storyMatch = route.path.match(/^\/stories\/([^/]+)$/);
+  if (storyMatch) return `${base}/stories/${storyMatch[1]}.md`;
+  return `${base}${route.path.replace(/\/$/, "")}.md`;
+});
+
 useHead({
   titleTemplate: (title) => {
     if (!title) return config.public.siteName ?? "Ink";
@@ -48,11 +57,14 @@ useHead({
     { name: "theme-color", content: "#f4f1ea" },
     { name: "msapplication-TileColor", content: "#f4f1ea" },
   ],
-  link: [
+  link: computed(() => [
     { rel: "icon", type: "image/png", href: "/icon.png" },
     { rel: "mask-icon", color: "#fff", href: "/favicon.ico" },
     { rel: "icon", type: "image/ico", href: "/favicon.ico" },
-  ],
+    ...(markdownAlternateHref.value
+      ? [{ rel: "alternate", type: "text/markdown", href: markdownAlternateHref.value }]
+      : []),
+  ]),
 });
 
 useSeoMeta({
