@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "build": "nuxi build",
+    "deploy": "nuxi build && wrangler pages deploy dist --project-name=hegdeheartbeats --branch=main",
     "dev": "nuxi dev",
     "generate": "nuxi generate",
-    "preview": "nuxi preview",
+    "preview": "npx wrangler --cwd dist pages dev",
     "postinstall": "nuxi prepare"
   },
   "dependencies": {
