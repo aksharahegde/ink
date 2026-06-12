@@ -18,6 +18,9 @@ const storySitemapUrls = storyRoutes.map((loc) => ({
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
+  nitro: {
+    preset: "cloudflare_pages",
+  },
   css: [
     join(currentDir, "app/assets/css/main.css"),
     join(currentDir, "app/assets/css/transitions.css"),
