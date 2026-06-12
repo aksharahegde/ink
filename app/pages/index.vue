@@ -201,13 +201,25 @@ const categories = computed(() => {
 const quoteText = computed(() => home.value?.quote ?? "Some stories stay with you long after the last word.");
 
 const homeTitle = "Ink - Stories written by Akshara Hegde";
+const homeDescription = home.value?.description
+  ?? `Love. Loss. Memory. Mystery. A collection of emotional narrative stories by ${config.public.ownerName}.`;
+
 useSeoMeta({
   title: homeTitle,
+  description: homeDescription,
   ogTitle: home.value?.title ?? homeTitle,
-  ogDescription: home.value?.description ?? "Love. Loss. Memory. Mystery.",
+  ogDescription: homeDescription,
   ogUrl: homepageUrl,
   twitterTitle: home.value?.title ?? homeTitle,
-  twitterDescription: home.value?.description ?? "Love. Loss. Memory. Mystery.",
+  twitterDescription: homeDescription,
   twitterImage: ogImage,
 });
+
+useSchemaOrg([
+  defineWebPage({
+    "@type": "CollectionPage",
+    name: homeTitle,
+    description: homeDescription,
+  }),
+]);
 </script>

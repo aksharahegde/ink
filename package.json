@@ -15,7 +15,9 @@
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.6.0",
     "@nuxthub/core": "^0.10.7",
+    "@nuxtjs/seo": "^5.3.0",
     "baseline-browser-mapping": "2.10.13",
+    "better-sqlite3": "^12.10.0",
     "caniuse-lite": "1.0.30001784",
     "nuxt": "^4.4.2",
     "tailwindcss": "^4",
@@ -26,7 +28,6 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "nuxt-og-image": "^6.3.2",
     "satori": "0.26.0",
     "unenv": "^2.0.0-rc.24",
     "wrangler": "4.80.0"

@@ -174,31 +174,54 @@ const ogCoverImageUrl = computed(() => {
   return c.startsWith("http") ? c : `${base}${c.startsWith("/") ? c : `/${c}`}`;
 });
 
-if (story.value) {
-  defineOgImage({
-    component: "StoryOgImageSatori",
-    title: story.value?.seo?.title ?? story.value?.title ?? "Story",
-    description: story.value?.seo?.description ?? story.value?.description ?? "",
-    coverImage: ogCoverImageUrl.value,
-    siteName: config.public.siteName ?? "Ink",
-  });
-}
-
 const storyPageTitle = computed(() =>
   story.value && storyAuthor.value
     ? `${story.value.title ?? "Story"} - by ${storyAuthor.value}`
     : undefined
 );
 
+const storyDescription = computed(
+  () => story.value?.seo?.description ?? story.value?.description
+);
+
+const publishDateIso = computed(() => {
+  const d = (story.value as { date?: string; meta?: { date?: string } })?.date
+    ?? (story.value as { meta?: { date?: string } })?.meta?.date;
+  return d ?? undefined;
+});
+
 const defaultOgImage = base ? `${base}/og.png` : undefined;
+
+const storyOgImage = computed(() => ogCoverImageUrl.value ?? defaultOgImage);
+
 useSeoMeta({
   title: storyPageTitle,
-  description: story.value?.seo?.description ?? story.value?.description,
+  description: storyDescription,
   ogTitle: storyPageTitle,
-  ogDescription: story.value?.seo?.description ?? story.value?.description,
-  ogUrl: shareUrl.value,
+  ogDescription: storyDescription,
+  ogUrl: shareUrl,
+  ogImage: storyOgImage,
   twitterTitle: storyPageTitle,
-  twitterDescription: story.value?.seo?.description ?? story.value?.description,
-  ...(story.value ? {} : { ogImage: defaultOgImage, twitterImage: defaultOgImage }),
+  twitterDescription: storyDescription,
+  twitterImage: storyOgImage,
 });
+
+if (story.value && base) {
+  useSchemaOrg([
+    defineArticle({
+      headline: story.value.title,
+      description: storyDescription.value,
+      author: { name: storyAuthor.value },
+      image: ogCoverImageUrl.value,
+      datePublished: publishDateIso.value,
+    }),
+    defineBreadcrumb({
+      itemListElement: [
+        { name: "Home", item: base },
+        { name: "Stories", item: `${base}/stories` },
+        { name: story.value.title ?? "Story", item: shareUrl.value },
+      ],
+    }),
+  ]);
+}
 </script>

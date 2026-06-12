@@ -38,7 +38,28 @@
 </template>
 
 <script setup lang="ts">
+const config = useRuntimeConfig();
+
 definePageMeta({
   title: "About",
 });
+
+const description = `About ${config.public.ownerName} — software developer, musician, and storyteller behind Ink.`;
+
+useSeoMeta({
+  title: "About",
+  description,
+  ogTitle: `About - ${config.public.siteName}`,
+  ogDescription: description,
+  twitterTitle: `About - ${config.public.siteName}`,
+  twitterDescription: description,
+});
+
+useSchemaOrg([
+  defineWebPage({
+    "@type": "AboutPage",
+    name: "About",
+    description,
+  }),
+]);
 </script>

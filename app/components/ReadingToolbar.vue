@@ -11,7 +11,7 @@
   >
     <button
       type="button"
-      class="p-2 rounded-full transition-opacity hover:opacity-70 disabled:opacity-30 disabled:pointer-events-none"
+      class="min-h-12 min-w-12 inline-flex items-center justify-center rounded-full transition-opacity hover:opacity-70 disabled:opacity-30 disabled:pointer-events-none"
       :style="{ color: 'var(--ink-muted)' }"
       aria-label="Decrease font size"
       :disabled="fontLevel <= minLevel"
@@ -21,7 +21,7 @@
     </button>
     <button
       type="button"
-      class="p-2 rounded-full transition-opacity hover:opacity-70 disabled:opacity-30 disabled:pointer-events-none"
+      class="min-h-12 min-w-12 inline-flex items-center justify-center rounded-full transition-opacity hover:opacity-70 disabled:opacity-30 disabled:pointer-events-none"
       :style="{ color: 'var(--ink-muted)' }"
       aria-label="Increase font size"
       :disabled="fontLevel >= maxLevel"
@@ -32,7 +32,7 @@
     <div class="w-px h-5 mx-0.5" :style="{ backgroundColor: 'var(--ink-border)' }" aria-hidden="true" />
     <button
       type="button"
-      class="p-2 rounded-full transition-opacity hover:opacity-70"
+      class="min-h-12 min-w-12 inline-flex items-center justify-center rounded-full transition-opacity hover:opacity-70"
       :style="{ color: 'var(--ink-muted)' }"
       :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
       @click="isDark = !isDark"
@@ -43,7 +43,7 @@
     <div class="w-px h-5 mx-0.5" :style="{ backgroundColor: 'var(--ink-border)' }" aria-hidden="true" />
     <button
       type="button"
-      class="p-2 rounded-full transition-opacity hover:opacity-70"
+      class="min-h-12 min-w-12 inline-flex items-center justify-center rounded-full transition-opacity hover:opacity-70"
       :style="{ color: 'var(--ink-muted)' }"
       aria-label="Share story"
       @click="onShare"

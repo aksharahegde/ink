@@ -38,7 +38,7 @@
         <ColorMode />
         <!-- Mobile menu button -->
         <button
-          class="md:hidden p-2 rounded transition-colors"
+          class="md:hidden min-h-12 min-w-12 inline-flex items-center justify-center rounded transition-colors"
           style="color: var(--ink-muted);"
           aria-label="Menu"
           @click="isMenuOpen = !isMenuOpen"

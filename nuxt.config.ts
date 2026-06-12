@@ -1,8 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
+
+const storyRoutes = readdirSync(join(currentDir, "content/stories/summary"))
+  .filter((file) => file.endsWith(".md"))
+  .map((file) => `/stories/${file.replace(/\.md$/, "")}`);
+
+const storySitemapUrls = storyRoutes.map((loc) => ({
+  loc,
+  changefreq: "monthly" as const,
+  priority: 0.8,
+}));
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -13,12 +24,12 @@ export default defineNuxtConfig({
     join(currentDir, "app/assets/css/reading.css"),
   ],
   modules: [
+    "@nuxtjs/seo",
     "@nuxt/ui",
     "@nuxt/content",
     "@nuxt/fonts",
     "@nuxthub/core",
     "@nuxt/image",
-    "nuxt-og-image",
   ],
   fonts: {
     families: [
@@ -37,6 +48,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/": { prerender: true },
+    "/about": { prerender: true },
     "/stories": { prerender: true },
     "/stories/[slug]": { prerender: true },
   },
@@ -99,8 +111,32 @@ export default defineNuxtConfig({
     description: `A collection of short stories from the heart by ${process.env.OWNER_NAME}`,
     defaultLocale: "en",
   },
+  sitemap: {
+    urls: storySitemapUrls,
+  },
+  hooks: {
+    "nitro:config"(nitroConfig) {
+      nitroConfig.prerender = nitroConfig.prerender || {};
+      const existing = nitroConfig.prerender.routes || [];
+      nitroConfig.prerender.routes = [...new Set([...existing, ...storyRoutes])];
+    },
+  },
   robots: {
-    disableNuxtContentIntegration: true,
+    disallow: ["/api/", "/__og-image__"],
+  },
+  ogImage: {
+    enabled: false,
+  },
+  linkChecker: {
+    enabled: false,
+  },
+  schemaOrg: {
+    identity: {
+      type: "Organization",
+      name: process.env.SITE_NAME || "Ink",
+      url: process.env.BASE_URL,
+      logo: process.env.BASE_URL ? `${process.env.BASE_URL}/icon.png` : "/icon.png",
+    },
   },
   runtimeConfig: {
     public: {

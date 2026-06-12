@@ -1,9 +1,27 @@
 import { defineCollection, z } from "@nuxt/content";
+import { defineRobotsSchema } from "@nuxtjs/robots/content";
+import { defineSitemapSchema } from "@nuxtjs/sitemap/content";
+import { defineOgImageSchema } from "nuxt-og-image/content";
+import { defineSchemaOrgSchema } from "nuxt-schema-org/content";
+
+const seoFields = {
+  robots: defineRobotsSchema(),
+  sitemap: defineSitemapSchema(),
+  ogImage: defineOgImageSchema(),
+  schemaOrg: defineSchemaOrgSchema(),
+  seo: z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+  }).optional(),
+};
 
 export const collections = {
   content: defineCollection({
     type: "page",
     source: "*.md",
+    schema: z.object({
+      ...seoFields,
+    }),
   }),
   stories: defineCollection({
     source: "stories/*.md",
@@ -13,6 +31,8 @@ export const collections = {
       slug: z.string().optional(),
       download: z.string().optional(),
       author: z.string().optional(),
+      date: z.string().optional(),
+      ...seoFields,
     }),
   }),
   summary: defineCollection({
@@ -25,6 +45,8 @@ export const collections = {
       path: z.string().optional(),
       category: z.string().optional(),
       readingTime: z.string().optional(),
+      date: z.string().optional(),
+      ...seoFields,
     }),
   }),
 };

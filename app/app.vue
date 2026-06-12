@@ -12,23 +12,14 @@
 <script setup lang="ts">
 const route = useRoute();
 const config = useRuntimeConfig();
-
-useSeoMeta({
-  title: "Ink",
-  description: "Stories by Akshara Hegde — Love. Loss. Memory. Mystery.",
-  ogImage: `${config.public.baseURL}/og.png`,
-  twitterCard: "summary_large_image",
-});
+const siteUrl = config.public.baseURL ?? "";
+const twitterHandle = config.public.twitter?.trim();
 
 useHead({
-  title: () => (route.meta.title as string) || "",
   titleTemplate: (title) => {
-    if (route.path === "/")
-      return "Ink - Stories written by Akshara Hegde";
-    if (route.path.startsWith("/stories/") && title) return title;
-    return title
-      ? `${title} - ${config.public.ownerName}`
-      : (config.public.ownerName ?? "Akshara Hegde");
+    if (!title) return config.public.siteName ?? "Ink";
+    if (route.path === "/") return "Ink - Stories written by Akshara Hegde";
+    return title;
   },
   htmlAttrs: {
     lang: "en",
@@ -36,62 +27,42 @@ useHead({
   bodyAttrs: {
     class: "antialiased",
   },
+  meta: [
+    { name: "theme-color", content: "#f4f1ea" },
+    { name: "msapplication-TileColor", content: "#f4f1ea" },
+  ],
   link: [
-    {
-      rel: "icon",
-      type: "image/png",
-      href: "/icon.png",
-    },
+    { rel: "icon", type: "image/png", href: "/icon.png" },
+    { rel: "mask-icon", color: "#fff", href: "/favicon.ico" },
+    { rel: "icon", type: "image/ico", href: "/favicon.ico" },
   ],
 });
 
-if (import.meta.server) {
-  const requestUrl = useRequestURL();
-  const base = (config.public.baseURL ?? "").replace(/\/$/, "");
-  const path = route.fullPath.startsWith("/") ? route.fullPath : `/${route.fullPath}`;
-  const url = base ? `${base}${path}` : requestUrl.href;
+useSeoMeta({
+  description: `A collection of short stories from the heart by ${config.public.ownerName}`,
+  ogImage: siteUrl ? `${siteUrl}/og.png` : "/og.png",
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  twitterCard: "summary_large_image",
+  ...(twitterHandle
+    ? {
+        twitterSite: `@${twitterHandle}`,
+        twitterCreator: `@${twitterHandle}`,
+      }
+    : {}),
+});
 
-  useServerHead({
-    meta: () => [
-      { name: "theme-color", content: "#f4f1ea" },
-      { name: "msapplication-TileColor", content: "#f4f1ea" },
-      { property: "og:url", content: url },
-      {
-        property: "og:image",
-        content: `${config.public.baseURL}/og.png`,
-        key: "og:image",
-      },
-      { property: "og:image:width", content: "1200" },
-      { property: "og:image:height", content: "600" },
-      {
-        property: "og:title",
-        content:
-          route.path === "/"
-            ? "Ink - Stories written by Akshara Hegde"
-            : (route.meta.title as string) || config.public.ownerName,
-      },
-      {
-        name: "description",
-        content:
-          (route.meta.description as string) ||
-          `The writing website of ${config.public.ownerName}`,
-      },
-      {
-        property: "og:description",
-        content:
-          (route.meta.description as string) ||
-          `The writing website of ${config.public.ownerName}`,
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: `@${config.public.twitter}` },
-      { name: "twitter:creator", content: `@${config.public.twitter}` },
-      { name: "twitter:image", content: `${config.public.baseURL}/og.png` },
-    ],
-    link: [
-      { rel: "canonical", href: url },
-      { rel: "mask-icon", color: "#fff", href: "/favicon.ico" },
-      { rel: "icon", type: "image/ico", href: "/favicon.ico" },
-    ],
-  });
+if (siteUrl) {
+  useSchemaOrg([
+    defineWebSite({
+      name: config.public.siteName ?? "Ink",
+      url: siteUrl,
+    }),
+    defineOrganization({
+      name: config.public.siteName ?? "Ink",
+      url: siteUrl,
+      logo: `${siteUrl}/icon.png`,
+    }),
+  ]);
 }
 </script>
