@@ -1,18 +1,23 @@
 <template>
   <UApp>
-    <main class="min-h-screen" style="background-color: var(--ink-bg); color: var(--ink-text);">
-      <Navbar />
+    <main
+      class="min-h-screen"
+      :class="{ 'book-focus-shell': isBookFocusMode }"
+      style="background-color: var(--ink-bg); color: var(--ink-text);"
+    >
+      <Navbar v-if="!isBookFocusMode" />
       <div>
         <NuxtPage />
       </div>
-      <Footer />
+      <Footer v-if="!isBookFocusMode" />
       <ClientOnly>
-        <LazyPresenceVisitorPresence v-if="canShowPresence" />
+        <LazyPresenceVisitorPresence v-if="canShowPresence && !isBookFocusMode" />
       </ClientOnly>
     </main>
   </UApp>
 </template>
 <script setup lang="ts">
+const { mode } = useReadingMode();
 const canShowPresence = ref(false);
 
 onMounted(() => {
@@ -31,6 +36,7 @@ const route = useRoute();
 const config = useRuntimeConfig();
 const siteUrl = config.public.baseURL ?? "";
 const twitterHandle = config.public.twitter?.trim();
+const isBookFocusMode = computed(() => mode.value === "book" && /^\/stories\/[^/]+$/.test(route.path));
 
 const markdownAlternateHref = computed(() => {
   if (!siteUrl) return undefined;

@@ -20,6 +20,32 @@
       aria-hidden="true"
     />
 
+    <button
+      type="button"
+      class="book-focus-exit"
+      data-testid="story-bookmode-toggle"
+      aria-label="Switch to normal mode"
+      @click="setMode('scroll')"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M15 3h6v6" />
+        <path d="M10 14 21 3" />
+        <path d="M9 21H3v-6" />
+        <path d="M14 10 3 21" />
+      </svg>
+    </button>
+
     <div
       class="book-stage"
       :class="{
@@ -118,6 +144,7 @@ const prefersReducedMotion = ref(false);
 const turnFrontPage = ref("");
 const turnBackPage = ref("");
 const pendingPage = ref<number | null>(null);
+const { setMode } = useReadingMode();
 const { playFlip } = usePageFlipAudio();
 const { pages, pageCount, isPaginating, schedulePagination } = useBookPagination({
   sourceEl,

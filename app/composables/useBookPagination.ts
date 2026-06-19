@@ -29,6 +29,39 @@ export function useBookPagination({ sourceEl, measureEl, fontLevel }: BookPagina
     return clone;
   }
 
+  function isHeading(block: HTMLElement) {
+    return /^H[1-6]$/.test(block.tagName);
+  }
+
+  function isChapterEnd(block: HTMLElement) {
+    return block.tagName === "HR";
+  }
+
+  function getKeepWithNextGroup(blocks: HTMLElement[], startIndex: number) {
+    const group: HTMLElement[] = [];
+    let index = startIndex;
+
+    while (blocks[index] && isHeading(blocks[index])) {
+      group.push(blocks[index]);
+      index += 1;
+    }
+
+    if (group.length > 0 && blocks[index]) group.push(blocks[index]);
+    return group;
+  }
+
+  function groupFitsCurrentPage(measure: HTMLElement, group: HTMLElement[]) {
+    const before = measure.innerHTML;
+    for (const block of group) measure.appendChild(block.cloneNode(true));
+    const fits = measure.scrollHeight <= measure.clientHeight + 2;
+    measure.innerHTML = before;
+    return fits;
+  }
+
+  function nextBlockIsChapterEnd(blocks: HTMLElement[], index: number) {
+    return Boolean(blocks[index + 1] && isChapterEnd(blocks[index + 1]));
+  }
+
   function splitTextBlock(block: HTMLElement, measure: HTMLElement) {
     if (block.tagName !== "P") return [];
 
@@ -79,11 +112,35 @@ export function useBookPagination({ sourceEl, measureEl, fontLevel }: BookPagina
 
     const nextPages: string[] = [];
 
-    for (const block of blocks) {
+    for (let i = 0; i < blocks.length; i += 1) {
+      const block = blocks[i];
+
+      if (measure.innerHTML && nextBlockIsChapterEnd(blocks, i)) {
+        const group = [block, blocks[i + 1]];
+        if (!groupFitsCurrentPage(measure, group)) {
+          nextPages.push(measure.innerHTML);
+          measure.innerHTML = "";
+        }
+      }
+
+      if (isHeading(block)) {
+        const group = getKeepWithNextGroup(blocks, i);
+        if (measure.innerHTML && group.length > 1 && !groupFitsCurrentPage(measure, group)) {
+          nextPages.push(measure.innerHTML);
+          measure.innerHTML = "";
+        }
+      }
+
       const before = measure.innerHTML;
       measure.appendChild(block.cloneNode(true));
 
       if (measure.scrollHeight <= measure.clientHeight + 2) continue;
+
+      if (isChapterEnd(block) && before) {
+        nextPages.push(measure.innerHTML);
+        measure.innerHTML = "";
+        continue;
+      }
 
       if (before) {
         nextPages.push(before);
