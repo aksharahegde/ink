@@ -54,24 +54,11 @@
 
     <!-- Story content -->
     <div class="max-w-[680px] mx-auto px-4 pt-10 md:pt-14">
-      <div
-        class="reading-prose-wrapper"
-        :data-reading-size="fontLevel"
-      >
-        <ClientOnly>
-          <article
-            v-reading-fade-in
-            class="reading-prose prose prose-lg max-w-none"
-          >
-            <ContentRenderer v-if="story" :value="story" />
-          </article>
-          <template #fallback>
-            <article class="reading-prose prose prose-lg max-w-none">
-              <ContentRenderer v-if="story" :value="story" />
-            </article>
-          </template>
-        </ClientOnly>
-      </div>
+      <StoryReader
+        v-if="story"
+        :story="story"
+        :font-level="fontLevel"
+      />
     </div>
 
     <!-- Reading toolbar -->
@@ -97,6 +84,7 @@
 </template>
 
 <script setup lang="ts">
+import StoryReader from "~/components/reading/StoryReader.vue";
 import { useReadingFontSize } from "~/composables/useReadingFontSize";
 
 const route = useRoute();
