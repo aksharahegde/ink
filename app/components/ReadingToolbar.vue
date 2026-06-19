@@ -44,6 +44,18 @@
     <button
       type="button"
       class="min-h-12 min-w-12 inline-flex items-center justify-center rounded-full transition-opacity hover:opacity-70"
+      :style="{ color: isBookMode ? 'var(--ink-accent)' : 'var(--ink-muted)' }"
+      data-testid="story-bookmode-toggle"
+      :aria-label="isBookMode ? 'Switch to scroll mode' : 'Switch to book mode'"
+      :aria-pressed="isBookMode"
+      @click="toggleMode"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" /><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>
+    </button>
+    <div class="w-px h-5 mx-0.5" :style="{ backgroundColor: 'var(--ink-border)' }" aria-hidden="true" />
+    <button
+      type="button"
+      class="min-h-12 min-w-12 inline-flex items-center justify-center rounded-full transition-opacity hover:opacity-70"
       :style="{ color: 'var(--ink-muted)' }"
       aria-label="Share story"
       @click="onShare"
@@ -62,11 +74,13 @@ const props = defineProps<{
 }>();
 
 const { level: fontLevel, increase, decrease, MIN: minLevel, MAX: maxLevel } = useReadingFontSize();
+const { mode, toggleMode } = useReadingMode();
 const colorMode = useColorMode();
 const isDark = computed({
   get: () => colorMode.value === "dark",
   set: (v: boolean) => { colorMode.preference = v ? "dark" : "light"; },
 });
+const isBookMode = computed(() => mode.value === "book");
 
 async function onShare() {
   try {

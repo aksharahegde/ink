@@ -1,9 +1,12 @@
 <template>
-  <div class="view-transition pb-20">
-    <ReadingProgressBar />
+  <div
+    class="view-transition"
+    :class="isBookMode ? 'book-focus-page' : 'pb-20'"
+  >
+    <ReadingProgressBar v-if="!isBookMode" />
 
     <!-- Story header -->
-    <header class="max-w-[680px] mx-auto px-4 pt-12 md:pt-20">
+    <header v-if="!isBookMode" class="max-w-[680px] mx-auto px-4 pt-12 md:pt-20">
       <!-- Top rule -->
       <hr class="ink-rule mb-8" />
 
@@ -39,7 +42,7 @@
     </header>
 
     <!-- Cover image -->
-    <div v-if="coverImage" class="max-w-3xl mx-auto px-4 mt-10">
+    <div v-if="coverImage && !isBookMode" class="max-w-3xl mx-auto px-4 mt-10">
       <div class="relative aspect-[16/9] overflow-hidden">
         <img
           :src="coverImage"
@@ -53,36 +56,25 @@
     </div>
 
     <!-- Story content -->
-    <div class="max-w-[680px] mx-auto px-4 pt-10 md:pt-14">
-      <div
-        class="reading-prose-wrapper"
-        :data-reading-size="fontLevel"
-      >
-        <ClientOnly>
-          <article
-            v-reading-fade-in
-            class="reading-prose prose prose-lg max-w-none"
-          >
-            <ContentRenderer v-if="story" :value="story" />
-          </article>
-          <template #fallback>
-            <article class="reading-prose prose prose-lg max-w-none">
-              <ContentRenderer v-if="story" :value="story" />
-            </article>
-          </template>
-        </ClientOnly>
-      </div>
+    <div
+      :class="isBookMode ? 'book-focus-content' : 'max-w-[680px] mx-auto px-4 pt-10 md:pt-14'"
+    >
+      <StoryReader
+        v-if="story"
+        :story="story"
+        :font-level="fontLevel"
+      />
     </div>
 
     <!-- Reading toolbar -->
     <ReadingToolbar
-      v-if="story"
+      v-if="story && !isBookMode"
       :share-title="story.title ?? ''"
       :share-url="shareUrl"
     />
 
     <!-- Recommendations -->
-    <div v-if="story" class="max-w-[680px] mx-auto px-4">
+    <div v-if="story && !isBookMode" class="max-w-[680px] mx-auto px-4">
       <StoryRecommendations
         :current-slug="(story.meta?.slug ?? story.slug ?? route.params.slug) as string"
         :stories="allSummaries"
@@ -90,19 +82,22 @@
     </div>
 
     <!-- Not found -->
-    <div v-else class="max-w-[680px] mx-auto px-4 py-16 text-center" style="color: var(--ink-muted);">
+    <div v-if="!story" class="max-w-[680px] mx-auto px-4 py-16 text-center" style="color: var(--ink-muted);">
       Story not found
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import StoryReader from "~/components/reading/StoryReader.vue";
 import { useReadingFontSize } from "~/composables/useReadingFontSize";
 
 const route = useRoute();
 const config = useRuntimeConfig();
 
 const { level: fontLevel } = useReadingFontSize();
+const { mode } = useReadingMode();
+const isBookMode = computed(() => mode.value === "book");
 
 const shareUrl = computed(() => {
   const base = config.public.baseURL ?? "";
