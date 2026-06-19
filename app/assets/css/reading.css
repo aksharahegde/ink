@@ -251,6 +251,7 @@ html.dark .book-cover {
   grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
   min-height: clamp(520px, 68vh, 760px);
   transform-style: preserve-3d;
+  isolation: isolate;
 }
 
 .book-page {
@@ -290,18 +291,21 @@ html.dark .book-cover {
     inset -7px 0 18px rgba(0, 0, 0, 0.12);
 }
 
-.book-page-content {
+.book-page-content,
+.book-turn-face {
   font-size: 0.98rem;
   line-height: 1.78;
 }
 
 .book-mode-reader[data-reading-size="0"] .book-page-content,
+.book-mode-reader[data-reading-size="0"] .book-turn-face,
 .book-mode-reader[data-reading-size="0"] .book-mode-source,
 .book-mode-reader[data-reading-size="0"] .book-page-measure {
   font-size: 0.9rem;
 }
 
 .book-mode-reader[data-reading-size="2"] .book-page-content,
+.book-mode-reader[data-reading-size="2"] .book-turn-face,
 .book-mode-reader[data-reading-size="2"] .book-mode-source,
 .book-mode-reader[data-reading-size="2"] .book-page-measure {
   font-size: 1.08rem;
@@ -320,24 +324,82 @@ html.dark .book-cover {
   font-size: 0.875rem;
 }
 
-.is-flipping-next .book-page-right {
-  animation: book-flip-next 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+.book-turn-sheet {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc((100% - 18px) / 2);
+  transform-style: preserve-3d;
+  z-index: 5;
+  pointer-events: none;
 }
 
-.is-flipping-prev .book-page-left {
-  animation: book-flip-prev 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+.book-turn-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.65), transparent 36%),
+    linear-gradient(90deg, rgba(124, 45, 18, 0.08), transparent 9%),
+    var(--ink-paper);
+  border: 1px solid color-mix(in srgb, var(--ink-border) 80%, transparent);
+  box-shadow:
+    inset 0 0 38px rgba(124, 45, 18, 0.08),
+    0 20px 46px rgba(35, 24, 15, 0.18);
+  backface-visibility: hidden;
 }
 
-@keyframes book-flip-next {
-  0% { transform: rotateY(0deg); filter: brightness(1); }
-  48% { transform: rotateY(-84deg); filter: brightness(0.88); }
-  100% { transform: rotateY(0deg); filter: brightness(1); }
+.book-turn-front {
+  transform: rotateY(0deg);
 }
 
-@keyframes book-flip-prev {
-  0% { transform: rotateY(0deg); filter: brightness(1); }
-  48% { transform: rotateY(84deg); filter: brightness(0.88); }
-  100% { transform: rotateY(0deg); filter: brightness(1); }
+.book-turn-back {
+  transform: rotateY(180deg);
+}
+
+.is-flipping-next .book-turn-sheet {
+  left: calc((100% + 18px) / 2);
+  transform-origin: left center;
+  animation: book-full-flip-next 700ms cubic-bezier(0.18, 0.72, 0.18, 1) both;
+}
+
+.is-flipping-prev .book-turn-sheet {
+  left: 0;
+  transform-origin: right center;
+  animation: book-full-flip-prev 700ms cubic-bezier(0.18, 0.72, 0.18, 1) both;
+}
+
+@keyframes book-full-flip-next {
+  0% {
+    transform: rotateY(0deg);
+    filter: brightness(1);
+  }
+
+  45% {
+    filter: brightness(0.82);
+  }
+
+  100% {
+    transform: rotateY(-180deg);
+    filter: brightness(1);
+  }
+}
+
+@keyframes book-full-flip-prev {
+  0% {
+    transform: rotateY(0deg);
+    filter: brightness(1);
+  }
+
+  45% {
+    filter: brightness(0.82);
+  }
+
+  100% {
+    transform: rotateY(180deg);
+    filter: brightness(1);
+  }
 }
 
 .book-controls {
@@ -397,7 +459,8 @@ html.dark .book-cover {
   }
 
   .book-page,
-  .book-page-measure {
+  .book-page-measure,
+  .book-turn-face {
     min-height: clamp(500px, 68vh, 680px);
     height: clamp(500px, 68vh, 680px);
     padding: 1.35rem;
@@ -411,6 +474,15 @@ html.dark .book-cover {
     border-radius: 10px;
   }
 
+  .book-turn-sheet {
+    width: 100%;
+  }
+
+  .is-flipping-next .book-turn-sheet,
+  .is-flipping-prev .book-turn-sheet {
+    left: 0;
+  }
+
   .book-controls {
     gap: 0.6rem;
   }
@@ -421,8 +493,8 @@ html.dark .book-cover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-flipping-next .book-page-right,
-  .is-flipping-prev .book-page-left {
+  .is-flipping-next .book-turn-sheet,
+  .is-flipping-prev .book-turn-sheet {
     animation: none;
   }
 

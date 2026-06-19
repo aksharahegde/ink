@@ -54,6 +54,22 @@
           />
           <div v-else class="book-page-empty" />
         </article>
+
+        <div
+          v-if="flipDirection && turnFrontPage"
+          class="book-turn-sheet"
+          aria-hidden="true"
+          @animationend="finishFlip"
+        >
+          <div
+            class="book-turn-face book-turn-front reading-prose prose prose-lg max-w-none"
+            v-html="turnFrontPage"
+          />
+          <div
+            class="book-turn-face book-turn-back reading-prose prose prose-lg max-w-none"
+            v-html="turnBackPage"
+          />
+        </div>
       </div>
     </div>
 
@@ -99,6 +115,9 @@ const currentPage = ref(0);
 const isSinglePage = ref(false);
 const flipDirection = ref<"next" | "prev" | null>(null);
 const prefersReducedMotion = ref(false);
+const turnFrontPage = ref("");
+const turnBackPage = ref("");
+const pendingPage = ref<number | null>(null);
 const { playFlip } = usePageFlipAudio();
 const { pages, pageCount, isPaginating, schedulePagination } = useBookPagination({
   sourceEl,
@@ -113,10 +132,15 @@ let flipTimer: ReturnType<typeof setTimeout> | undefined;
 
 const step = computed(() => isSinglePage.value ? 1 : 2);
 const spreadStart = computed(() => isSinglePage.value ? currentPage.value : Math.floor(currentPage.value / 2) * 2);
-const leftPage = computed(() => pages.value[spreadStart.value]);
-const rightPage = computed(() => pages.value[spreadStart.value + 1]);
-const canGoPrev = computed(() => spreadStart.value > 0);
-const canGoNext = computed(() => spreadStart.value + step.value < pageCount.value);
+const displayedPage = computed(() => pendingPage.value ?? currentPage.value);
+const displayedSpreadStart = computed(() =>
+  isSinglePage.value ? displayedPage.value : Math.floor(displayedPage.value / 2) * 2
+);
+const leftPage = computed(() => pages.value[displayedSpreadStart.value]);
+const rightPage = computed(() => pages.value[displayedSpreadStart.value + 1]);
+const isFlipping = computed(() => flipDirection.value !== null);
+const canGoPrev = computed(() => !isFlipping.value && spreadStart.value > 0);
+const canGoNext = computed(() => !isFlipping.value && spreadStart.value + step.value < pageCount.value);
 
 const pageLabel = computed(() => {
   if (isPaginating.value || pageCount.value === 0) return "Preparing pages";
@@ -138,13 +162,39 @@ function clampCurrentPage() {
   if (!isSinglePage.value) currentPage.value = Math.floor(currentPage.value / 2) * 2;
 }
 
-function setFlip(direction: "next" | "prev") {
-  if (prefersReducedMotion.value) return;
-  flipDirection.value = direction;
+function finishFlip() {
   clearTimeout(flipTimer);
-  flipTimer = setTimeout(() => {
-    flipDirection.value = null;
-  }, 520);
+
+  if (pendingPage.value !== null) {
+    currentPage.value = pendingPage.value;
+    pendingPage.value = null;
+    clampCurrentPage();
+  }
+
+  flipDirection.value = null;
+  turnFrontPage.value = "";
+  turnBackPage.value = "";
+}
+
+function setFlip(direction: "next" | "prev", nextPage: number) {
+  if (prefersReducedMotion.value) {
+    currentPage.value = nextPage;
+    clampCurrentPage();
+    return;
+  }
+
+  const nextSpreadStart = isSinglePage.value ? nextPage : Math.floor(nextPage / 2) * 2;
+  flipDirection.value = direction;
+  pendingPage.value = nextPage;
+  turnFrontPage.value = direction === "next"
+    ? pages.value[spreadStart.value + (isSinglePage.value ? 0 : 1)] ?? ""
+    : pages.value[spreadStart.value] ?? "";
+  turnBackPage.value = direction === "next"
+    ? pages.value[nextSpreadStart] ?? ""
+    : pages.value[nextSpreadStart + (isSinglePage.value ? 0 : 1)] ?? pages.value[nextSpreadStart] ?? "";
+
+  clearTimeout(flipTimer);
+  flipTimer = setTimeout(finishFlip, 900);
 }
 
 async function turnPage(direction: "next" | "prev") {
@@ -154,9 +204,7 @@ async function turnPage(direction: "next" | "prev") {
 
   if (nextPage === currentPage.value) return;
 
-  currentPage.value = nextPage;
-  clampCurrentPage();
-  setFlip(direction);
+  setFlip(direction, nextPage);
   await playFlip();
 }
 
