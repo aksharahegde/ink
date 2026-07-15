@@ -29,8 +29,6 @@
 import type { BookshelfStory } from "~/types/bookshelf";
 
 const COVER_WIDTH = 128;
-const SPINE_BASE = 52;
-const SPINE_VARIANCE = 26;
 const BOOK_GAP = 10;
 const BAY_PAD = 40;
 
@@ -50,42 +48,19 @@ const authorSlug = computed(() =>
     .replace(/^-|-$/g, "") || "author"
 );
 
-function hashString(value: string) {
-  let hash = 0;
-  for (let i = 0; i < value.length; i += 1) {
-    hash = (hash << 5) - hash + value.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
-function storyWidth(story: BookshelfStory) {
-  const cover = story.meta?.cover ?? story.cover;
-  if (cover) return COVER_WIDTH;
-  const seed = story.meta?.slug ?? story.slug ?? story.title;
-  return SPINE_BASE + (hashString(seed) % SPINE_VARIANCE);
-}
-
+// Books are now a uniform cover width, so rows are a simple fixed-size chunk of
+// however many covers fit across the measured shelf width.
 const storyRows = computed(() => {
   const available = Math.max(shelfWidth.value - BAY_PAD, COVER_WIDTH);
+  const columns = Math.max(
+    1,
+    Math.floor((available + BOOK_GAP) / (COVER_WIDTH + BOOK_GAP))
+  );
+
   const rows: BookshelfStory[][] = [];
-  let current: BookshelfStory[] = [];
-  let used = 0;
-
-  for (const story of props.stories) {
-    const width = storyWidth(story);
-    const next = current.length === 0 ? width : used + BOOK_GAP + width;
-    if (current.length > 0 && next > available) {
-      rows.push(current);
-      current = [story];
-      used = width;
-      continue;
-    }
-    current.push(story);
-    used = next;
+  for (let i = 0; i < props.stories.length; i += columns) {
+    rows.push(props.stories.slice(i, i + columns));
   }
-
-  if (current.length > 0) rows.push(current);
   return rows;
 });
 

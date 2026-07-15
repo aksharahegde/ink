@@ -1,8 +1,8 @@
 <template>
   <NuxtLink
     :to="`/stories/${slug}`"
-    class="bookshelf-book"
-    :class="hasCover ? 'bookshelf-book--cover' : 'bookshelf-book--spine'"
+    class="bookshelf-book bookshelf-book--cover"
+    :class="{ 'bookshelf-book--placeholder': !hasCover }"
     :style="bookStyle"
     :data-testid="`stories-book-row-${slug}`"
     :aria-label="story.title"
@@ -19,7 +19,8 @@
       </span>
     </template>
     <template v-else>
-      <span class="bookshelf-book-spine-title font-serif">
+      <span class="bookshelf-book-plate-rule" aria-hidden="true" />
+      <span class="bookshelf-book-plate-title font-serif">
         {{ story.title }}
       </span>
     </template>
@@ -29,15 +30,17 @@
 <script setup lang="ts">
 import type { BookshelfStory } from "~/types/bookshelf";
 
-const SPINE_PALETTE = [
-  { bg: "#3f2a1f", text: "#f3e6d4" },
-  { bg: "#5c2e1f", text: "#f6ece0" },
-  { bg: "#2f3a2c", text: "#e8ecdf" },
-  { bg: "#1f2f3a", text: "#e4ecf2" },
-  { bg: "#4a3b28", text: "#f0e6d4" },
-  { bg: "#6b3a2a", text: "#f7ebe1" },
-  { bg: "#2a3338", text: "#e8eef1" },
-  { bg: "#513c2a", text: "#f4ebdf" },
+// Muted parchment tints for generated covers. Paired paper background + ink
+// foreground, kept low-saturation to sit calmly on the shelf.
+const PLATE_PALETTE = [
+  { bg: "#efe7d6", text: "#3a2f24" },
+  { bg: "#e7ddca", text: "#3d3326" },
+  { bg: "#e2e6dc", text: "#31382e" },
+  { bg: "#dde4e6", text: "#2c363a" },
+  { bg: "#ece3d2", text: "#413524" },
+  { bg: "#e8ded6", text: "#3b3029" },
+  { bg: "#dfe2df", text: "#303733" },
+  { bg: "#eae2d3", text: "#3a3122" },
 ] as const;
 
 const props = defineProps<{
@@ -65,12 +68,7 @@ function hashString(value: string) {
 
 const palette = computed(() => {
   const seed = slug.value || props.story.title;
-  return SPINE_PALETTE[hashString(seed) % SPINE_PALETTE.length] ?? SPINE_PALETTE[0];
-});
-
-const spineWidth = computed(() => {
-  const seed = slug.value || props.story.title;
-  return 52 + (hashString(seed) % 26);
+  return PLATE_PALETTE[hashString(seed) % PLATE_PALETTE.length] ?? PLATE_PALETTE[0];
 });
 
 const bookStyle = computed(() => {
@@ -84,7 +82,6 @@ const bookStyle = computed(() => {
   return {
     "--book-bg": palette.value.bg,
     "--book-fg": palette.value.text,
-    "--book-spine-width": `${spineWidth.value}px`,
   };
 });
 </script>
