@@ -1,5 +1,5 @@
 <template>
-  <div class="story-reader">
+  <div class="story-reader" :class="{ 'story-reader--book': mode === 'book' }">
     <ClientOnly v-if="mode === 'book'">
       <BookModeReader
         v-if="story"
