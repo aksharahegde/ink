@@ -183,6 +183,10 @@ html.dark .reading-prose hr {
   overflow: hidden;
 }
 
+.book-focus-shell > div {
+  height: 100%;
+}
+
 .book-focus-page {
   height: 100svh;
   min-height: 100svh;
@@ -191,33 +195,36 @@ html.dark .reading-prose hr {
 }
 
 .book-focus-content {
+  position: relative;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 100%;
   height: 100svh;
-  padding: clamp(0.75rem, 2vw, 1.5rem);
+  padding: 0;
 }
 
 .book-focus-content > .story-reader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  display: block;
   width: 100%;
   height: 100%;
 }
 
-.book-mode-reader {
-  --book-page-height: min(760px, calc(100svh - 8.5rem));
-
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: clamp(0.75rem, 2vh, 1.25rem);
-  width: min(96vw, 1180px);
+.story-reader--book {
   height: 100%;
-  margin: 0 auto;
+  min-height: 100svh;
+}
+
+.book-mode-reader {
+  --book-page-height: 100svh;
+  --book-page-width: calc((100vw - 18px) / 2);
+
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   outline: none;
 }
 
@@ -238,10 +245,13 @@ html.dark .reading-prose hr {
   color: var(--ink-text);
   box-shadow: 0 14px 32px rgba(35, 24, 15, 0.14);
   backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
   transition:
     border-color 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .book-focus-exit:hover {
@@ -250,11 +260,33 @@ html.dark .reading-prose hr {
   transform: translateY(-1px);
 }
 
+.book-mode-reader:hover .book-focus-exit,
+.book-mode-reader:hover .book-controls,
+.book-mode-reader.is-controls-visible .book-focus-exit,
+.book-mode-reader.is-controls-visible .book-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .book-mode-reader:hover .book-focus-exit,
+  .book-mode-reader:hover .book-controls {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .book-mode-reader.is-controls-visible .book-focus-exit,
+  .book-mode-reader.is-controls-visible .book-controls {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 .book-mode-source {
   position: fixed;
   top: 0;
   left: -200vw;
-  width: min(42vw, 470px);
+  width: var(--book-page-width);
   height: auto;
   visibility: hidden;
   pointer-events: none;
@@ -264,7 +296,7 @@ html.dark .reading-prose hr {
   position: fixed;
   top: 0;
   left: -200vw;
-  width: min(42vw, 470px);
+  width: var(--book-page-width);
   height: var(--book-page-height);
   visibility: hidden;
   pointer-events: none;
@@ -272,37 +304,42 @@ html.dark .reading-prose hr {
 }
 
 .book-stage {
-  position: relative;
+  position: absolute;
+  inset: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: stretch;
   width: 100%;
-  min-height: 0;
-  padding: clamp(0.75rem, 2vw, 1.5rem);
+  height: 100%;
+  min-height: 100%;
+  padding: 0;
   perspective: 1800px;
+  touch-action: none;
 }
 
 .book-cover {
   position: absolute;
-  inset: clamp(0.35rem, 1vw, 0.8rem);
-  border-radius: 18px 24px 24px 18px;
+  inset: 0;
+  z-index: 0;
+  border-radius: 0;
   background:
     linear-gradient(90deg, rgba(56, 28, 12, 0.42), transparent 8%, transparent 92%, rgba(36, 18, 8, 0.38)),
     linear-gradient(135deg, #5f2415, #2f1711 55%, #1f120f);
-  box-shadow: 0 34px 80px rgba(35, 24, 15, 0.32);
-  transform: rotateX(2deg);
+  box-shadow: none;
+  transform: none;
 }
 
 html.dark .book-cover {
-  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.5);
+  box-shadow: none;
 }
 
 .book-spread {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
   width: 100%;
-  height: var(--book-page-height);
+  height: 100%;
   min-height: 0;
   transform-style: preserve-3d;
   isolation: isolate;
@@ -313,7 +350,7 @@ html.dark .book-cover {
   overflow: hidden;
   height: 100%;
   min-height: 0;
-  padding: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(1.75rem, 3.5vw, 3.5rem);
   background:
     radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.65), transparent 36%),
     linear-gradient(90deg, rgba(124, 45, 18, 0.08), transparent 9%),
@@ -327,12 +364,12 @@ html.dark .book-cover {
 }
 
 .book-page-left {
-  border-radius: 10px 3px 3px 10px;
+  border-radius: 0;
   transform-origin: right center;
 }
 
 .book-page-right {
-  border-radius: 3px 10px 10px 3px;
+  border-radius: 0;
   transform-origin: left center;
   background:
     radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.62), transparent 36%),
@@ -462,20 +499,39 @@ html.dark .book-cover {
 }
 
 .book-controls {
+  position: fixed;
+  left: 50%;
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 0;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--ink-border);
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--ink-paper) 92%, transparent);
   color: var(--ink-muted);
+  box-shadow: 0 14px 32px rgba(35, 24, 15, 0.14);
+  backdrop-filter: blur(10px);
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 
 .book-control {
-  min-height: 2.75rem;
-  padding: 0 1rem;
-  border: 1px solid var(--ink-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0;
+  border: 1px solid transparent;
   border-radius: 9999px;
-  background: var(--ink-paper);
+  background: transparent;
   color: var(--ink-text);
   transition:
     border-color 0.2s ease,
@@ -499,33 +555,22 @@ html.dark .book-cover {
   min-width: 8.5rem;
   text-align: center;
   font-size: 0.875rem;
+  white-space: nowrap;
 }
 
 @media (max-width: 767px) {
-  .book-focus-content {
-    padding: 0.75rem;
-  }
-
-  .book-mode-reader,
-  .book-mode-source,
-  .book-page-measure {
-    --book-page-height: min(680px, calc(100svh - 8rem));
-
-    width: min(92vw, 430px);
-  }
-
-  .book-stage {
-    padding: 3.75rem 0 0;
+  .book-mode-reader {
+    --book-page-width: 100vw;
   }
 
   .book-focus-exit {
-    top: 0.75rem;
+    top: max(0.75rem, env(safe-area-inset-top, 0px));
     right: 0.75rem;
   }
 
   .book-spread {
     grid-template-columns: minmax(0, 1fr);
-    height: var(--book-page-height);
+    height: 100%;
     min-height: 0;
   }
 
@@ -534,7 +579,7 @@ html.dark .book-cover {
   .book-turn-face {
     height: var(--book-page-height);
     min-height: 0;
-    padding: 1.35rem;
+    padding: 1.5rem 1.25rem;
   }
 
   .book-mode-reader .book-page-measure {
@@ -546,7 +591,7 @@ html.dark .book-cover {
   }
 
   .book-page-left {
-    border-radius: 10px;
+    border-radius: 0;
   }
 
   .book-turn-sheet {
@@ -559,11 +604,12 @@ html.dark .book-cover {
   }
 
   .book-controls {
-    gap: 0.6rem;
+    gap: 0.5rem;
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
   }
 
   .book-page-count {
-    min-width: 6rem;
+    min-width: 6.5rem;
   }
 }
 
@@ -577,7 +623,8 @@ html.dark .book-cover {
     transition: none;
   }
 
-  .book-focus-exit {
+  .book-focus-exit,
+  .book-controls {
     transition: none;
   }
 }
