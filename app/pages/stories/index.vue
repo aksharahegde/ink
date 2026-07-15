@@ -15,6 +15,7 @@
 
     <!-- Author filter -->
     <div
+      v-if="!isBookMode"
       class="flex flex-wrap items-center justify-center gap-2 mb-6"
       data-testid="stories-author-filter"
     >
@@ -40,32 +41,43 @@
 
     <hr class="ink-rule-thick mb-10" />
 
+    <StoryBookshelf
+      v-if="isBookMode"
+      :groups="groupsByAuthor"
+    />
+
     <!-- Stories grouped by author -->
-    <section
-      v-for="group in filteredGroupsByAuthor"
-      :key="group.author"
-      class="mb-14"
-    >
-      <h2
-        class="font-serif text-xl font-bold pb-2 border-b-2 mb-0"
-        :style="{ color: 'var(--ink-text)', borderColor: 'var(--ink-text)' }"
+    <template v-else>
+      <section
+        v-for="group in filteredGroupsByAuthor"
+        :key="group.author"
+        class="mb-14"
       >
-        {{ group.author }}
-      </h2>
-      <div>
-        <StoryPosterCard
-          v-for="(story, index) in group.stories"
-          :key="story.meta?.slug ?? story.slug ?? index"
-          :story="story"
-        />
-      </div>
-    </section>
+        <h2
+          class="font-serif text-xl font-bold pb-2 border-b-2 mb-0"
+          :style="{ color: 'var(--ink-text)', borderColor: 'var(--ink-text)' }"
+        >
+          {{ group.author }}
+        </h2>
+        <div>
+          <StoryPosterCard
+            v-for="(story, index) in group.stories"
+            :key="story.meta?.slug ?? story.slug ?? index"
+            :story="story"
+          />
+        </div>
+      </section>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { BookshelfStory } from "~/types/bookshelf";
+
 const config = useRuntimeConfig();
 const defaultAuthor = config.public.ownerName ?? "Unknown";
+const { mode } = useReadingMode();
+const isBookMode = computed(() => mode.value === "book");
 
 const selectedAuthor = ref<string | null>(null);
 
@@ -99,11 +111,11 @@ const groupsByAuthor = computed(() => {
   const withAuthor = list.map((s) => {
     const slug = getSlug(s);
     const author = slugToAuthor.value[slug] ?? defaultAuthor;
-    return { ...s, _author: author };
+    return { ...s, _author: author } as BookshelfStory & { _author: string };
   });
-  const byAuthor: Record<string, typeof withAuthor> = {};
+  const byAuthor: Record<string, BookshelfStory[]> = {};
   for (const item of withAuthor) {
-    const a = (item as { _author: string })._author;
+    const a = item._author;
     if (!byAuthor[a]) byAuthor[a] = [];
     byAuthor[a].push(item);
   }
@@ -114,7 +126,7 @@ const groupsByAuthor = computed(() => {
 
 const authorList = computed(() => groupsByAuthor.value.map((g) => g.author));
 
-type GroupItem = { author: string; stories: unknown[] };
+type GroupItem = { author: string; stories: BookshelfStory[] };
 const filteredGroupsByAuthor = ref<GroupItem[]>([]);
 watchEffect(() => {
   const groups = groupsByAuthor.value;
