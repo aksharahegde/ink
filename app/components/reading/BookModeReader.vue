@@ -2,9 +2,12 @@
   <section
     ref="readerRoot"
     class="book-mode-reader"
+    :class="{ 'is-controls-visible': isControlsVisible }"
     :data-reading-size="fontLevel"
     tabindex="0"
     aria-label="Book mode reader"
+    @mouseenter="onReaderMouseEnter"
+    @mouseleave="onReaderMouseLeave"
   >
     <div
       ref="sourceEl"
@@ -25,7 +28,7 @@
       class="book-focus-exit"
       data-testid="story-bookmode-toggle"
       aria-label="Switch to normal mode"
-      @click="setMode('scroll')"
+      @click="exitBookMode"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +56,10 @@
         'is-flipping-next': flipDirection === 'next',
         'is-flipping-prev': flipDirection === 'prev',
       }"
+      @pointerdown="onPointerDown"
+      @pointermove="onPointerMove"
+      @pointerup="onPointerUp"
+      @pointercancel="onPointerCancel"
     >
       <div class="book-cover" aria-hidden="true" />
       <div class="book-spread">
@@ -108,7 +115,20 @@
         aria-label="Previous page"
         @click="goPrev"
       >
-        Previous
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
       </button>
       <span class="book-page-count" aria-live="polite">
         {{ pageLabel }}
@@ -121,7 +141,20 @@
         aria-label="Next page"
         @click="goNext"
       >
-        Next
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
       </button>
     </div>
   </section>
@@ -132,6 +165,11 @@ const props = defineProps<{
   story: Record<string, unknown>;
   fontLevel: number;
 }>();
+
+const SWIPE_THRESHOLD = 50;
+const LONG_PRESS_MS = 450;
+const LONG_PRESS_SLOP = 10;
+const CONTROLS_HIDE_MS = 3000;
 
 const readerRoot = ref<HTMLElement | null>(null);
 const sourceEl = ref<HTMLElement | null>(null);
@@ -144,6 +182,7 @@ const prefersReducedMotion = ref(false);
 const turnFrontPage = ref("");
 const turnBackPage = ref("");
 const pendingPage = ref<number | null>(null);
+const isControlsVisible = ref(false);
 const { setMode } = useReadingMode();
 const { playFlip } = usePageFlipAudio();
 const { pages, pageCount, isPaginating, schedulePagination } = useBookPagination({
@@ -156,6 +195,14 @@ let mutationObserver: MutationObserver | undefined;
 let mediaQuery: MediaQueryList | undefined;
 let reducedMotionQuery: MediaQueryList | undefined;
 let flipTimer: ReturnType<typeof setTimeout> | undefined;
+let longPressTimer: ReturnType<typeof setTimeout> | undefined;
+let controlsHideTimer: ReturnType<typeof setTimeout> | undefined;
+let pointerId: number | null = null;
+let pointerStartX = 0;
+let pointerStartY = 0;
+let pointerMoved = false;
+let longPressTriggered = false;
+let isCoarsePointer = false;
 
 const step = computed(() => isSinglePage.value ? 1 : 2);
 const spreadStart = computed(() => isSinglePage.value ? currentPage.value : Math.floor(currentPage.value / 2) * 2);
@@ -236,14 +283,52 @@ async function turnPage(direction: "next" | "prev") {
 }
 
 function goNext() {
+  if (isCoarsePointer && isControlsVisible.value) scheduleControlsHide();
   void turnPage("next");
 }
 
 function goPrev() {
+  if (isCoarsePointer && isControlsVisible.value) scheduleControlsHide();
   void turnPage("prev");
 }
 
+function clearControlsHideTimer() {
+  clearTimeout(controlsHideTimer);
+  controlsHideTimer = undefined;
+}
+
+function scheduleControlsHide() {
+  clearControlsHideTimer();
+  if (!isCoarsePointer) return;
+  controlsHideTimer = setTimeout(() => {
+    isControlsVisible.value = false;
+  }, CONTROLS_HIDE_MS);
+}
+
+function showControls() {
+  isControlsVisible.value = true;
+  scheduleControlsHide();
+}
+
+function hideControls() {
+  clearControlsHideTimer();
+  isControlsVisible.value = false;
+}
+
+function exitBookMode() {
+  hideControls();
+  setMode("scroll");
+}
+
+function isTypingTarget(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target.isContentEditable;
+}
+
 function onKeydown(event: KeyboardEvent) {
+  if (isTypingTarget(event.target)) return;
+
   if (event.key === "ArrowRight") {
     event.preventDefault();
     goNext();
@@ -255,9 +340,89 @@ function onKeydown(event: KeyboardEvent) {
   }
 }
 
+function onReaderMouseEnter() {
+  if (isCoarsePointer) return;
+  isControlsVisible.value = true;
+}
+
+function onReaderMouseLeave() {
+  if (isCoarsePointer) return;
+  isControlsVisible.value = false;
+}
+
+function clearLongPressTimer() {
+  clearTimeout(longPressTimer);
+  longPressTimer = undefined;
+}
+
+function onPointerDown(event: PointerEvent) {
+  if (event.pointerType === "mouse" && event.button !== 0) return;
+
+  pointerId = event.pointerId;
+  pointerStartX = event.clientX;
+  pointerStartY = event.clientY;
+  pointerMoved = false;
+  longPressTriggered = false;
+  clearLongPressTimer();
+
+  if (event.pointerType !== "mouse") {
+    longPressTimer = setTimeout(() => {
+      longPressTriggered = true;
+      showControls();
+    }, LONG_PRESS_MS);
+  }
+
+  (event.currentTarget as HTMLElement | null)?.setPointerCapture?.(event.pointerId);
+}
+
+function onPointerMove(event: PointerEvent) {
+  if (pointerId === null || event.pointerId !== pointerId) return;
+
+  const dx = event.clientX - pointerStartX;
+  const dy = event.clientY - pointerStartY;
+
+  if (Math.abs(dx) > LONG_PRESS_SLOP || Math.abs(dy) > LONG_PRESS_SLOP) {
+    pointerMoved = true;
+    clearLongPressTimer();
+  }
+}
+
+function onPointerUp(event: PointerEvent) {
+  if (pointerId === null || event.pointerId !== pointerId) return;
+
+  const dx = event.clientX - pointerStartX;
+  const dy = event.clientY - pointerStartY;
+  clearLongPressTimer();
+
+  if (longPressTriggered) {
+    pointerId = null;
+    return;
+  }
+
+  if (Math.abs(dx) >= SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+    if (isControlsVisible.value && isCoarsePointer) hideControls();
+    if (dx < 0) goNext();
+    else goPrev();
+  } else if (!pointerMoved && isCoarsePointer && isControlsVisible.value) {
+    const target = event.target;
+    if (target instanceof Element && !target.closest(".book-controls, .book-focus-exit")) {
+      hideControls();
+    }
+  }
+
+  pointerId = null;
+}
+
+function onPointerCancel(event: PointerEvent) {
+  if (pointerId === null || event.pointerId !== pointerId) return;
+  clearLongPressTimer();
+  pointerId = null;
+}
+
 function updateMediaState() {
   isSinglePage.value = mediaQuery?.matches ?? false;
   prefersReducedMotion.value = reducedMotionQuery?.matches ?? false;
+  isCoarsePointer = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   clampCurrentPage();
   schedulePagination();
 }
@@ -278,7 +443,7 @@ onMounted(() => {
   reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   mediaQuery.addEventListener("change", updateMediaState);
   reducedMotionQuery.addEventListener("change", updateMediaState);
-  readerRoot.value?.addEventListener("keydown", onKeydown);
+  window.addEventListener("keydown", onKeydown);
   observeRenderedContent();
   updateMediaState();
 });
@@ -287,8 +452,10 @@ onBeforeUnmount(() => {
   mutationObserver?.disconnect();
   mediaQuery?.removeEventListener("change", updateMediaState);
   reducedMotionQuery?.removeEventListener("change", updateMediaState);
-  readerRoot.value?.removeEventListener("keydown", onKeydown);
+  window.removeEventListener("keydown", onKeydown);
   clearTimeout(flipTimer);
+  clearLongPressTimer();
+  clearControlsHideTimer();
 });
 
 watch([pageCount, isSinglePage], clampCurrentPage);
