@@ -33,6 +33,6 @@
     "@resvg/resvg-js": "^2.6.2",
     "satori": "0.28.0",
     "unenv": "^2.0.0-rc.24",
-    "wrangler": "4.111.0"
+    "wrangler": "4.112.0"
   }
 }
