@@ -179,7 +179,20 @@ const galleryStories = computed(() => stories.value ?? []);
 
 const featuredStory = computed(() => {
   const list = stories.value ?? [];
-  return list.length > 0 ? list[0] : null;
+  const getFeatured = (s: (typeof list)[number]) =>
+    (s as { featured?: boolean; meta?: { featured?: boolean } }).featured
+    ?? (s as { meta?: { featured?: boolean } }).meta?.featured;
+  const getDate = (s: (typeof list)[number]) =>
+    (s as { date?: string; meta?: { date?: string } }).date
+    ?? (s as { meta?: { date?: string } }).meta?.date
+    ?? "";
+
+  const featured = list.filter(getFeatured);
+  if (featured.length > 0) {
+    return [...featured].sort((a, b) => getDate(b).localeCompare(getDate(a)))[0];
+  }
+
+  return [...list].sort((a, b) => getDate(b).localeCompare(getDate(a)))[0] ?? null;
 });
 
 const mostRead = computed(() => {

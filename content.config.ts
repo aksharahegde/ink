@@ -46,6 +46,7 @@ export const collections = {
       category: z.string().optional(),
       readingTime: z.string().optional(),
       date: z.string().optional(),
+      featured: z.boolean().optional(),
       ...seoFields,
     }),
   }),
