@@ -93,6 +93,33 @@ STORY_CONFIG: dict[str, dict] = {
         },
         "divider_images": {"image4.png", "image6.png"},
     },
+    "aralagodina-appemidi": {
+        "title": "ಅರಳಗೋಡಿನ ಅಪ್ಪೆಮಿಡಿ",
+        "description": (
+            "ಸಾಗರ ತಾಲೂಕಿನ ಅರಳಗೋಡು ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ನಿಂತಿರುವ 120 ವರ್ಷದ "
+            "ಜೀರಿಗೆ ಅಪ್ಪೆಮಿಡಿ ಮರವೊಂದು, ಎರಡು ನೆರೆಹೊರೆಯವರ ಹಳೆಯ ದ್ವೇಷ ಮತ್ತು "
+            "ಅದನ್ನು ಕಡಿಯಲು ಬಯಸುವ ಕೆಪಿಸಿಎಲ್ ವಿದ್ಯುತ್ ಮಾರ್ಗ ಯೋಜನೆಯ ನಡುವೆ "
+            "ಸಿಲುಕುತ್ತದೆ — ಕೊನೆಗೆ ಮರದ ಬುಡದಲ್ಲಿ ಹೂತಿದ್ದ 1961ರ ಹಳೆಯ "
+            "ಭೂಸ್ವಾಧೀನ ದಾಖಲೆಯೇ ಅದನ್ನು ಉಳಿಸುತ್ತದೆ."
+        ),
+        "author": "Arun Hegde",
+        "summary_teaser": (
+            "ಶರಾವತಿ ಕಣಿವೆಯ ಅರಳಗೋಡು ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ನೂರಿಪ್ಪತ್ತು ವರ್ಷ ಹಳೆಯ "
+            "ಜೀರಿಗೆ ಅಪ್ಪೆಮಿಡಿ ಮರವೊಂದಿದೆ — ಅದರ ಎರಡೂ ಬದಿಗಳಲ್ಲಿ ಜಮೀನು ಹೊಂದಿರುವ "
+            "ರೈತ ಶಂಕರ ಭಟ್ಟ ಮತ್ತು ಅಂಗಡಿ ಮಂಜಪ್ಪ ಇಬ್ಬರ ನಡುವೆ ಹಳೆಯ ವೈಷಮ್ಯವಿದೆ. "
+            "ಈ ನಡುವೆ ಕೆಪಿಸಿಎಲ್ ಎಂಜಿನಿಯರ್ ವಿದ್ಯುತ್ ಮಾರ್ಗಕ್ಕಾಗಿ ಮರವನ್ನೇ "
+            "ಕಡಿಯಲು ಬಯಸಿದಾಗ ವಿವಾದ ಸಾಗರದ ಕೋರ್ಟ್ ಮೆಟ್ಟಿಲೇರುತ್ತದೆ. ಕೊನೆಗೆ ಮರದ "
+            "ಬುಡದಲ್ಲೇ ಹೂತಿದ್ದ 1961ರ ಸರ್ವೆ ಕಲ್ಲು ಮತ್ತು ಭೂಸ್ವಾಧೀನ ದಾಖಲೆ "
+            "(SVHE-1961) ಬಹಿರಂಗವಾಗಿ, ಮರ ಸರ್ಕಾರಿ ಮುಳುಗಡೆ ಭೂಮಿಯಿಂದ ಖಾಸಗಿಯಾಗಿ "
+            "ಹೊರಗಿಡಲಾಗಿತ್ತೆಂದು ಸಾಬೀತಾಗಿ, ಮರ ಉಳಿಯುತ್ತದೆ."
+        ),
+        "reading_time": "35 min read",
+        "date": "2026-09-20",
+        "featured": True,
+        "image_map": {},
+        "skip_images": set(),
+        "divider_images": set(),
+    },
 }
 
 
@@ -104,7 +131,62 @@ def load_relationships(docx: zipfile.ZipFile) -> dict[str, str]:
     }
 
 
-def run_to_markdown(run: ET.Element) -> str:
+def paragraph_style(paragraph: ET.Element) -> str | None:
+    p_pr = paragraph.find(f"{W}pPr")
+    if p_pr is None:
+        return None
+    p_style = p_pr.find(f"{W}pStyle")
+    if p_style is None:
+        return None
+    return p_style.get(f"{W}val")
+
+
+def paragraph_justification(paragraph: ET.Element) -> str | None:
+    p_pr = paragraph.find(f"{W}pPr")
+    if p_pr is None:
+        return None
+    jc = p_pr.find(f"{W}jc")
+    if jc is None:
+        return None
+    return jc.get(f"{W}val")
+
+
+def paragraph_raw_text(paragraph: ET.Element) -> str:
+    """Preserve exact whitespace for code/exhibit paragraphs (no collapsing)."""
+    parts: list[str] = []
+    for child in paragraph:
+        if child.tag == f"{W}r":
+            for run_child in child:
+                if run_child.tag == f"{W}t":
+                    parts.append(run_child.text or "")
+                elif run_child.tag == f"{W}br":
+                    parts.append("\n")
+                elif run_child.tag == f"{W}tab":
+                    parts.append("\t")
+        elif child.tag == f"{W}hyperlink":
+            for run in child.findall(f"{W}r"):
+                for run_child in run:
+                    if run_child.tag == f"{W}t":
+                        parts.append(run_child.text or "")
+                    elif run_child.tag == f"{W}br":
+                        parts.append("\n")
+                    elif run_child.tag == f"{W}tab":
+                        parts.append("\t")
+    return "".join(parts)
+
+
+def run_emphasis(run: ET.Element) -> str | None:
+    r_pr = run.find(f"{W}rPr")
+    if r_pr is None:
+        return None
+    if r_pr.find(f"{W}i") is not None:
+        return "i"
+    if r_pr.find(f"{W}b") is not None:
+        return "b"
+    return None
+
+
+def run_raw_text(run: ET.Element) -> str:
     parts: list[str] = []
     for child in run:
         if child.tag == f"{W}t":
@@ -113,33 +195,51 @@ def run_to_markdown(run: ET.Element) -> str:
             parts.append("\n")
         elif child.tag == f"{W}tab":
             parts.append(" ")
-
-    text = "".join(parts)
-    if not text:
-        return ""
-
-    r_pr = run.find(f"{W}rPr")
-    # Soft line breaks: keep plain (emphasis wraps whole run poorly)
-    if "\n" in text:
-        return text
-
-    if r_pr is not None:
-        if r_pr.find(f"{W}i") is not None:
-            return f"*{text}*"
-        if r_pr.find(f"{W}b") is not None:
-            return f"**{text}**"
-
-    return text
+    return "".join(parts)
 
 
 def paragraph_to_markdown(paragraph: ET.Element) -> str:
-    parts: list[str] = []
+    # (text, emphasis) per run, gathered before wrapping so adjacent runs
+    # sharing the same emphasis (e.g. split by spell-check proofErr markers)
+    # merge into one span instead of each getting its own *…* markers,
+    # which otherwise mangles into invalid nested markers like "**a* *b**".
+    runs: list[ET.Element] = []
     for child in paragraph:
         if child.tag == f"{W}r":
-            parts.append(run_to_markdown(child))
+            runs.append(child)
         elif child.tag == f"{W}hyperlink":
-            for run in child.findall(f"{W}r"):
-                parts.append(run_to_markdown(run))
+            runs.extend(child.findall(f"{W}r"))
+
+    groups: list[list] = []
+    for run in runs:
+        text = run_raw_text(run)
+        if not text:
+            continue
+        if "\n" in text:
+            groups.append([text, None])
+            continue
+        if not text.strip() and groups:
+            # Whitespace-only run: glue onto whichever group precedes it
+            # rather than starting a new (differently-styled) group — its
+            # own emphasis is invisible anyway, but treating it as a break
+            # point splits "word1 word2" into "*word1* *word2*", which
+            # fix_drop_caps then mangles into invalid nested markers.
+            groups[-1][0] += text
+            continue
+        emphasis = run_emphasis(run)
+        if groups and groups[-1][1] == emphasis:
+            groups[-1][0] += text
+        else:
+            groups.append([text, emphasis])
+
+    parts: list[str] = []
+    for text, emphasis in groups:
+        if emphasis == "i":
+            parts.append(f"*{text}*")
+        elif emphasis == "b":
+            parts.append(f"**{text}**")
+        else:
+            parts.append(text)
 
     text = "".join(parts)
     text = text.replace("\u2028", "\n").replace("\u2029", "\n")
@@ -181,10 +281,23 @@ def parse_document(docx_path: Path) -> tuple[list[dict], zipfile.ZipFile]:
 
     blocks: list[dict] = []
     for paragraph in root.iter(f"{W}p"):
-        text = paragraph_to_markdown(paragraph)
+        style = paragraph_style(paragraph)
         images = paragraph_images(paragraph, rels)
+        if style == "CanvasCodeBlock":
+            # Preserve exact whitespace/alignment; keep blank lines too.
+            blocks.append(
+                {
+                    "text": paragraph_raw_text(paragraph),
+                    "images": images,
+                    "style": style,
+                    "jc": paragraph_justification(paragraph),
+                }
+            )
+            continue
+
+        text = paragraph_to_markdown(paragraph)
         if text or images:
-            blocks.append({"text": text, "images": images})
+            blocks.append({"text": text, "images": images, "style": style})
 
     return blocks, docx
 
@@ -209,22 +322,52 @@ def blocks_to_markdown(blocks: list[dict], slug: str, config: dict) -> str:
     divider_images: set[str] = config["divider_images"]
     title = config["title"]
 
+    has_cover = bool(image_map)
+
     frontmatter = [
         "---",
         f"title: {title}",
         f"description: {config['description']}",
-        f"cover: /stories/{slug}/image1.png",
-        f"slug: {slug}",
-        f"path: /stories/{slug}",
-        f"author: {config['author']}",
-        "---",
-        "",
     ]
+    if has_cover:
+        frontmatter.append(f"cover: /stories/{slug}/image1.png")
+    frontmatter.extend(
+        [
+            f"slug: {slug}",
+            f"path: /stories/{slug}",
+            f"author: {config['author']}",
+            "---",
+            "",
+        ]
+    )
     lines.extend(frontmatter)
 
-    for block in blocks:
+    index = 0
+    while index < len(blocks):
+        block = blocks[index]
+
+        if block.get("style") == "CanvasCodeBlock":
+            exhibit_lines: list[str] = []
+            exhibit_jcs: list[str | None] = []
+            while index < len(blocks) and blocks[index].get("style") == "CanvasCodeBlock":
+                exhibit_lines.append(blocks[index]["text"])
+                exhibit_jcs.append(blocks[index].get("jc"))
+                index += 1
+            # A run centered start-to-finish (e.g. a small stamp/box card)
+            # renders as a centered block; a mixed or left-set run (a court
+            # caption, a ledger, an order) stays flush left like a real
+            # typed document.
+            fence = "exhibit-stamp" if all(jc == "center" for jc in exhibit_jcs) else "exhibit"
+            lines.append(f"```{fence}")
+            lines.append("\n".join(exhibit_lines))
+            lines.append("```")
+            lines.append("")
+            last_was_hr = False
+            continue
+
         text = block["text"]
         images = block["images"]
+        index += 1
 
         # Skip decorative trailing separator text
         if text and re.fullmatch(r"_{10,}", text):
@@ -241,7 +384,7 @@ def blocks_to_markdown(blocks: list[dict], slug: str, config: dict) -> str:
 
         if text:
             if not title_done and strip_md_emphasis(text) == title:
-                if not cover_done:
+                if has_cover and not cover_done:
                     lines.append(f"![{title}](/stories/{slug}/image1.png)")
                     lines.append("")
                     cover_done = True
@@ -298,11 +441,11 @@ def blocks_to_markdown(blocks: list[dict], slug: str, config: dict) -> str:
 
 def summary_markdown(slug: str, config: dict) -> str:
     featured = "true" if config.get("featured", True) else "false"
+    cover_line = f"cover: /stories/{slug}/image1.png\n" if config["image_map"] else ""
     return f"""---
 title: {config['title']}
 description: {config['description']}
-cover: /stories/{slug}/image1.png
-slug: {slug}
+{cover_line}slug: {slug}
 path: /stories/{slug}
 author: {config['author']}
 category: Fiction
@@ -410,25 +553,29 @@ def main() -> None:
         raw_dir = args.root / ".tmp" / args.slug / "raw"
         public_dir = args.root / "public" / "stories" / args.slug
 
-        extract_images(docx, raw_dir, config["image_map"])
+        if config["image_map"]:
+            extract_images(docx, raw_dir, config["image_map"])
 
-        if args.skip_optimize:
-            if public_dir.exists():
-                shutil.rmtree(public_dir)
-            public_dir.mkdir(parents=True, exist_ok=True)
-            for image in raw_dir.glob("*.png"):
-                shutil.copy2(image, public_dir / image.name)
+            if args.skip_optimize:
+                if public_dir.exists():
+                    shutil.rmtree(public_dir)
+                public_dir.mkdir(parents=True, exist_ok=True)
+                for image in raw_dir.glob("*.png"):
+                    shutil.copy2(image, public_dir / image.name)
+            else:
+                optimize_images(raw_dir, public_dir)
         else:
-            optimize_images(raw_dir, public_dir)
+            print("No images in this story; skipping image extraction.")
 
         story_path.write_text(story_md, encoding="utf-8")
         summary_path.write_text(summary_md, encoding="utf-8")
 
         print(f"Wrote {story_path}")
         print(f"Wrote {summary_path}")
-        print(f"Images in {public_dir}")
         print(f"Blocks parsed: {len(blocks)}")
-        print(f"Published images: {len(list(public_dir.glob('*.png')))}")
+        if config["image_map"]:
+            print(f"Images in {public_dir}")
+            print(f"Published images: {len(list(public_dir.glob('*.png')))}")
     finally:
         docx.close()
 
