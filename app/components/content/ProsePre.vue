@@ -1,5 +1,9 @@
 <template>
-  <pre v-if="language === 'exhibit'" class="reading-exhibit">{{ code }}</pre>
+  <pre
+    v-if="language === 'exhibit' || language === 'exhibit-stamp'"
+    class="reading-exhibit"
+    :class="{ 'reading-exhibit-stamp': language === 'exhibit-stamp' }"
+  >{{ code }}</pre>
   <pre v-else :class="$props.class"><slot /></pre>
 </template>
 

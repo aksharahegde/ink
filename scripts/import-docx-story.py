@@ -141,6 +141,16 @@ def paragraph_style(paragraph: ET.Element) -> str | None:
     return p_style.get(f"{W}val")
 
 
+def paragraph_justification(paragraph: ET.Element) -> str | None:
+    p_pr = paragraph.find(f"{W}pPr")
+    if p_pr is None:
+        return None
+    jc = p_pr.find(f"{W}jc")
+    if jc is None:
+        return None
+    return jc.get(f"{W}val")
+
+
 def paragraph_raw_text(paragraph: ET.Element) -> str:
     """Preserve exact whitespace for code/exhibit paragraphs (no collapsing)."""
     parts: list[str] = []
@@ -276,7 +286,12 @@ def parse_document(docx_path: Path) -> tuple[list[dict], zipfile.ZipFile]:
         if style == "CanvasCodeBlock":
             # Preserve exact whitespace/alignment; keep blank lines too.
             blocks.append(
-                {"text": paragraph_raw_text(paragraph), "images": images, "style": style}
+                {
+                    "text": paragraph_raw_text(paragraph),
+                    "images": images,
+                    "style": style,
+                    "jc": paragraph_justification(paragraph),
+                }
             )
             continue
 
@@ -333,10 +348,17 @@ def blocks_to_markdown(blocks: list[dict], slug: str, config: dict) -> str:
 
         if block.get("style") == "CanvasCodeBlock":
             exhibit_lines: list[str] = []
+            exhibit_jcs: list[str | None] = []
             while index < len(blocks) and blocks[index].get("style") == "CanvasCodeBlock":
                 exhibit_lines.append(blocks[index]["text"])
+                exhibit_jcs.append(blocks[index].get("jc"))
                 index += 1
-            lines.append("```exhibit")
+            # A run centered start-to-finish (e.g. a small stamp/box card)
+            # renders as a centered block; a mixed or left-set run (a court
+            # caption, a ledger, an order) stays flush left like a real
+            # typed document.
+            fence = "exhibit-stamp" if all(jc == "center" for jc in exhibit_jcs) else "exhibit"
+            lines.append(f"```{fence}")
             lines.append("\n".join(exhibit_lines))
             lines.append("```")
             lines.append("")

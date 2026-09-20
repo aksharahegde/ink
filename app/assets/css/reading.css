@@ -175,6 +175,15 @@ html.dark .reading-prose .reading-exhibit {
   background: color-mix(in srgb, var(--ink-paper, #242420) 92%, #000 8%);
 }
 
+/* Small self-contained box-drawn stamps: shrink to their own width and
+   center as a card, instead of stretching to the full column width. */
+.reading-prose .reading-exhibit-stamp {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .reading-prose-wrapper[data-reading-size="0"] .reading-prose .reading-exhibit {
   font-size: 0.75rem;
 }
