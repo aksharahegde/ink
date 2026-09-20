@@ -155,6 +155,34 @@ html.dark .reading-prose hr {
   border-top-color: var(--reading-quote-accent-dark);
 }
 
+/* Typed exhibits: survey stamps, court captions, official orders */
+.reading-prose .reading-exhibit {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  white-space: pre;
+  overflow-x: auto;
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--ink-border, #d6d3d1);
+  background: color-mix(in srgb, var(--ink-paper, #faf7f0) 92%, var(--ink-text, #1c1c1c) 4%);
+  color: var(--reading-text);
+}
+
+html.dark .reading-prose .reading-exhibit {
+  color: var(--reading-text-dark);
+  border-color: var(--ink-border, #3a3a34);
+  background: color-mix(in srgb, var(--ink-paper, #242420) 92%, #000 8%);
+}
+
+.reading-prose-wrapper[data-reading-size="0"] .reading-prose .reading-exhibit {
+  font-size: 0.75rem;
+}
+
+.reading-prose-wrapper[data-reading-size="2"] .reading-prose .reading-exhibit {
+  font-size: 0.875rem;
+}
+
 /* Scroll fade-in for blocks */
 .reading-prose .reading-block {
   opacity: 0;
