@@ -13,7 +13,7 @@
 
 /* Body text: Libre Baskerville for literary feel */
 .reading-prose {
-  font-family: "Libre Baskerville", ui-serif, Georgia, serif;
+  font-family: "Libre Baskerville", "Noto Serif Kannada", ui-serif, Georgia, serif;
   font-size: 1.1875rem;
   line-height: 1.9;
   letter-spacing: 0.005em;
@@ -49,7 +49,7 @@ html.dark .reading-prose p {
 /* Headings: Playfair Display */
 .reading-prose h1, .reading-prose h2, .reading-prose h3,
 .reading-prose h4, .reading-prose h5, .reading-prose h6 {
-  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  font-family: "Playfair Display", "Noto Serif Kannada", ui-serif, Georgia, serif;
   color: var(--reading-heading);
   font-weight: 700;
   line-height: 1.3;
@@ -93,7 +93,7 @@ html.dark .reading-prose a:hover {
 
 /* Newspaper pull-quote blocks */
 .reading-prose blockquote {
-  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  font-family: "Playfair Display", "Noto Serif Kannada", ui-serif, Georgia, serif;
   font-size: 1.625rem;
   line-height: 1.5;
   font-style: italic;

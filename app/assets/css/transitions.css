@@ -1,6 +1,6 @@
 /* Typography: Libre Baskerville (body), Playfair Display (headings), Inter (meta) */
 body {
-  font-family: "Libre Baskerville", ui-serif, Georgia, serif;
+  font-family: "Libre Baskerville", "Noto Serif Kannada", ui-serif, Georgia, serif;
   background-color: #f4f1ea;
   color: #1c1c1c;
 }
@@ -12,7 +12,7 @@ html.dark body {
 
 h1, h2, h3, h4, h5, h6,
 .font-serif {
-  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  font-family: "Playfair Display", "Noto Serif Kannada", ui-serif, Georgia, serif;
 }
 
 .font-meta {

@@ -54,6 +54,13 @@ export default defineNuxtConfig({
       { name: "Playfair Display", provider: "google", global: true },
       { name: "Libre Baskerville", provider: "google", global: true },
       { name: "Inter", provider: "google" },
+      {
+        name: "Noto Serif Kannada",
+        provider: "google",
+        global: true,
+        subsets: ["kannada"],
+        styles: ["normal"],
+      },
     ],
     defaults: {
       weights: [400, 500, 600, 700],
