@@ -12,27 +12,27 @@
     "postinstall": "nuxi prepare"
   },
   "dependencies": {
-    "@nuxt/content": "^3.16.0",
+    "@nuxt/content": "^3.16.1",
     "@nuxt/fonts": "^0.14.0",
     "@nuxt/image": "^2.1.0",
-    "@nuxt/ui": "^4.11.1",
+    "@nuxt/ui": "^4.11.3",
     "@nuxthub/core": "^0.10.8",
     "@nuxtjs/seo": "^5.3.16",
-    "baseline-browser-mapping": "2.11.25",
+    "baseline-browser-mapping": "2.11.27",
     "better-sqlite3": "^13.0.3",
-    "caniuse-lite": "1.0.30001810",
+    "caniuse-lite": "1.0.30001815",
     "cobe": "^2.0.1",
-    "nuxt": "^4.5.2",
+    "nuxt": "^4.6.0",
     "tailwindcss": "^4.3.3",
     "vue": "3.5.43",
-    "vue-router": "5.3.1",
+    "vue-router": "5.4.0",
     "zod": "^4.6.5",
     "zod-to-json-schema": "3.25.2"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "satori": "0.33.4",
+    "satori": "0.44.0",
     "unenv": "^2.0.0-rc.24",
-    "wrangler": "4.135.0"
+    "wrangler": "4.148.0"
   }
 }
