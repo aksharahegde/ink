@@ -13,12 +13,12 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.16.2",
-    "@nuxt/fonts": "^1.1.0",
+    "@nuxt/fonts": "^1.2.0",
     "@nuxt/image": "^2.2.0",
     "@nuxt/ui": "^4.12.0",
     "@nuxthub/core": "^0.10.11",
     "@nuxtjs/seo": "^6.0.1",
-    "baseline-browser-mapping": "^2.11.32",
+    "baseline-browser-mapping": "^2.11.33",
     "better-sqlite3": "^13.0.3",
     "caniuse-lite": "1.0.30001819",
     "cobe": "^2.0.1",
@@ -33,6 +33,6 @@
     "@resvg/resvg-js": "^2.6.2",
     "satori": "0.63.2",
     "unenv": "^2.0.0-rc.24",
-    "wrangler": "4.152.0"
+    "wrangler": "^4.153.0"
   }
 }
