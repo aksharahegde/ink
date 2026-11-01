@@ -55,11 +55,18 @@ export default defineNuxtConfig({
       { name: "Libre Baskerville", provider: "google", global: true },
       { name: "Inter", provider: "google" },
       {
-        name: "Noto Serif Kannada",
+        // Not Noto Serif Kannada: it swallows the space after a word-final
+        // virama (ಫಾರೆಸ್ಟ್ ರೆಸ್ಟ್ renders as one word). Listed first in the CSS
+        // stacks; the kannada subset's unicode-range leaves Latin to the next
+        // font. No metric fallbacks: those local() aliases cover every
+        // codepoint and would shadow the Latin fonts and the web font itself.
+        name: "Tiro Kannada",
         provider: "google",
         global: true,
         subsets: ["kannada"],
+        weights: [400],
         styles: ["normal"],
+        fallbacks: [],
       },
     ],
     defaults: {
