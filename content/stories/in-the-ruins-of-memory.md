@@ -8,7 +8,7 @@ path: /stories/in-the-ruins-of-memory
 download: https://drive.google.com/file/d/1Su6ZeXXcmDqxXjZdJXZ_wucAbxS7RRTs/view?usp=sharing
 ---
 
-![Cover image](/stories/in-ruins/cover.png)
+![Cover image](/stories/in-the-ruins-of-memory.png)
 
 ## **Scene 1**
 

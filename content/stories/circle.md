@@ -8,7 +8,7 @@ path: /stories/circle
 download: https://drive.google.com/file/d/0B32WA8IcsE3QWk9Zc3RBOXc3dVk/view?usp=drive_link&resourcekey=0-0N5ZQM6SVSRDqyoHADQgpA
 ---
 
-![Cover Image](https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/published/circle.jpg?1490989735)
+![Cover Image](/stories/circle.jpg)
 
 # Circle
 
