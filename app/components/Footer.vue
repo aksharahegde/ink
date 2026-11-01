@@ -12,7 +12,7 @@
             Ink
           </p>
           <p class="mt-1 text-sm font-meta" style="color: var(--ink-muted);">
-            Stories by <a href="https://aksharahegde.xyz?ref=ink" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:opacity-70 transition-opacity">Akshara Hegde</a>
+            Stories by <a href="https://akshara.dev?ref=ink" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:opacity-70 transition-opacity">Akshara Hegde</a>
           </p>
         </div>
 
@@ -23,7 +23,7 @@
             <NuxtLink to="/stories" class="block hover:opacity-70 transition-opacity">Stories</NuxtLink>
           </div>
           <div class="space-y-2">
-            <a href="https://aksharahegde.xyz?ref=ink" target="_blank" rel="noopener noreferrer" class="block hover:opacity-70 transition-opacity">Website</a>
+            <a href="https://akshara.dev?ref=ink" target="_blank" rel="noopener noreferrer" class="block hover:opacity-70 transition-opacity">Website</a>
             <a href="https://github.com/aksharahegde/ink" target="_blank" rel="noopener noreferrer" class="block hover:opacity-70 transition-opacity">Source</a>
           </div>
         </div>

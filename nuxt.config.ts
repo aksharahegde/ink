@@ -24,7 +24,7 @@ const storySitemapUrls = storyRoutes.map((loc) => ({
   priority: 0.8,
 }));
 
-const siteUrl = process.env.BASE_URL || "https://ink.aksharahegde.xyz";
+const siteUrl = process.env.BASE_URL || "https://ink.akshara.dev";
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
