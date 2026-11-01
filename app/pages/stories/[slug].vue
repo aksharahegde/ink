@@ -43,11 +43,11 @@
 
     <!-- Cover image -->
     <div v-if="coverImage && !isBookMode" class="max-w-3xl mx-auto px-4 mt-10">
-      <div class="relative aspect-[16/9] overflow-hidden">
+      <div class="flex justify-center">
         <img
           :src="coverImage"
           :alt="story?.title ?? 'Story cover'"
-          class="w-full h-full object-cover"
+          class="max-w-full max-h-[80vh] w-auto h-auto"
           loading="eager"
           fetchpriority="high"
           style="filter: sepia(0.05) contrast(1.02);"
