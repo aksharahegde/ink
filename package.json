@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxi build",
-    "deploy": "nuxi build && wrangler pages deploy dist --project-name=hegdeheartbeats --branch=main",
+    "build": "node scripts/generate-og-images.mjs && nuxi build",
+    "deploy": "bun run build && wrangler pages deploy dist --project-name=hegdeheartbeats --branch=main",
     "dev": "nuxi dev",
-    "generate": "nuxi generate",
+    "generate": "node scripts/generate-og-images.mjs && nuxi generate",
     "preview": "npx wrangler --cwd dist pages dev",
     "postinstall": "nuxi prepare"
   },
@@ -31,7 +31,9 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
+    "nuxtseo-devtools-host": "^1.0.1",
     "satori": "0.63.2",
+    "sharp": "0.35.5",
     "unenv": "^2.0.0-rc.24",
     "wrangler": "^4.153.0"
   }

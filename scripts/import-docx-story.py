@@ -120,6 +120,29 @@ STORY_CONFIG: dict[str, dict] = {
         "skip_images": set(),
         "divider_images": set(),
     },
+    "pore-kalachidaga": {
+        "title": "ಪೊರೆ ಕಳಚಿದಾಗ",
+        "description": (
+            "ಸಾಗರದ ಫಾರೆಸ್ಟ್ ರೆಸ್ಟ್‌ಹೌಸ್‌ನಲ್ಲಿ ತಂಗಿದ್ದ ಇಬ್ಬರು ಪ್ರವಾಸಿಗರು "
+            "ಕಾಳಿಂಗ ಸರ್ಪವನ್ನು ಸಾಕಿರುವ ಹುಣಸೆಕಟ್ಟೆ ಅಜ್ಜನನ್ನು ನೋಡಲು ಹೋಗುತ್ತಾರೆ — "
+            "ಮೂಢನಂಬಿಕೆಯನ್ನು ದ್ವೇಷಿಸುವ ಧೂರ್ಜಟಿ ರಾಯರು ಆ ಹಾವನ್ನು ಕೊಂದಾಗ, "
+            "ಅಜ್ಜನ ಶಾಪ ಅವರನ್ನು ಬೆನ್ನಟ್ಟುತ್ತದೆ."
+        ),
+        "author": "Arun Hegde",
+        "summary_teaser": (
+            "ಮಲೆನಾಡಿನ ಕಾಡಿನ ನಡುವೆ ಹುಣಸೆಕಟ್ಟೆ ಅಜ್ಜನೊಬ್ಬ 'ಬಾಲಕೃಷ್ಣ' ಎಂಬ "
+            "ಬೃಹತ್ ಕಾಳಿಂಗ ಸರ್ಪಕ್ಕೆ ಪ್ರತಿದಿನ ಹಾಲು ಕುಡಿಸುತ್ತಾನಂತೆ. ಸಾಧು-ಸಂತರನ್ನು "
+            "ನಕಲಿಗಳೆಂದು ಹೀಗಳೆಯುವ ಧೂರ್ಜಟಿ ರಾಯರು ಆ ಹಾವನ್ನು ಕಲ್ಲು ಹೊಡೆದು "
+            "ಕೊಲ್ಲುತ್ತಾರೆ. 'ಬಾಲಕೃಷ್ಣ ಅಮರ' ಎಂಬ ಅಜ್ಜನ ಮಾತು ಆ ರಾತ್ರಿ "
+            "ಫಾರೆಸ್ಟ್ ರೆಸ್ಟ್‌ಹೌಸ್‌ನಲ್ಲಿ ಭಯಾನಕವಾಗಿ ನಿಜವಾಗತೊಡಗುತ್ತದೆ."
+        ),
+        "reading_time": "15 min read",
+        "date": "2026-11-01",
+        "featured": True,
+        "image_map": {f"image{n}.png": f"image{n}.png" for n in range(1, 7)},
+        "skip_images": set(),
+        "divider_images": set(),
+    },
 }
 
 
@@ -383,7 +406,8 @@ def blocks_to_markdown(blocks: list[dict], slug: str, config: dict) -> str:
             continue
 
         if text:
-            if not title_done and strip_md_emphasis(text) == title:
+            # Source titles may trail off with ellipsis dots ("ಪೊರೆ ಕಳಚಿದಾಗ.....")
+            if not title_done and strip_md_emphasis(text).rstrip(".") == title:
                 if has_cover and not cover_done:
                     lines.append(f"![{title}](/stories/{slug}/image1.png)")
                     lines.append("")

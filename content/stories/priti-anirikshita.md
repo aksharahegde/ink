@@ -8,7 +8,7 @@ path: /stories/priti-anirikshita
 download: https://drive.google.com/file/d/0B32WA8IcsE3Qc245UUNyOGZqSkE/view?usp=drive_link&resourcekey=0-bYxuGTKr5w_Y0zAIT_5e4g
 ---
 
-![Cover Image](https://hegdeheartbeats.weebly.com/uploads/7/2/7/5/72751619/picsart-05-20-01-39-48.jpg)
+![Cover Image](/stories/love_unexpected.jpg)
 
 **ಇದರಲ್ಲಿ ಬರುವ ಪಾತ್ರಗಳು, ಸನ್ನಿವೇಶಗಳು ಯಾವುದೇ ವ್ಯಕ್ತಿಯ ವೈಯಕ್ತಿಕ ಜೀವನಕ್ಕೆ ಸಂಬಂಧ ಪಟ್ಟಿರುವುದಿಲ್ಲ. ಎಲ್ಲಿಯಾದರೂ ಸಾಮ್ಯತೆ ಕಂಡು ಬಂದಲ್ಲಿ ಅದು ಕೇವಲ ಕಾಕತಾಳೀಯವಷ್ಟೇ. ಎಲ್ಲವೂ ಭವಿಷ್ಯತ್ ಕಾಲದ ಒಂದು ಕಾಲ್ಪನಿಕ ಚಿತ್ರಣ.**
 
