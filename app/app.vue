@@ -78,6 +78,7 @@ useSeoMeta({
   ogImage: siteUrl ? `${siteUrl}/og.png` : "/og.png",
   ogImageWidth: 1200,
   ogImageHeight: 630,
+  twitterImage: siteUrl ? `${siteUrl}/og.png` : "/og.png",
   twitterCard: "summary_large_image",
   ...(twitterHandle
     ? {

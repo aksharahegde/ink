@@ -187,18 +187,29 @@ const publishDateIso = computed(() => {
 
 const defaultOgImage = base ? `${base}/og.png` : undefined;
 
-const storyOgImage = computed(() => ogCoverImageUrl.value ?? defaultOgImage);
+// 1200x630 social card built from the cover by scripts/generate-og-images.mjs;
+// raw covers are mostly portrait and get cropped badly in link previews.
+const storyOgImage = computed(() =>
+  coverImage.value && base ? `${base}/og/stories/${route.params.slug}.jpg` : defaultOgImage
+);
 
 useSeoMeta({
   title: storyPageTitle,
   description: storyDescription,
+  ogType: "article",
   ogTitle: storyPageTitle,
   ogDescription: storyDescription,
   ogUrl: shareUrl,
   ogImage: storyOgImage,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: () => story.value?.title,
   twitterTitle: storyPageTitle,
   twitterDescription: storyDescription,
   twitterImage: storyOgImage,
+  twitterImageAlt: () => story.value?.title,
+  articleAuthor: () => (storyAuthor.value ? [storyAuthor.value] : undefined),
+  articlePublishedTime: publishDateIso,
 });
 
 if (story.value && base) {
