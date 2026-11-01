@@ -166,7 +166,8 @@ STORY_CONFIG: dict[str, dict] = {
         "featured": True,
         "image_map": {f"image{n}.png": f"image{n}.png" for n in range(1, 11)},
         # image11.jpeg is a colour copy of the closing art (the B&W version
-        # ships separately); image12.png repeats the cover as a back page.
+        # ships separately); image12.png is the taglined cover, published as
+        # image1.png from the standalone cover.png instead of the plain image1.
         "skip_images": {"image11.jpeg", "image12.png"},
         "divider_images": set(),
     },
